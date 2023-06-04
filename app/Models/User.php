@@ -14,11 +14,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, InteractsWithMedia, Auditable, HasFactory;
+    use SoftDeletes, Notifiable, HasApiTokens, InteractsWithMedia, Auditable, HasFactory;
 
     public $table = 'users';
 
@@ -40,8 +41,10 @@ class User extends Authenticatable implements HasMedia
     ];
 
     protected $fillable = [
+        'provider_id',
         'name',
         'email',
+        'user_type',
         'phone_number',
         'email_verified_at',
         'password',
@@ -51,6 +54,7 @@ class User extends Authenticatable implements HasMedia
         'email_active',
         'nickname_active',
         'bio_active',
+        'fcm_token',
         'created_at',
         'updated_at',
         'deleted_at',

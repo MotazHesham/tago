@@ -10,6 +10,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('provider_id',50)->nullable();
+            $table->string('user_type')->default('staff')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable()->unique();
             $table->string('phone_number')->nullable();
@@ -21,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('email_active')->default(0)->nullable();
             $table->boolean('nickname_active')->default(0)->nullable();
             $table->boolean('bio_active')->default(0)->nullable();
+            $table->text('fcm_token')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

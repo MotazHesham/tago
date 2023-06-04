@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html @if(app()->getLocale() == 'ar') dir="rtl" @endif> 
 
 <head>
     <meta charset="UTF-8">
@@ -23,6 +23,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
+    @if(app()->getLocale() == 'ar')
+      <style>
+        .c-sidebar-nav .c-sidebar-nav-dropdown-items{
+          padding-right: 8%; 
+        }
+      </style>
+    @else
+      <style>
+        .c-sidebar-nav .c-sidebar-nav-dropdown-items{
+          padding-left: 8%; 
+        }
+      </style>
+    @endif
 </head>
 
 <body class="c-app">
@@ -39,7 +52,7 @@
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <ul class="c-header-nav ml-auto">
+            <ul class="c-header-nav @if(app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
                 @if(count(config('panel.available_languages', [])) > 1)
                     <li class="c-header-nav-item dropdown d-md-down-none">
                         <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

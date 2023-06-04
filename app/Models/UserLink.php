@@ -33,6 +33,7 @@ class UserLink extends Model implements HasMedia
         'name',
         'link',
         'active',
+        'priority',
         'created_at',
         'updated_at',
         'deleted_at',

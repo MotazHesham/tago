@@ -13,6 +13,7 @@ class CreateUserLinksTable extends Migration
             $table->string('name');
             $table->string('link');
             $table->boolean('active')->default(0);
+            $table->integer('priority')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

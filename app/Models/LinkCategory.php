@@ -30,4 +30,8 @@ class LinkCategory extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function mainlinks(){
+        return $this->hasMany(MainLink::class,'category_id');
+    }
 }
