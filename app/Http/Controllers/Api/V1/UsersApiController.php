@@ -47,7 +47,7 @@ class UsersApiController extends Controller
     public function update_active(Request $request){
         $rules = [  
             'id' => 'required',
-            'active' => 'required|enum:1,0', 
+            'active' => 'required|in:1,0', 
         ];
 
         $validator = Validator::make($request->all(), $rules);
