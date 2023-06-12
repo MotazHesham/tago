@@ -44,6 +44,32 @@ class UsersApiController extends Controller
         return $this->returnSuccessMessage(trans('global.flash.api.success'));
     }
 
+    public function update_active(Request $request){
+        $rules = [  
+            'id' => 'required',
+            'active' => 'required|enum:1,0', 
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }
+
+        $user_link = UserLink::find($request->id);
+        if($user_link){
+            $user_link->update([  
+                'active' => $request->active, 
+            ]);
+            if(request('photo')){
+                $user_link->addMedia(request('photo'))->toMediaCollection('photo');
+            }
+            return $this->returnSuccessMessage(trans('global.flash.api.success'));
+        }else{ 
+            return $this->returnError('404', trans('global.flash.api.not_found'));
+        }
+    }
+
     public function update_link(Request $request){
         $rules = [  
             'id' => 'required',
