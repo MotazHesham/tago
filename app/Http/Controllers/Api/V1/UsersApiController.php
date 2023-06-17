@@ -148,6 +148,16 @@ class UsersApiController extends Controller
             return $this->returnError('404', trans('global.flash.api.not_found'));
         }
     }
+
+    public function delete_link($id){ 
+        $user_link = UserLink::find($id);
+        if($user_link){
+            $user_link->delete();
+            return $this->returnSuccessMessage(trans('global.flash.api.success'));
+        }else{ 
+            return $this->returnError('404', trans('global.flash.api.not_found'));
+        }
+    }
     
 
     public function update_password(Request $request){
