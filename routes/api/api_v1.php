@@ -37,6 +37,7 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
             Route::post('update_link','UsersApiController@update_link');
             Route::post('update_priority','UsersApiController@update_priority');
             Route::post('update_password','UsersApiController@update_password');
+            Route::post('update_profile','UsersApiController@update_profile');
         });
     });
 });

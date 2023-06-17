@@ -21,6 +21,56 @@ class UsersApiController extends Controller
         return $this->returnData(new UserResource(Auth::user()));
     }
 
+    public function update_profile(Request $request){
+        
+        $rules = [  
+            'name' => 'nullable', 
+            'email' => 'nullable|email|unique:users,email,' . Auth::id(), 
+            'photo' => 'nullable', 
+            'cover' => 'nullable', 
+            'phone_number' => 'nullable', 
+            'nickname' => 'nullable', 
+            'bio' => 'nullable', 
+            'email_active' => 'in:0,1', 
+            'nickname_active' => 'in:0,1', 
+            'bio_active' => 'in:0,1', 
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }
+
+        $user = auth()->user();
+        $user->update([
+            'name' => request('name') ? request('name') : $user->name, 
+            'email' => request('email') ? request('email') : $user->email,
+            'phone_number' => request('phone_number') ? request('phone_number') : $user->phone_number,
+            'nickname' => request('nickname') ? request('nickname') : $user->nickname, 
+            'bio' => request('bio') ? request('bio') : $user->bio,
+            'email_active' => request('email_active') ? request('email_active') : $user->email_active,
+            'nickname_active' => request('nickname_active') ? request('nickname_active') : $user->nickname_active,
+            'bio_active' => request('bio_active') ? request('bio_active') : $user->bio_active,
+        ]);
+
+        if (request('photo')&& request('photo')!= null) { 
+            if($user->photo){
+                $user->photo->delete();
+            }
+            $user->addMedia(request('photo'))->toMediaCollection('photo'); 
+        }
+
+        if (request('cover') && request('cover') != null) { 
+            if($user->cover){
+                $user->cover->delete();
+            }
+            $user->addMedia(request('cover'))->toMediaCollection('cover'); 
+        }
+
+        return $this->returnSuccessMessage(trans('global.flash.api.success'));
+    }
+
     public function update_priority(Request $request){
         
         $rules = [ 
