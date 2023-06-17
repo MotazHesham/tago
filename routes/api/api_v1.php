@@ -38,7 +38,7 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
             Route::post('update_priority','UsersApiController@update_priority');
             Route::post('update_password','UsersApiController@update_password');
             Route::post('update_profile','UsersApiController@update_profile');
-            Route::get('delete_link/{id}','UsersApiController@delete_link');
+            Route::delete('delete_link/{id}','UsersApiController@delete_link');
         });
     });
 });
