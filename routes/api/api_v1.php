@@ -26,7 +26,7 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
             Route::get('/','ConnectionsApiController@index');
             Route::post('add','ConnectionsApiController@add');
             Route::post('update','ConnectionsApiController@update');
-            Route::get('delete/{id}','ConnectionsApiController@delete');
+            Route::delete('delete/{id}','ConnectionsApiController@delete');
         });
 
         //user profile
