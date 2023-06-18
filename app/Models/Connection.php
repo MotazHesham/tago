@@ -34,6 +34,7 @@ class Connection extends Model implements HasMedia
         'title',
         'phone_number',
         'link',
+        'message',
         'created_at',
         'updated_at',
         'deleted_at',

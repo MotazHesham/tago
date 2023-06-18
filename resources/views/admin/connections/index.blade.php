@@ -46,6 +46,9 @@
                         {{ trans('cruds.connection.fields.link') }}
                     </th>
                     <th>
+                        {{ trans('cruds.connection.fields.message') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -109,6 +112,7 @@
 { data: 'phone_number', name: 'phone_number' },
 { data: 'photo', name: 'photo', sortable: false, searchable: false },
 { data: 'link', name: 'link' },
+{ data: 'message', name: 'message' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

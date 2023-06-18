@@ -57,6 +57,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.connection.fields.message') }}
+                        </th>
+                        <td>
+                            {{ $connection->message }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.connection.fields.phone_number') }}
                         </th>
                         <td>

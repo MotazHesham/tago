@@ -32,6 +32,10 @@ class UpdateConnectionRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'message' => [
+                'string',
+                'required',
+            ],
             'phone_number' => [
                 'string',
                 'required',

@@ -371,6 +371,8 @@ return [
             'photo_helper'        => ' ',
             'link'                => 'Link',
             'link_helper'         => ' ',
+            'message'                => 'Message',
+            'message_helper'         => ' ',
             'created_at'          => 'Created at',
             'created_at_helper'   => ' ',
             'updated_at'          => 'Updated at',

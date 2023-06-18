@@ -36,6 +36,10 @@ class StoreConnectionRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'message' => [
+                'string',
+                'required',
+            ],
             'link' => [
                 'string',
                 'nullable',

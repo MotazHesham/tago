@@ -55,6 +55,16 @@
                 <span class="help-block">{{ trans('cruds.connection.fields.title_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="message">{{ trans('cruds.connection.fields.message') }}</label>
+                <input class="form-control {{ $errors->has('message') ? 'is-invalid' : '' }}" type="text" name="message" id="message" value="{{ old('message', $connection->message) }}" required>
+                @if($errors->has('message'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('message') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.connection.fields.message_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="phone_number">{{ trans('cruds.connection.fields.phone_number') }}</label>
                 <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $connection->phone_number) }}" required>
                 @if($errors->has('phone_number'))

@@ -28,6 +28,7 @@ class ConnectionsApiController extends Controller
             'phone_number' => 'required|size:11|regex:/(01)[0-9]{9}/',
             'title'=> 'string|required',
             'link' => 'string',
+            'message' => 'string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
@@ -43,6 +44,7 @@ class ConnectionsApiController extends Controller
             'email' => $request->email,  
             'link' => $request->link,  
             'title' => $request->title,  
+            'message' => $request->message,  
             'phone_number' => $request->phone_number,  
         ]);   
 
@@ -61,6 +63,7 @@ class ConnectionsApiController extends Controller
             'phone_number' => 'required|size:11|regex:/(01)[0-9]{9}/',
             'title'=> 'string|required',
             'link' => 'string',
+            'message' => 'string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
@@ -80,6 +83,7 @@ class ConnectionsApiController extends Controller
             'email' => $request->email,  
             'link' => $request->link,  
             'title' => $request->title,  
+            'message' => $request->message,  
             'phone_number' => $request->phone_number,  
         ]);   
 

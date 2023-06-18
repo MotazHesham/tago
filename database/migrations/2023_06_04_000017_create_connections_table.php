@@ -14,6 +14,7 @@ class CreateConnectionsTable extends Migration
             $table->string('email');
             $table->string('title');
             $table->string('phone_number');
+            $table->string('message');
             $table->string('link')->nullable();
             $table->timestamps();
             $table->softDeletes();

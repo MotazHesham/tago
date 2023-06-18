@@ -21,6 +21,7 @@ class ConnectionsResource extends JsonResource
             'title' => $this->title,
             'phone_number' => $this->phone_number,
             'link' => $this->link,
+            'message' => $this->message,
             'photo' => $this->photo ? $this->photo->getUrl('preview') : null
         ];
     }
