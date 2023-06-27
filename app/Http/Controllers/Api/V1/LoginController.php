@@ -21,12 +21,12 @@ class LoginController extends Controller
     {
         try {
             $user_social = Socialite::driver($request->provider)->userFromToken($request->token);
-        } catch (\Exception $ex) {  
+        } catch (\Exception $ex) {
             return $this->returnError('501','Something Went Wrong , Try Again later!');
         } 
 
         // check if they're an existing user
-        $existingUser = User::where('provider_id', $user_social->id)->where('email', $user_social->email)->first();
+        $existingUser = User::where('provider_id', $user_social->id)->orWhere('email', $user_social->email)->first();
 
         if ($existingUser) {
             // log them in 
