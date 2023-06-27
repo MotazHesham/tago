@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -28,6 +30,28 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    public function redirectToProvider($provider)
+    {
+        Session::put('link', url()->previous());
+        return Socialite::driver($provider)->redirect();
+    }
+
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(Request $request)
+    { 
+        try {
+            $user = Socialite::driver($request->provider)->userFromToken($request->token);
+            return $user;
+        } catch (\Exception $e) { 
+            return 'error';
+        }  
+    }
+    
     /**
      * Create a new controller instance.
      *

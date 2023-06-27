@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'middleware' => 'changelanguage'], function () {
 
+    //social - login
+    Route::post('login-social/callback', 'LoginController@handleProviderCallback');
+
     Route::post('login','UserAuthApiController@login'); 
     Route::post('register','UserAuthApiController@register');
     
