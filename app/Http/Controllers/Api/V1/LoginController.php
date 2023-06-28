@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\api_return;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -19,6 +20,18 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(Request $request)
     {
+        $rules = [ 
+            'provider' => 'in:facebook,google',
+            'token' => 'required', 
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }
+
+        
         try {
             $user_social = Socialite::driver($request->provider)->userFromToken($request->token);
         } catch (\Exception $ex) {

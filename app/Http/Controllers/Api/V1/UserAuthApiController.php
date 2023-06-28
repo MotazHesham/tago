@@ -15,6 +15,11 @@ class UserAuthApiController extends Controller
     use api_return; 
     use MediaUploadingTrait;
 
+    public function logout(Request $request){ 
+        $request->user()->currentAccessToken()->delete();
+        return $this->returnSuccessMessage(trans('global.flash.api.success'));
+    }
+
     public function register(Request $request){
 
         $rules = [ 

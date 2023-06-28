@@ -14,6 +14,10 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
 
     Route::group(['middleware' => ['auth:sanctum']],function () {
 
+        // delete the token
+        Route::delete('logout','UserAuthApiController@logout'); 
+
+
         Route::get('faq','FAQApiController@faq'); 
         Route::post('fcm-token','UsersApiController@update_fcm_token'); 
 
