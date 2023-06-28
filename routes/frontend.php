@@ -9,4 +9,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
         $user = User::find($id);
         return response()->json(new UserResource($user));
     })->name('user');
+
+    Route::get('privacy',function(){
+        return view('frontend.privacy');
+    });
 });
