@@ -15,9 +15,7 @@
                 @endif
 
                 <form method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    @signInWithApple('black', false, "sing-in", '6')
+                    @csrf 
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
