@@ -28,37 +28,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    public function redirectToProvider($provider)
+    public function login()
     {
-        Session::put('link', url()->previous());
-        return Socialite::driver($provider)->redirect();
+        return Socialite::driver("sign-in-with-apple")
+            ->scopes(["name", "email"])
+            ->redirect();
     }
 
-
-    /**
-     * Obtain the user information from Google.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback(Request $request)
-    { 
-        try {
-            $user = Socialite::driver($request->provider)->userFromToken($request->token);
-            return $user;
-        } catch (\Exception $e) { 
-            return 'error';
-        }  
-    }
-    
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function callback(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        // get abstract user object, not persisted
+        $user = Socialite::driver("sign-in-with-apple")
+            ->user(); 
     }
 }

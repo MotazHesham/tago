@@ -7,8 +7,7 @@ use App\Models\User;
 use App\Traits\api_return;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Validator;  
 class LoginController extends Controller
 {
     
@@ -19,27 +18,51 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function handleProviderCallback(Request $request)
-    {
-        $rules = [ 
-            'provider' => 'in:facebook,google',
-            'token' => 'required', 
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return $this->returnError('401', $validator->errors());
-        }
-
+    { 
         
-        try {
-            $user_social = Socialite::driver($request->provider)->userFromToken($request->token);
-        } catch (\Exception $ex) {
+        try { 
+            if($request->provider == 'apple'){ 
+
+                // if the provider == apple we need the (id) which is appleid to find the user and the email maybe dummy mail so skip it 
+                $rules = [ 
+                    'provider' => 'in:facebook,google,apple', 
+                    'id' => 'required', 
+                    'email' => 'nullable|email', 
+                ];
+        
+                $validator = Validator::make($request->all(), $rules);
+        
+                if ($validator->fails()) {
+                    return $this->returnError('401', $validator->errors());
+                }
+
+                $provider_id = $request->id;
+                $provider_email = $request->email;
+
+                // check if there is user with this apple id
+                $existingUser = User::where('provider_id', $provider_id)->first();  
+            }else{
+                $rules = [ 
+                    'provider' => 'in:facebook,google,apple', 
+                    'token' => 'required',
+                ];
+        
+                $validator = Validator::make($request->all(), $rules);
+        
+                if ($validator->fails()) {
+                    return $this->returnError('401', $validator->errors());
+                }
+                $user_social = Socialite::driver($request->provider)->userFromToken($request->token);
+                $provider_id = $user_social->id;
+                $provider_email = $user_social->email; 
+                
+                // check if they're an existing user
+                $existingUser = User::where('provider_id', $provider_id)->orWhere('email', $provider_email)->first();
+            }
+        } catch (\Exception $ex) { 
             return $this->returnError('501','Something Went Wrong , Try Again later!');
         } 
 
-        // check if they're an existing user
-        $existingUser = User::where('provider_id', $user_social->id)->orWhere('email', $user_social->email)->first();
 
         if ($existingUser) {
             // log them in 
@@ -50,12 +73,22 @@ class LoginController extends Controller
                     'user_id '=> $existingUser->id, 
                 ]
             );
-        } else {
+        } else { 
+
+            $rules = [  
+                'email' => 'nullable|email|unique:users,email', 
+            ];
+    
+            $validator = Validator::make($request->all(), $rules);
+    
+            if ($validator->fails()) {
+                return $this->returnError('401', $validator->errors());
+            }
             // create a new user
             $user = User::create([
-                'name' => $user_social->name,
-                'email' => $user_social->email,
-                'provider_id' => $user_social->id,
+                'name' => $user_social->name ?? '',
+                'email' => $provider_email,
+                'provider_id' => $provider_id,
                 'password' => null,
                 'phone_number' => null, 
                 'user_type' => 'customer',

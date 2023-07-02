@@ -14,7 +14,8 @@ Route::get('/home', function () {
 
 Auth::routes(['register' => false]);
 
-
+Route::get('social-login/apple','Auth\LoginController@login_social');
+Route::post('social-login/callback','Auth\LoginController@callback'); 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
