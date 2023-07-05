@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -28,17 +29,37 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public function login()
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver("sign-in-with-apple")
-            ->scopes(["name", "email"])
-            ->redirect();
+        Session::put('link', url()->previous());
+        return Socialite::driver($provider)->redirect();
     }
 
-    public function callback(Request $request)
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(Request $request)
+    { 
+        try {
+            $user = Socialite::driver($request->provider)->userFromToken($request->token);
+            return $user;
+        } catch (\Exception $e) { 
+            return 'error';
+        }  
+    }
+    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        // get abstract user object, not persisted
-        $user = Socialite::driver("sign-in-with-apple")
-            ->user(); 
+        $this->middleware('guest')->except('logout');
     }
 }

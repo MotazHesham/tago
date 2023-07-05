@@ -41,11 +41,5 @@ return [
         'client_id'     => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect'      => env('APP_URL').'/social-login/google/callback',
-    ],
-
-    'sign-in-with-apple' => [
-        'client_id'     => env('SIGN_IN_WITH_APPLE_CLIENT_ID'),
-        'client_secret' => env('SIGN_IN_WITH_APPLE_CLIENT_SECRET'),
-        'redirect'      => env('APP_URL').'/social-login/sign-in-with-apple/callback',
-    ],
+    ], 
 ];
