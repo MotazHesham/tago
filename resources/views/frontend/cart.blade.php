@@ -433,7 +433,9 @@
                                 @foreach(session('cart') as $cartItem)
                                     @php
                                         $product = \App\Models\Product::find($cartItem['product_id']);
-                                        $total += $product->price;
+                                        if($prdouct){
+                                            $total += $product->price;
+                                        }
                                     @endphp
                                     @if($product)
                                         <li class="items odd">

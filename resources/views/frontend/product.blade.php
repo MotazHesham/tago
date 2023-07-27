@@ -118,7 +118,7 @@
 
                     <div class="purchase-info">
                         <input type="number" min="0" value="1">
-                        <a href="#0" class="cd-add-to-cart js-cd-add-to-cart" data-price="25.99">Add To Cart</a>
+                        <a style="cursor: pointer" class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" >Add To Cart</a>
                     </div>
 
                     <div class="social-links">
