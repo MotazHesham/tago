@@ -31,6 +31,11 @@ class Product extends Model implements HasMedia
         'name',
         'description',
         'price',
+        'current_stock',
+        'num_of_sale',
+        'colors',
+        'meta_title',
+        'meta_description',
         'category_id',
         'created_at',
         'updated_at',
@@ -46,6 +51,7 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
+        $this->addMediaConversion('preview2')->fit('crop', 900, 1100);
     }
 
     public function getPhotoAttribute()

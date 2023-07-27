@@ -29,7 +29,7 @@ class OrdersController extends Controller
 
             $table->editColumn('actions', function ($row) {
                 $viewGate      = 'order_show';
-                $editGate      = 'order_edit';
+                $editGate      = false;
                 $deleteGate    = 'order_delete';
                 $crudRoutePart = 'orders';
 
@@ -45,6 +45,9 @@ class OrdersController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('order_num', function ($row) {
+                return $row->order_num ? $row->order_num : '';
+            });
             $table->editColumn('first_name', function ($row) {
                 return $row->first_name ? $row->first_name : '';
             });
@@ -58,25 +61,16 @@ class OrdersController extends Controller
                 return $row->shipping_address ? $row->shipping_address : '';
             });
             $table->editColumn('total_price', function ($row) {
-                return $row->total_price ? $row->total_price : '';
+                return $row->total_price ? ($row->total_price +$row->shipping_cost) : '';
             });
             $table->editColumn('delivery_status', function ($row) {
                 return $row->delivery_status ? Order::DELIVERY_STATUS_SELECT[$row->delivery_status] : '';
             });
             $table->addColumn('user_name', function ($row) {
                 return $row->user ? $row->user->name : '';
-            });
+            }); 
 
-            $table->editColumn('products', function ($row) {
-                $labels = [];
-                foreach ($row->products as $product) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $product->name);
-                }
-
-                return implode(' ', $labels);
-            });
-
-            $table->rawColumns(['actions', 'placeholder', 'user', 'products']);
+            $table->rawColumns(['actions', 'placeholder', 'user']);
 
             return $table->make(true);
         }
@@ -128,7 +122,7 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $order->load('user', 'products');
+        $order->load('user', 'products.product');
 
         return view('admin.orders.show', compact('order'));
     }

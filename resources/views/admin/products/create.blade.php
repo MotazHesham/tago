@@ -40,6 +40,16 @@
                 <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="current_stock">{{ trans('cruds.product.fields.current_stock') }}</label>
+                <input class="form-control {{ $errors->has('current_stock') ? 'is-invalid' : '' }}" type="number" name="current_stock" id="current_stock" value="{{ old('current_stock', '') }}" step="0.01" required>
+                @if($errors->has('current_stock'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('current_stock') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="photo">{{ trans('cruds.product.fields.photo') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
                 </div>
@@ -63,6 +73,40 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.category_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="colors">{{ trans('cruds.product.fields.colors') }}</label>
+                <select class="form-control select2 color-var-select {{ $errors->has('colors') ? 'is-invalid' : '' }}" name="colors[]" id="colors" multiple>
+                    @foreach ($colors as $code => $entry)
+                        <option value="{{ $code }}" {{ old('colors') == $code ? 'selected' : '' }}> {{ $entry }} </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('colors'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('colors') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.colors_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="meta_title">{{ trans('cruds.product.fields.meta_title') }}</label>
+                <input class="form-control {{ $errors->has('meta_title') ? 'is-invalid' : '' }}" type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', '') }}" required>
+                @if($errors->has('meta_title'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('meta_title') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.meta_title_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="meta_description">{{ trans('cruds.product.fields.meta_description') }}</label>
+                <textarea class="form-control {{ $errors->has('meta_description') ? 'is-invalid' : '' }}" name="meta_description" id="meta_description">{!! old('meta_description') !!}</textarea>
+                @if($errors->has('meta_description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('meta_description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.meta_description_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

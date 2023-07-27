@@ -28,6 +28,9 @@ class Kernel extends HttpKernel
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'changelanguage' => \App\Http\Middleware\ChangeLanguage::class,
+        'customer' => \App\Http\Middleware\Customer::class,
+        'staff' => \App\Http\Middleware\Staff::class,
+        'menuClient' => \App\Http\Middleware\MenuClient::class,
     ];
 
     protected $middlewareGroups = [

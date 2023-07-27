@@ -11,40 +11,12 @@ class StoreOrderRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('order_create');
+        return true;
     }
 
     public function rules()
     {
         return [
-            'first_name' => [
-                'string',
-                'required',
-            ],
-            'last_name' => [
-                'string',
-                'required',
-            ],
-            'phone_number' => [
-                'string',
-                'required',
-            ],
-            'shipping_address' => [
-                'required',
-            ],
-            'delivery_status' => [
-                'required',
-            ],
-            'user_id' => [
-                'required',
-                'integer',
-            ],
-            'products.*' => [
-                'integer',
-            ],
-            'products' => [
-                'array',
-            ],
         ];
     }
 }

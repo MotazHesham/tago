@@ -332,6 +332,214 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 81,
+                'title' => 'country_create',
+            ],
+            [
+                'id'    => 82,
+                'title' => 'country_edit',
+            ],
+            [
+                'id'    => 83,
+                'title' => 'country_show',
+            ],
+            [
+                'id'    => 84,
+                'title' => 'country_delete',
+            ],
+            [
+                'id'    => 85,
+                'title' => 'country_access',
+            ],
+            [
+                'id'    => 86,
+                'title' => 'tutorial_create',
+            ],
+            [
+                'id'    => 87,
+                'title' => 'tutorial_edit',
+            ],
+            [
+                'id'    => 88,
+                'title' => 'tutorial_show',
+            ],
+            [
+                'id'    => 89,
+                'title' => 'tutorial_delete',
+            ],
+            [
+                'id'    => 90,
+                'title' => 'tutorial_access',
+            ],
+            [
+                'id'    => 91,
+                'title' => 'subscribe_create',
+            ],
+            [
+                'id'    => 92,
+                'title' => 'subscribe_edit',
+            ],
+            [
+                'id'    => 93,
+                'title' => 'subscribe_show',
+            ],
+            [
+                'id'    => 94,
+                'title' => 'subscribe_delete',
+            ],
+            [
+                'id'    => 95,
+                'title' => 'subscribe_access',
+            ],
+            [
+                'id'    => 96,
+                'title' => 'contactu_create',
+            ],
+            [
+                'id'    => 97,
+                'title' => 'contactu_edit',
+            ],
+            [
+                'id'    => 98,
+                'title' => 'contactu_show',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'contactu_delete',
+            ],
+            [
+                'id'    => 100,
+                'title' => 'contactu_access',
+            ],
+            [
+                'id'    => 101,
+                'title' => 'menu_managment_access',
+            ],
+            [
+                'id'    => 102,
+                'title' => 'menu_client_create',
+            ],
+            [
+                'id'    => 103,
+                'title' => 'menu_client_edit',
+            ],
+            [
+                'id'    => 104,
+                'title' => 'menu_client_show',
+            ],
+            [
+                'id'    => 105,
+                'title' => 'menu_client_delete',
+            ],
+            [
+                'id'    => 106,
+                'title' => 'menu_client_access',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'menu_package_create',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'menu_package_edit',
+            ],
+            [
+                'id'    => 109,
+                'title' => 'menu_package_show',
+            ],
+            [
+                'id'    => 110,
+                'title' => 'menu_package_delete',
+            ],
+            [
+                'id'    => 111,
+                'title' => 'menu_package_access',
+            ],
+            [
+                'id'    => 112,
+                'title' => 'menu_theme_access',
+            ],
+            [
+                'id'    => 113,
+                'title' => 'menu_client_package_create',
+            ],
+            [
+                'id'    => 114,
+                'title' => 'menu_client_package_edit',
+            ],
+            [
+                'id'    => 115,
+                'title' => 'menu_client_package_show',
+            ],
+            [
+                'id'    => 116,
+                'title' => 'menu_client_package_delete',
+            ],
+            [
+                'id'    => 117,
+                'title' => 'menu_client_package_access',
+            ],
+            [
+                'id'    => 118,
+                'title' => 'menu_client_list_create',
+            ],
+            [
+                'id'    => 119,
+                'title' => 'menu_client_list_edit',
+            ],
+            [
+                'id'    => 120,
+                'title' => 'menu_client_list_show',
+            ],
+            [
+                'id'    => 121,
+                'title' => 'menu_client_list_delete',
+            ],
+            [
+                'id'    => 122,
+                'title' => 'menu_client_list_access',
+            ],
+            [
+                'id'    => 123,
+                'title' => 'menu_category_create',
+            ],
+            [
+                'id'    => 124,
+                'title' => 'menu_category_edit',
+            ],
+            [
+                'id'    => 125,
+                'title' => 'menu_category_show',
+            ],
+            [
+                'id'    => 126,
+                'title' => 'menu_category_delete',
+            ],
+            [
+                'id'    => 127,
+                'title' => 'menu_category_access',
+            ],
+            [
+                'id'    => 128,
+                'title' => 'menu_product_create',
+            ],
+            [
+                'id'    => 129,
+                'title' => 'menu_product_edit',
+            ],
+            [
+                'id'    => 130,
+                'title' => 'menu_product_show',
+            ],
+            [
+                'id'    => 131,
+                'title' => 'menu_product_delete',
+            ],
+            [
+                'id'    => 132,
+                'title' => 'menu_product_access',
+            ],
+            [
+                'id'    => 133,
                 'title' => 'profile_password_edit',
             ],
         ];

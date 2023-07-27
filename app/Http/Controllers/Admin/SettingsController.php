@@ -35,7 +35,13 @@ class SettingsController extends Controller
 
     public function store(StoreSettingRequest $request)
     {
-        $setting = Setting::create($request->all());
+        $validated_request = $request->all(); 
+        $validated_request['keywords_seo'] = implode('|',$request->keywords_seo);  
+        $setting = Setting::create($validated_request);
+
+        foreach ($request->input('supporters', []) as $file) {
+            $setting->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('supporters');
+        }
 
         if ($request->input('logo', false)) {
             $setting->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
@@ -57,8 +63,24 @@ class SettingsController extends Controller
 
     public function update(UpdateSettingRequest $request, Setting $setting)
     {
-        $setting->update($request->all());
+        $validated_request = $request->all(); 
+        $validated_request['keywords_seo'] = implode('|',$request->keywords_seo);  
+        $setting->update($validated_request);
 
+        if (count($setting->supporters) > 0) {
+            foreach ($setting->supporters as $media) {
+                if (! in_array($media->file_name, $request->input('supporters', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $setting->supporters->pluck('file_name')->toArray();
+        foreach ($request->input('supporters', []) as $file) {
+            if (count($media) === 0 || ! in_array($file, $media)) {
+                $setting->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('supporters');
+            }
+        }
+        
         if ($request->input('logo', false)) {
             if (! $setting->logo || $request->input('logo') !== $setting->logo->file_name) {
                 if ($setting->logo) {

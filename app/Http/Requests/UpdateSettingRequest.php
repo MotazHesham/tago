@@ -21,8 +21,26 @@ class UpdateSettingRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'description' => [
+                'required',
+            ],
+            'how_it_work_description' => [
+                'required',
+            ],
+            'how_it_work' => [
+                'required',
+            ],
+            'contact_description' => [
+                'required',
+            ],
+            'email' => [
+                'required',
+            ],
             'phone_number' => [
                 'string',
+                'required',
+            ],
+            'address' => [
                 'required',
             ],
             'facebook' => [
@@ -31,6 +49,21 @@ class UpdateSettingRequest extends FormRequest
             ],
             'instagram' => [
                 'string',
+                'required',
+            ],
+            'tiktok' => [
+                'string',
+                'required',
+            ],
+            'youtube' => [
+                'string',
+                'required',
+            ],
+            'supporters' => [
+                'array',
+                'required',
+            ],
+            'supporters.*' => [
                 'required',
             ],
             'logo' => [

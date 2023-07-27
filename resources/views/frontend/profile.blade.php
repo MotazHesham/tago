@@ -47,19 +47,17 @@
             <div class="col-md-8">
                 <div class="wrapper">
                     <div class="profile-card">
-                        <div class="profile-header">
-                            @if($user->cover)
-                                <img src="{{ $user->cover->getUrl() }}" alt="">
-                            @else
+                        <div class="profile-header" @if($user->cover) style="background-image:url('{{ $user->cover->getUrl() }}');background-size: cover;" @endif>
+                            @if(!$user->cover) 
                                 <img src="{{ asset('frontend/img/profile-bg.png') }}" alt="" />
                             @endif
                         </div>
                         <div class="profile-body">
                             <div class="author-img">
                                 @if($user->photo)
-                                    <img src="{{ $user->photo->getUrl() }}" alt="" />
+                                    <img src="{{ $user->photo->getUrl() }}" alt="" @if($user->cover) style="margin-top: -88px;"  @endif/>
                                 @else 
-                                    <img src="{{ asset('user.png') }}" alt="" />
+                                    <img src="{{ asset('user.png') }}" alt="" @if($user->cover) style="margin-top: -88px;" @endif/>
                                 @endif
                             </div>
                             <div class="name">{{ $user->name ?? '' }}</div>

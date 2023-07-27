@@ -42,6 +42,26 @@
                 <span class="help-block">{{ trans('cruds.productCategory.fields.photo_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="meta_title">{{ trans('cruds.productCategory.fields.meta_title') }}</label>
+                <input class="form-control {{ $errors->has('meta_title') ? 'is-invalid' : '' }}" type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $productCategory->meta_title) }}" required>
+                @if($errors->has('meta_title'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('meta_title') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.productCategory.fields.meta_title_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="meta_description">{{ trans('cruds.productCategory.fields.meta_description') }}</label>
+                <textarea class="form-control {{ $errors->has('meta_description') ? 'is-invalid' : '' }}" name="meta_description" id="meta_description">{!! old('meta_description',$productCategory->meta_description) !!}</textarea>
+                @if($errors->has('meta_description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('meta_description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.productCategory.fields.meta_description_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

@@ -29,18 +29,6 @@
                             {{ trans('cruds.setting.fields.website_name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.setting.fields.email') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.setting.fields.phone_number') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.setting.fields.facebook') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.setting.fields.instagram') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.setting.fields.logo') }}
                         </th>
                         <th>
@@ -59,18 +47,6 @@
                             </td>
                             <td>
                                 {{ $setting->website_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $setting->email ?? '' }}
-                            </td>
-                            <td>
-                                {{ $setting->phone_number ?? '' }}
-                            </td>
-                            <td>
-                                {{ $setting->facebook ?? '' }}
-                            </td>
-                            <td>
-                                {{ $setting->instagram ?? '' }}
                             </td>
                             <td>
                                 @if($setting->logo)

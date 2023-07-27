@@ -27,12 +27,15 @@ class Order extends Model
     ];
 
     protected $fillable = [
+        'order_num',
         'first_name',
         'last_name',
         'phone_number',
         'shipping_address',
         'total_price',
         'delivery_status',
+        'shipping_cost',
+        'country_id',
         'user_id',
         'created_at',
         'updated_at',
@@ -49,8 +52,13 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Orderproduct::class,'order_id');
     }
 }

@@ -221,7 +221,129 @@
                             </a>
                         </li>
                     @endcan
+                    @can('country_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.countries.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/countries") || request()->is("admin/countries/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-globe-africa c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.country.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('tutorial_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.tutorials.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tutorials") || request()->is("admin/tutorials/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fab fa-youtube c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.tutorial.title') }}
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
+            </li>
+        @endcan
+        @can('menu_managment_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/menu-themes*") ? "c-show" : "" }} {{ request()->is("admin/menu-packages*") ? "c-show" : "" }} {{ request()->is("admin/menu-clients*") ? "c-show" : "" }} {{ request()->is("admin/menu-client-packages*") ? "c-show" : "" }} {{ request()->is("admin/menu-client-lists*") ? "c-show" : "" }} {{ request()->is("admin/menu-categories*") ? "c-show" : "" }} {{ request()->is("admin/menu-products*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-utensils c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.menuManagment.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('menu_theme_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-themes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-themes") || request()->is("admin/menu-themes/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-paint-brush c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuTheme.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('menu_package_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-packages.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-packages") || request()->is("admin/menu-packages/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cubes c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuPackage.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('menu_client_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-clients.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-clients") || request()->is("admin/menu-clients/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-user-tie c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuClient.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    {{-- @can('menu_client_package_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-client-packages.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-client-packages") || request()->is("admin/menu-client-packages/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cube c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuClientPackage.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('menu_client_list_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-client-lists.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-client-lists") || request()->is("admin/menu-client-lists/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-list-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuClientList.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('menu_category_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-categories") || request()->is("admin/menu-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuCategory.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('menu_product_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.menu-products.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menu-products") || request()->is("admin/menu-products/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fab fa-product-hunt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.menuProduct.title') }}
+                            </a>
+                        </li>
+                    @endcan --}}
+                </ul>
+            </li>
+        @endcan
+        @can('subscribe_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.subscribes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/subscribes") || request()->is("admin/subscribes/*") ? "c-active" : "" }}">
+                    <i class="fa-fw far fa-envelope c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.subscribe.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('contactu_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.contactus.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/contactus") || request()->is("admin/contactus/*") ? "c-active" : "" }}">
+                    <i class="fa-fw far fa-address-card c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.contactu.title') }}
+                </a>
             </li>
         @endcan
         @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))

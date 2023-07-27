@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/login');
+
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -12,12 +12,12 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::get('social-login/apple','Auth\LoginController@login_social');
 Route::post('social-login/callback','Auth\LoginController@callback'); 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth','staff']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
@@ -90,12 +90,64 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Reviews
     Route::delete('reviews/destroy', 'ReviewsController@massDestroy')->name('reviews.massDestroy');
     Route::resource('reviews', 'ReviewsController');
+    
+    // Countries
+    Route::delete('countries/destroy', 'CountriesController@massDestroy')->name('countries.massDestroy');
+    Route::post('countries/update_statuses', 'CountriesController@update_statuses')->name('countries.update_statuses');
+    Route::resource('countries', 'CountriesController');
 
     // Connections
     Route::delete('connections/destroy', 'ConnectionsController@massDestroy')->name('connections.massDestroy');
     Route::post('connections/media', 'ConnectionsController@storeMedia')->name('connections.storeMedia');
     Route::post('connections/ckmedia', 'ConnectionsController@storeCKEditorImages')->name('connections.storeCKEditorImages');
     Route::resource('connections', 'ConnectionsController');
+    
+    // Tutorials
+    Route::delete('tutorials/destroy', 'TutorialsController@massDestroy')->name('tutorials.massDestroy');
+    Route::resource('tutorials', 'TutorialsController');
+
+    // Subscribe
+    Route::delete('subscribes/destroy', 'SubscribeController@massDestroy')->name('subscribes.massDestroy');
+    Route::resource('subscribes', 'SubscribeController');
+
+    // Contactus
+    Route::delete('contactus/destroy', 'ContactusController@massDestroy')->name('contactus.massDestroy');
+    Route::resource('contactus', 'ContactusController');
+    
+    // Menu Clients
+    Route::delete('menu-clients/destroy', 'MenuClientsController@massDestroy')->name('menu-clients.massDestroy');
+    Route::post('menu-clients/media', 'MenuClientsController@storeMedia')->name('menu-clients.storeMedia');
+    Route::post('menu-clients/ckmedia', 'MenuClientsController@storeCKEditorImages')->name('menu-clients.storeCKEditorImages');
+    Route::resource('menu-clients', 'MenuClientsController');
+
+    // Menu Packages
+    Route::delete('menu-packages/destroy', 'MenuPackagesController@massDestroy')->name('menu-packages.massDestroy');
+    Route::post('menu-packages/media', 'MenuPackagesController@storeMedia')->name('menu-packages.storeMedia');
+    Route::post('menu-packages/ckmedia', 'MenuPackagesController@storeCKEditorImages')->name('menu-packages.storeCKEditorImages');
+    Route::resource('menu-packages', 'MenuPackagesController');
+
+    // Menu Themes
+    Route::resource('menu-themes', 'MenuThemesController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Menu Client Package
+    Route::delete('menu-client-packages/destroy', 'MenuClientPackageController@massDestroy')->name('menu-client-packages.massDestroy');
+    Route::resource('menu-client-packages', 'MenuClientPackageController');
+
+    // Menu Client List
+    Route::delete('menu-client-lists/destroy', 'MenuClientListController@massDestroy')->name('menu-client-lists.massDestroy');
+    Route::post('menu-client-lists/media', 'MenuClientListController@storeMedia')->name('menu-client-lists.storeMedia');
+    Route::post('menu-client-lists/ckmedia', 'MenuClientListController@storeCKEditorImages')->name('menu-client-lists.storeCKEditorImages');
+    Route::resource('menu-client-lists', 'MenuClientListController');
+
+    // Menu Categories
+    Route::delete('menu-categories/destroy', 'MenuCategoriesController@massDestroy')->name('menu-categories.massDestroy');
+    Route::post('menu-categories/media', 'MenuCategoriesController@storeMedia')->name('menu-categories.storeMedia');
+    Route::post('menu-categories/ckmedia', 'MenuCategoriesController@storeCKEditorImages')->name('menu-categories.storeCKEditorImages');
+    Route::resource('menu-categories', 'MenuCategoriesController');
+
+    // Menu Products
+    Route::delete('menu-products/destroy', 'MenuProductsController@massDestroy')->name('menu-products.massDestroy');
+    Route::resource('menu-products', 'MenuProductsController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

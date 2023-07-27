@@ -24,6 +24,12 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    public function showLoginForm()
+    {
+        $not_include_subscribe = true;
+        return view('auth.login',compact('not_include_subscribe'));
+    }
+
     /**
      * Where to redirect users after login.
      *

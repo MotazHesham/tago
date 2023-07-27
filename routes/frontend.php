@@ -1,41 +1,38 @@
 <?php
 
-use App\Http\Resources\V1\UserResource;
-use App\Models\Connection;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/','Frontend\HomeController@index')->name('home');  
+
 Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
-    Route::get('user/{id}',function($id){
-        $user = User::with(['media','userUserLinks' => function($q){
-            $q->where('active',1)->orderBy('priority','asc');
-        }])->find($id);
-        return view('frontend.profile',compact('user'));
-    })->name('user');
 
-    Route::post('exchange_contacts',function(Request $request){
-        Connection::create($request->all()); 
-        $user = User::find($request->user_id);
-        if($user && $user->fcm_token != null){
-            Http::withHeaders([
-                'Authorization' => 'key='.config('app.fcm_token_key'),
-                'Content-Type' =>   'application/json',
-            ])->post('https://fcm.googleapis.com/fcm/send', [
-                "to" => $user->fcm_token,
-                "collapse_key" => "type_a",
-                "notification" => [
-                    "title"=> $request->name,
-                    "body" => 'Want To Exchange Contact With You'
-                ]
-            ]);
-        }
-        
-        return redirect()->back();
-    })->name('exchange_contacts');
+    Route::get('user/{id}','HomeController@user')->name('user'); 
+    Route::post('exchange_contacts','HomeController@exchange_contact')->name('exchange_contacts');
 
-    Route::get('privacy',function(){
-        return view('frontend.privacy');
+    Route::get('privacy','HomeController@privacy')->name('privacy');
+    Route::get('about','HomeController@about')->name('about');
+    Route::get('tutorials','HomeController@tutorials')->name('tutorials');
+    Route::get('contact','HomeController@contact')->name('contact');
+    Route::post('contact','HomeController@contact_store')->name('contact');
+    Route::post('subscribe','HomeController@subscribe_store')->name('subscribe');
+    Route::get('products/{categoryId}','HomeController@products')->name('products');
+    Route::get('product/{productId}','HomeController@product')->name('product');
+
+    // Cart 
+    Route::get('cart','CartController@cart')->name('cart');
+    Route::post('checkout','OrderController@checkout')->name('checkout');
+    Route::post('cart/store','CartController@store')->name('cart.store');
+    Route::post('cart/update','CartController@update')->name('cart.update');
+    Route::post('cart/delete','CartController@delete')->name('cart.delete');
+    
+    // Dashboard
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','customer']], function () {
+        Route::get('/','DashboardController@dashboard')->name('dashboard');
+    
+        Route::get('orders','OrderController@orders')->name('orders');
+
+        Route::get('settings','DashboardController@settings')->name('settings');
     });
 });
+

@@ -12,6 +12,8 @@ class CreateProductCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->longText('description')->nullable();
+            $table->text('meta_title')->nullable();
+            $table->longText('meta_description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

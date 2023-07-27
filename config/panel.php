@@ -8,5 +8,6 @@ return [
         'en' => 'English',
         'ar' => 'Arabic',
     ],
-
+    'phone_number_format' => '/(01)[0-9]{9}/',
+    'phone_number_size' => '11' 
 ];

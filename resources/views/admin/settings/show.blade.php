@@ -33,6 +33,38 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.setting.fields.description') }}
+                        </th>
+                        <td>
+                            {{ $setting->description }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.how_it_work_description') }}
+                        </th>
+                        <td>
+                            {{ $setting->how_it_work_description }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.how_it_work') }}
+                        </th>
+                        <td>
+                            {{ $setting->how_it_work }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.contact_description') }}
+                        </th>
+                        <td>
+                            {{ $setting->contact_description }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.setting.fields.email') }}
                         </th>
                         <td>
@@ -45,6 +77,14 @@
                         </th>
                         <td>
                             {{ $setting->phone_number }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.address') }}
+                        </th>
+                        <td>
+                            {{ $setting->address }}
                         </td>
                     </tr>
                     <tr>
@@ -65,12 +105,40 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.setting.fields.tiktok') }}
+                        </th>
+                        <td>
+                            {{ $setting->tiktok }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.youtube') }}
+                        </th>
+                        <td>
+                            {{ $setting->youtube }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.supporters') }}
+                        </th>
+                        <td>
+                            @foreach($setting->supporters as $key => $media)
+                                <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $media->getUrl() }}">
+                                </a>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.setting.fields.logo') }}
                         </th>
                         <td>
                             @if($setting->logo)
                                 <a href="{{ $setting->logo->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $setting->logo->getUrl('thumb') }}">
+                                    <img src="{{ $setting->logo->getUrl() }}">
                                 </a>
                             @endif
                         </td>

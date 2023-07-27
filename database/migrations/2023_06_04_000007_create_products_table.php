@@ -13,6 +13,11 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->decimal('price', 15, 2);
+            $table->integer('current_stock')->default(0);
+            $table->integer('num_of_sale')->default(0);
+            $table->text('colors')->nullable();
+            $table->text('meta_title')->nullable();
+            $table->longText('meta_description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

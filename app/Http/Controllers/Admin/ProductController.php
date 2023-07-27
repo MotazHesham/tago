@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyProductRequest;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Gate;
@@ -83,12 +84,16 @@ class ProductController extends Controller
 
         $categories = ProductCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.products.create', compact('categories'));
+        $colors = Color::pluck('name', 'code');
+
+        return view('admin.products.create', compact('categories','colors'));
     }
 
     public function store(StoreProductRequest $request)
     {
-        $product = Product::create($request->all());
+        $validated_request = $request->all();
+        $validated_request['colors'] = $request->has('colors') ? json_encode($request->colors) : json_encode(array());
+        $product = Product::create($validated_request);
 
         foreach ($request->input('photo', []) as $file) {
             $product->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photo');
@@ -107,14 +112,18 @@ class ProductController extends Controller
 
         $categories = ProductCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $colors = Color::pluck('name', 'code');
+
         $product->load('category');
 
-        return view('admin.products.edit', compact('categories', 'product'));
+        return view('admin.products.edit', compact('categories', 'product','colors'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        $validated_request = $request->all();
+        $validated_request['colors'] = $request->has('colors') ? json_encode($request->colors) : json_encode(array());
+        $product->update($validated_request);
 
         if (count($product->photo) > 0) {
             foreach ($product->photo as $media) {
