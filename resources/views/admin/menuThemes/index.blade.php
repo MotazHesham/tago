@@ -38,7 +38,7 @@
                                 {{ $menuTheme->name ?? '' }}
                             </td>
                             <td> 
-                                <a href="{{ route('frontend.menu_theme',$menuTheme->id) }}" class="btn btn-success" target="_blanc">view</a>
+                                <a href="{{ route('menuClient.theme',$menuTheme->id) }}" class="btn btn-success" target="_blanc">view</a>
                             </td>
 
                         </tr>
