@@ -266,7 +266,9 @@
                             @foreach(session('cart') as $cart)
                                 @php
                                     $product = \App\Models\Product::find($cart['product_id']);
-                                    $total += ($product->price * $cart['quantity']);
+                                    if($product){
+                                        $total += ($product->price * $cart['quantity']);
+                                    }
                                 @endphp
                                 @if($product)
                                     @include('frontend.partials.cartItem',['product' => $product, 'quantity' => $cart['quantity']])
