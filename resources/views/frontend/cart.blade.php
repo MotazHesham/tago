@@ -433,7 +433,7 @@
                                 @foreach(session('cart') as $cartItem)
                                     @php
                                         $product = \App\Models\Product::find($cartItem['product_id']);
-                                        if($prdouct){
+                                        if($product){
                                             $total += $product->price;
                                         }
                                     @endphp
