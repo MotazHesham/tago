@@ -17,6 +17,15 @@
     <link href="{{ asset('frontend/menus/theme1/model.css') }}" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <!----animate--->
+    <link rel="stylesheet" href="{{ asset('frontend/menus/theme1/animate.css') }}" />
+    <script src="{{ asset('frontend/menus/theme1/js/wow.min.js') }}"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!----animate--->
+
     <style>
         .multipleTabs {
             display: flex;
@@ -61,7 +70,7 @@
             width: 100%;
         }
 
-        @media screen and (max-width:768px) {
+        @media screen and (max-width: 768px) {
             .multipleTabs a {
                 display: none;
             }
@@ -89,13 +98,10 @@
             }
         }
 
-
-
-
-
         body {
             margin: 0;
-            padding: 0; 
+            padding: 0;
+            background-image: url("menu_bg.jpg");
         }
 
         :root {
@@ -138,9 +144,8 @@
         }
 
         .item__title {
-            font: 35px cookie, cursive;
+            font: 35px;
             color: #000;
-            letter-spacing: 2px;
             margin: 0;
         }
 
@@ -151,8 +156,8 @@
         }
 
         .item__price {
-            color: var(--wesbos);
-            font: 31px cookie, cursive;
+            font-size: 25px;
+            font-weight: bold;
         }
 
         .item__description {
@@ -212,14 +217,13 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
         }
 
         .wrapper {
             width: 100%;
             margin: 0 auto;
-
         }
 
         h2 {
@@ -231,7 +235,6 @@
             color: #fff;
             margin-bottom: 0;
         }
-
 
         .cover {
             background-color: #000;
@@ -256,14 +259,13 @@
             width: 100%;
         }
 
-
         /* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
         .icon-bar {
-            position: fixed;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+            position: relative;
+            display: flex;
+            flex: content;
+            margin-top: ;
+            justify-content: center;
         }
 
         /* Style the icon bar links */
@@ -276,10 +278,34 @@
             font-size: 15px;
         }
 
+        .icon-bar li {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .icon-bar li:before {}
+
+        .icon-bar li a span {
+            font-size: 27px;
+            line-height: 70px;
+            color: whitesmoke;
+            transition: all 0.3s ease-out;
+        }
+
+        .icon-bar li:hover a span {
+            transform: scale(1.1);
+        }
 
         .main_categ_color {
             width: 100%;
-        } 
+        }
+
         .icon-bar a:hover {
             background-color: #000;
         }
@@ -323,9 +349,9 @@
             color: white;
         }
 
-
         .bannerimage {
             width: 100%;
+            background-image: url(banner_bg.jpg);
             background-size: cover;
             background-repeat: no-repeat;
             height: 200px;
@@ -336,10 +362,7 @@
 
     <script>
         window.console = window.console || function(t) {};
-    </script>
-
-
-
+    </script> 
 </head>
 
 <body translate="no" style="background-image: url('{{asset('frontend/menus/theme1/menu_bg.jpg')}}')">
@@ -364,7 +387,7 @@
             <div class="next-control">Next</div>
         </nav>
         @foreach($menuClientList->categories as $category)
-            <div id="content-{{$category->id}}" class="tabcontent">
+            <div id="content-{{$category->id}}" class="tabcontent wow fadeIn" data-wow-duration="3s" data-wow-delay="1s ">
 
                 <div class="bannerimage" style="background-image: url('{{ $category->banner ? $category->banner->getUrl() : '' }}');"></div>
 

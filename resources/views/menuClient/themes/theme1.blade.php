@@ -17,6 +17,14 @@
     <link href="{{ asset('frontend/menus/theme1/model.css') }}" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <!----animate--->
+    <link rel="stylesheet" href="{{ asset('frontend/menus/theme1/animate.css') }}" />
+    <script src="{{ asset('frontend/menus/theme1/js/wow.min.js') }}"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!----animate--->
     <style>
         .multipleTabs {
             display: flex;
@@ -61,7 +69,7 @@
             width: 100%;
         }
 
-        @media screen and (max-width:768px) {
+        @media screen and (max-width: 768px) {
             .multipleTabs a {
                 display: none;
             }
@@ -89,13 +97,10 @@
             }
         }
 
-
-
-
-
         body {
             margin: 0;
-            padding: 0; 
+            padding: 0;
+            background-image: url("menu_bg.jpg");
         }
 
         :root {
@@ -138,9 +143,8 @@
         }
 
         .item__title {
-            font: 35px cookie, cursive;
+            font: 35px;
             color: #000;
-            letter-spacing: 2px;
             margin: 0;
         }
 
@@ -151,8 +155,8 @@
         }
 
         .item__price {
-            color: var(--wesbos);
-            font: 31px cookie, cursive;
+            font-size: 25px;
+            font-weight: bold;
         }
 
         .item__description {
@@ -212,14 +216,13 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
         }
 
         .wrapper {
             width: 100%;
             margin: 0 auto;
-
         }
 
         h2 {
@@ -231,7 +234,6 @@
             color: #fff;
             margin-bottom: 0;
         }
-
 
         .cover {
             background-color: #000;
@@ -256,14 +258,13 @@
             width: 100%;
         }
 
-
         /* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
         .icon-bar {
-            position: fixed;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+            position: relative;
+            display: flex;
+            flex: content;
+            margin-top: ;
+            justify-content: center;
         }
 
         /* Style the icon bar links */
@@ -276,10 +277,34 @@
             font-size: 15px;
         }
 
+        .icon-bar li {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .icon-bar li:before {}
+
+        .icon-bar li a span {
+            font-size: 27px;
+            line-height: 70px;
+            color: whitesmoke;
+            transition: all 0.3s ease-out;
+        }
+
+        .icon-bar li:hover a span {
+            transform: scale(1.1);
+        }
 
         .main_categ_color {
             width: 100%;
-        } 
+        }
+
         .icon-bar a:hover {
             background-color: #000;
         }
@@ -323,9 +348,9 @@
             color: white;
         }
 
-
         .bannerimage {
             width: 100%;
+            background-image: url(banner_bg.jpg);
             background-size: cover;
             background-repeat: no-repeat;
             height: 200px;
@@ -336,13 +361,10 @@
 
     <script>
         window.console = window.console || function(t) {};
-    </script>
-
-
-
+    </script> 
 </head>
 
-<body translate="no" style="background-image: url('{{asset('frontend/menus/theme1/menu_bg.jpg')}}')">
+<body translate="no" style="background-image: url('{{ asset('frontend/menus/theme1/menu_bg.jpg') }}')">
 
     <div class="cover">
         <div class="container">
@@ -365,9 +387,10 @@
             <div class="prev-control">Prev</div>
             <div class="next-control">Next</div>
         </nav>
-        <div id="content01" class="tabcontent">
+        <div id="content01" class="tabcontent wow fadeIn" data-wow-duration="3s" data-wow-delay="1s ">
 
-            <div class="bannerimage" style="background-image: url('{{asset('frontend/menus/theme1/banner_bg.jpg')}}');"></div>
+            <div class="bannerimage"
+                style="background-image: url('{{ asset('frontend/menus/theme1/banner_bg.jpg') }}');"></div>
 
             <div class="menu menu--is-visible" id="pizzaMenu">
 
@@ -416,17 +439,17 @@
 
 
         </div>
-        <div id="content02" class="tabcontent">
+        <div id="content02" class="tabcontent wow fadeIn" data-wow-duration="2s" data-wow-delay="1s ">
             <p>2</p>
 
         </div>
-        <div id="content03" class="tabcontent">
+        <div id="content03" class="tabcontent wow fadeIn" data-wow-duration="2s" data-wow-delay="1s ">
             <p>3</p>
         </div>
-        <div id="content04" class="tabcontent">
+        <div id="content04" class="tabcontent wow fadeIn" data-wow-duration="2s" data-wow-delay="1s ">
             <p>4</p>
         </div>
-        <div id="content05" class="tabcontent">
+        <div id="content05" class="tabcontent wow fadeIn" data-wow-duration="2s" data-wow-delay="1s ">
 
             <p>5</p>
         </div>
@@ -478,7 +501,16 @@
         <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
         <a href="#" class="google"><i class="fa fa-google"></i></a>
         <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-        <a href="#" class="tiktok"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+        <a href="#" class="tiktok"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <style>
+                    svg {
+                        fill: #ffffff
+                    }
+                </style>
+                <path
+                    d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
+            </svg></a>
         <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
         <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
         <a href="#" class="whatsapp"><i class="fa fa-whatsapp"></i></a>

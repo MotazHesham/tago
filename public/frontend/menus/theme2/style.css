@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+.our_menu{width:970px; margin:0 auto;  }
+ul,li{margin:0;padding:0;list-style:none}
+.logo { text-align: center; }
+
+
+body {font-family: 'Playfair Display', serif;     background: url(images/bgnoise_lg.png);}
+.menu .item{float:left;position:relative}
+.menu .item .new{background-position:-248px -482px;height:28px;left:-9px;padding:7px 0 0 7px;top:41px;width:55px; background:#F00;color:#FFF;display:block;font-family:"league-gothic",sans-serif;font-size:18px;position:absolute;text-transform:uppercase;z-index:1; }
+.menu .item a{background-color:#FFF;color:#820922;display:block;overflow:hidden;position:absolute;box-shadow:0 0 7px 0 #CCC;-moz-box-shadow:0 0 7px 0 #CCC;-webkit-box-shadow:0 0 7px 0 #CCC}
+.menu .item a:hover{z-index:2;-webkit-transition:height .2s ease-in-out;-moz-transition:height .2s ease-in-out;-o-transition:height .2s ease-in-out;-ms-transition:height .2s ease-in-out;transition:height .2s ease-in-out}
+.menu .item:hover .new{z-index:3}
+.menu .item a h3{border:0;font-family: 'Playfair Display', serif;font-size:18px;margin:0 0 .5em 0;padding:0;text-transform:uppercase; }
+.menu .item a p{color:#432;font-size:16px; font-family: Georgia, 'Times New Roman', Times, serif;}
+
+.our_menu .menu{float:left;margin:0 0 50px 0}
+.our_menu .menu .item{background-position:9px -791px;height:170px;padding:0 0 0 7px;width:316px}
+.our_menu .menu .item a{height:25px;padding:114px 0 0 14px;top:20px;width:295px;text-decoration:none;}
+.our_menu .menu .item a:hover{height:132px;padding-top:179px}
+.our_menu .menu .item a img{clip:rect(0px,283px,96px,0px);height:164px;position:absolute;top:14px;width:283px}
+.our_menu .menu .item a:hover img{clip:auto}
+.our_menu .menu .item .new{left:-1px}
+
+.about-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font: 25px;
+    font-weight: bold;
+    
+}
+
+@media only screen and (max-width: 967px) {
+.our_menu{ width:660px;margin:0 auto;}
+}
+@media only screen and (max-width: 620px) {
+.our_menu{ width:330px;margin:0 auto;}
+}
+
+
+.cd-tabs
+{
+	width: 100%;
+	height: 100%;
+
+}
+.cd-nav
+{
+	width: 100%;
+    padding: 0;
+    height: 50px;
+    margin: 0;
+    background: #820922;
+    display: flex;
+    justify-content: center;
+}
+.cd-nav .cd-tab
+{
+    list-style-type: none;
+    display: inline-block;
+    opacity: 0.7;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    border-bottom: 3px solid transparent;
+    color: #ffffff;
+    cursor: pointer;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+}
+
+.cd-tab.selected
+{
+	border-bottom-color: #ffa59c;
+	opacity: 1;
+}
+
+.cd-panes
+{
+	width: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+.cd-panes .pane
+{
+	position: absolute;
+	left:0;
+	top:0;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	opacity: 0;
+	
+	width: 100%;
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	transform: scale(0.9) ;
+	-webkit-transform: scale(0.9) ;
+}
+.pane.selected
+{
+	opacity: 1;
+  z-index: 1;
+	transform: scale(1) ;
+	-webkit-transform: scale(1) ;
+}
+
+/*
+	Responsive nav
+*/
+.res-nav
+{
+	display: none;
+	width: 100%;
+    -moz-appearance: none;
+ 	-webkit-appearance: none;
+ 	 appearance: none;
+    border: none;
+    background: #820922;
+    min-height: 20px;
+    padding: 15px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    text-transform: uppercase;
+
+    background-image: url("images/menu-icon.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px);
+}
+
+/*
+* Responsive support
+*/
+@media only screen and (max-width: 680px) {
+    .container {
+       width: 90%;
+    }
+
+    .res-nav
+    {
+    	display: block;
+    }
+    .cd-nav
+    {
+    	display: none;
+    }
+}
+
+
+
+ .container
+ {
+ 	width: 80%;
+ 	height: auto;
+ 	margin-left: auto;
+ 	margin-right: auto;
+    margin-bottom: ;
+
+ }
+
+ .dummy-text
+ {
+ 	display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #888;
+ }
+
+
+
+ 
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+.icon-bar {
+    position: relative;
+    display: flex;
+    flex: content;
+    margin-top: ;
+    justify-content: center;
+    
+  }
+  
+  /* Style the icon bar links */
+  .icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 8px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 15px;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    margin: 5px;
+    line-height: 25px;
+  }
+  
+  
+  
+  .icon-bar li {
+     position: relative;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+  
+     border-radius: 50%;
+     cursor: pointer;
+  }
+  
+  .icon-bar li:before {
+     
+  }
+  
+  
+  
+  .icon-bar li a span {
+     font-size: 27px;
+     line-height: 70px;
+     color: whitesmoke;
+     transition: all 0.3s ease-out;
+  }
+  
+  .icon-bar li:hover a span {
+     transform: scale(1.1);
+  }
+  .main_categ_color {  width: 100%;}
+  /* Style the social media icons with color, if you want *
+  .icon-bar a:hover {
+    background-color: #000;
+  }
+  
+  .facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .google {
+    background: #dd4b39;
+    color: white;
+  }
+  
+  .linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .youtube {
+    background: #bb0000;
+    color: white;
+  }
+  */
+  
+  .icon-bar a:hover {
+    background-color: #820922;
+  }
+  
+  .facebook {
+    background: #aeaeae;
+    color: white;
+  }
+  
+  .twitter {
+    background: #aeaeae;
+    color: white;
+  }
+  
+  .google {
+    background: #aeaeae;
+    color: white;
+  }
+  
+  .linkedin {
+    background: #aeaeae;
+    color: white;
+  }
+  
+  .youtube {
+    background: #aeaeae;
+    color: white;
+  }
+  
+  .whatsapp {
+    background: #aeaeae;
+    color: white;
+  }
+  
+  .instagram {
+    background: #aeaeae;
+    color: white;
+  } 
+
+  .tiktok {
+    background: #aeaeae;
+    color: white;
+  }
+  
