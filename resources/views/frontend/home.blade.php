@@ -11,15 +11,16 @@
                 <div class="col-lg-6 align-self-center">
                     <div class="banner-inner pe-xl-5">
                         <h6 class="subtitle wow animated fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.3s">
-                            card one touch away</h6>
-                        <h2 class="title wow animated fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.4s">Your
-                            digital <span>business Card</span> one touch away</h2>
-                        <p class="content pe-xl-5 wow animated fadeInLeft" data-wow-duration="1.5s"
-                            data-wow-delay="0.5s">Switch now to a digital business card. Cardble is designed to be the
-                            ultimate tool for small businesses and large enterprises. The new Digital Business Card you
-                            need to become a modern eco-friendly company.</p>
+                            {{ trans('frontend.home.banner.h6') }}
+                        </h6>
+                        <h2 class="title wow animated fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.4s">
+                            <?php echo trans('frontend.home.banner.h2'); ?>
+                        </h2>
+                        <p class="content pe-xl-5 wow animated fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.5s">
+                            <?php echo trans('frontend.home.banner.p'); ?>
+                        </p>
                         <a class="btn btn-border-base wow animated fadeInLeft" data-wow-duration="1.5s"
-                            data-wow-delay="0.6s" href="{{ route('frontend.products',0) }}">Get yours <i class="fa fa-plus"></i></a>
+                            data-wow-delay="0.6s" href="{{ route('frontend.products',0) }}">{{ trans('frontend.home.banner.a') }} <i class="fa fa-plus"></i></a>
                     </div>
                 </div>
 
@@ -57,21 +58,21 @@
                     <div class="single-counter-inner">
 
                         <h2 class=" mt-4 mb-2"><span class="counter">{{ $counted_customers }}</span>+</h2>
-                        <p class="">Users</p>
+                        <p class="">{{ trans('frontend.home.users') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6 wow animated fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.4s">
                     <div class="single-counter-inner">
 
                         <h2 class=" mt-4 mb-2"><span class="counter">{{ $counted_products }}</span>+</h2>
-                        <p class="">Product</p>
+                        <p class="">{{ trans('frontend.home.products') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-6 wow animated fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.5s">
                     <div class="single-counter-inner">
 
                         <h2 class=" mt-4 mb-2"><span class="counter">{{ $rates->count() }}</span>+</h2>
-                        <p class="">5 Stars Rating</p>
+                        <p class="">{{ trans('frontend.home.rating') }}</p>
                     </div>
                 </div>
             </div>
@@ -87,7 +88,7 @@
             <div class="row">
 
                 <div class="col-md-7 col-12">
-                    <h2>Download Our Free App Now</h2>
+                    <h2>{{ trans('frontend.home.donwload_app') }}</h2>
                 </div>
                 <div class="col-md-2  col-6"> <a href="#"> <img src="{{ asset('frontend/img/App-Store.png') }}"></a></div>
                 <div class="col-md-2 col-6"> <a href="#"> <img src="{{ asset('frontend/img/Google-Play.png') }}"></a></div>
@@ -115,7 +116,7 @@
                 <div class="col-md-6">
                     <div class="how-app-work-content-wrap">
                         <div class="title">
-                            <h3>How does this App Work?</h3>
+                            <h3>{{ trans('frontend.home.how_app_work') }}</h3>
                         </div><!-- /.title -->
                         <div class="how-app-work-content" id="how-app-work-slider-pager">
                             @foreach($faq_questions as $faq_question)
@@ -145,8 +146,8 @@
         <div class="container">
 
             <div class="section-title text-center">
-                <h6 class="sub-title">Products</h6>
-                <h2 class="title">Our <span>Products</span></h2>
+                <h6 class="sub-title">{{ trans('frontend.home.products') }}</h6>
+                <h2 class="title"><?php echo trans('frontend.home.our_products'); ?></h2>
             </div>
 
             <div class="swiper-container two">
@@ -162,7 +163,7 @@
                                     <h4><a href="{{ route('frontend.product',$product->id) }}"> {{ $product->name }} </a></h4>
                                     <p>{{ frontend_currency($product->price)['as_text'] }}</p>
                                     <a class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" style="cursor: pointer">
-                                        Add To Cart
+                                        {{ trans('frontend.home.add_to_cart') }}
                                     </a> 
                                 </div>
 
@@ -182,7 +183,7 @@
             <a data-popup-open="popup-1" href="#" class="video-popup video-btn hvr-pulse"><i
                     class="fa fa-play"></i></a>
 
-            <h3>HOW IT WORK</h3>
+            <h3>{{ trans('frontend.home.how_it_work') }}</h3>
             <p>
                 <?php echo nl2br($site_settings->how_it_work_description) ?>
             </p>
@@ -193,11 +194,11 @@
 
 
     <!-- testimonial-area start -->
-    <div class="testimonial-area pd-top-120 pd-bottom-90" style="background-image: url('./frontend/img/bg/11.png');">
+    <div class="testimonial-area pd-top-120 pd-bottom-90" style="background-image: url('./frontend/img/bg/11.png');direction: ltr;">
         <div class="container">
             <div class="section-title">
-                <h6 class="sub-title">TESTIMONIAL</h6>
-                <h2 class="title">Our client's opinions</h2>
+                <h6 class="sub-title">{{ trans('frontend.home.testimotinal') }}</h6>
+                <h2 class="title">{{ trans('frontend.home.our_clients') }}</h2>
             </div>
             <div  class="testimonial-slider-1 owl-carousel slider-control-round slider-control-dots slider-control-right-top">
                 @foreach($rates->take(15) as $rate)
@@ -222,7 +223,7 @@
 
 
     <!-- about area start -->
-    <div class="about-area  pt-5 pb-5">
+    <div class="about-area  pt-5 pb-5" style="direction: ltr;">
         <div class="container">
             <div class="client-slider owl-carousel">
                 @foreach($site_settings->supporters as $media)

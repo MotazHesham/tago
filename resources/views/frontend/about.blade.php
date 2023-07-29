@@ -7,12 +7,12 @@
             <div class="breadcrumb-inner">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-                        <h2 class="page-title">About</h2>
+                        <h2 class="page-title">{{ trans('frontend.about.about') }}</h2>
                     </div>
                     <div class="col-lg-6 text-lg-end">
                         <ul class="page-list">
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li>About </li>
+                            <li><a href="{{ route('home') }}">{{ trans('frontend.about.home') }}</a></li>
+                            <li>{{ trans('frontend.about.about') }} </li>
                         </ul>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="section-title">
-                        <h6 class="sub-title">ABOUT US</h6>
-                        <h2 class="title">IT is a critical component of <span>modern</span> businesses</h2>
+                        <h6 class="sub-title">{{ trans('frontend.about.about') }}</h6>
+                        <h2 class="title"><?php echo trans('frontend.about.h2'); ?></h2>
                         <p class="content mb-4 mb-xl-5">
                             <?php echo nl2br($site_settings->description) ?>
                         </p>
@@ -48,7 +48,7 @@
                                         <img src="{{ asset('frontend/img/icon/2.png') }}" alt="img">
                                     </div>
                                     <div class="details">
-                                        <h5>Our mission</h5>
+                                        <h5>{{ trans('frontend.about.our_mission') }}</h5>
                                         <p>
                                             <?php echo nl2br($site_settings->our_mission) ?>
                                         </p>
@@ -62,7 +62,7 @@
                                         <img src="{{ asset('frontend/img/icon/3.png') }}" alt="img">
                                     </div>
                                     <div class="details">
-                                        <h5>Why us</h5>
+                                        <h5>{{ trans('frontend.about.why_us') }}</h5>
                                         <p>
                                             <?php echo nl2br($site_settings->why_us) ?>
                                         </p>
@@ -90,8 +90,8 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="section-title mb-0 mt-4 mt-lg-0">
-                        <h6 class="sub-title">SOME FAQ'S</h6>
-                        <h2 class="title">Creating <span>digital</span> masterpieces</h2> 
+                        <h6 class="sub-title">{{ trans('frontend.about.some_faq') }}</h6>
+                        <h2 class="title"><?php echo trans('frontend.about.faq_h2'); ?></h2> 
                     </div>
                     <div class="accordion accordion-inner style-2 accordion-icon-left mt-3" id="accordionExample">
                         @foreach($faq_questions as $faq_question)

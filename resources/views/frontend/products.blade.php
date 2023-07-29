@@ -10,11 +10,11 @@
             <div class="breadcrumb-inner">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-                        <h2 class="page-title">Products</h2>
+                        <h2 class="page-title">{{ trans('frontend.products.products') }}</h2>
                     </div>
                     <div class="col-lg-6 text-lg-end">
                         <ul class="page-list">
-                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="{{ route('home') }}">{{ trans('frontend.products.home') }}</a></li>
                             <li>{{ $categoryName }}</li>
                         </ul>
                     </div>

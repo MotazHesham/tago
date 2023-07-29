@@ -18,6 +18,9 @@
                             {{ trans('cruds.menuClientList.fields.menu_theme') }}
                         </th>
                         <th>
+                            {{ trans('cruds.menuClientList.fields.active') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.menuClientList.fields.logo') }}
                         </th>
                         <th>
@@ -36,6 +39,9 @@
                             </td>
                             <td>
                                 {{ $menuClientList->menu_theme->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $menuClientList->active == 1 ? 'Yes' : 'No' }}
                             </td>
                             <td>
                                 @if ($menuClientList->logo)

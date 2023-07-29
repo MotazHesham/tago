@@ -7,12 +7,12 @@
             <div class="breadcrumb-inner">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-                        <h2 class="page-title">Contact</h2>
+                        <h2 class="page-title">{{ trans('frontend.contact_us.contact') }}</h2>
                     </div>
                     <div class="col-lg-6 text-lg-end">
                         <ul class="page-list">
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li>Contact </li>
+                            <li><a href="{{ route('home') }}">{{ trans('frontend.contact_us.home') }}</a></li>
+                            <li>{{ trans('frontend.contact_us.contact') }} </li>
                         </ul>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                             <img src="{{ asset('frontend/img/icon/phone.png') }}" alt="img">
                         </div>
                         <div class="media-body">
-                            <h5>Contacts us</h5>
+                            <h5>{{ trans('frontend.contact_us.contact_us') }}</h5>
                             <h6>{{ $site_settings->phone_number }}</h6>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <img src="{{ asset('frontend/img/icon/email.png') }}" alt="img">
                         </div>
                         <div class="media-body">
-                            <h5>Your Email</h5>
+                            <h5>{{ trans('frontend.contact_us.email') }}</h5>
                             <h6>{{ $site_settings->email }}</h6>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                             <img src="{{ asset('frontend/img/icon/address.png') }}" alt="img">
                         </div>
                         <div class="media-body">
-                            <h5>Location</h5>
+                            <h5>{{ trans('frontend.contact_us.location') }}</h5>
                             <h6>{{ $site_settings->address }}</h6>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="section-title mb-0">
-                            <h6 class="sub-title">GET IN TOUCH</h6>
-                            <h2 class="title">Bringing Your <span>Vision</span> To Life</h2>
+                            <h6 class="sub-title">{{ trans('frontend.contact_us.get_in_touch') }}</h6>
+                            <h2 class="title"><?php echo trans('frontend.contact_us.p'); ?></h2>
                             <p class="content">
                                 <?php echo nl2br($site_settings->contact_description) ?>
                             </p>
@@ -82,32 +82,33 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="single-input-inner style-border">
-                                            <input type="text" placeholder="Your Name" name="name" required>
+                                            <input type="text" placeholder="{{ trans('frontend.contact_us.fields.name') }}" name="name" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-inner style-border">
-                                            <input type="email" placeholder="Your Email" name="email" required>
+                                            <input type="email" placeholder="{{ trans('frontend.contact_us.fields.email') }}" name="email" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-inner style-border">
-                                            <input type="text" placeholder="Your Phone" name="phone_number" required>
+                                            <input type="text" placeholder="{{ trans('frontend.contact_us.fields.phone') }}" name="phone_number" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-inner style-border">
-                                            <input type="text" placeholder="Your Subject" name="subject" required>
+                                            <input type="text" placeholder="{{ trans('frontend.contact_us.fields.subject') }}" name="subject" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single-input-inner style-border">
-                                            <textarea placeholder="Message" name="message" required></textarea>
+                                            <textarea placeholder="{{ trans('frontend.contact_us.fields.message') }}" name="message" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-black mt-0 w-100 border-radius-5" href="#">Submit
-                                            now</button>
+                                        <button type="submit" class="btn btn-black mt-0 w-100 border-radius-5" href="#"> 
+                                            {{ trans('frontend.contact_us.submit') }}
+                                        </button>
                                     </div>
                                 </div>
                             </form>

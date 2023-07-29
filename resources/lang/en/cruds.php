@@ -651,6 +651,8 @@ return [
             'menu_client_helper'         => ' ',
             'categories'                => 'Categories',
             'categories_helper'         => ' ',
+            'active'                => 'Active',
+            'active_helper'         => ' ',
         ],
     ],
     'menuCategory' => [

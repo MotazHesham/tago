@@ -24,7 +24,11 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}">
+    @if (app()->getLocale() == 'ar') 
+        <link rel="stylesheet" href="{{ asset('frontend/css/dashboard_ar.css') }}">
+    @else 
+        <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}">
+    @endif
 
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 

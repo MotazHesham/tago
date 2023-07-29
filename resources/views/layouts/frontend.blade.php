@@ -29,7 +29,11 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slick.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    @if (app()->getLocale() == 'ar') 
+        <link rel="stylesheet" href="{{ asset('frontend/css/style_ar.css') }}">
+    @else 
+        <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    @endif
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 
 
@@ -49,19 +53,7 @@
 
 </head>
 
-<body>
-
-    <!-- preloader area start -->
-    <!-- <div class="preloader" id="preloader">
-        <div class="preloader-inner">
-            <div class="spinner">
-                <div class="dot1"></div>
-                <div class="dot2"></div>
-            </div>
-        </div>
-    </div> -->
-    <!-- preloader area end -->
-
+<body> 
     <!-- search popup end-->
     <div class="body-overlay" id="body-overlay"></div>
 
@@ -82,13 +74,13 @@
             <div class="collapse navbar-collapse" id="itech_main_menu">
                 <ul class="navbar-nav menu-open text-lg-end">
                     <li>
-                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('home') }}">{{ trans('frontend.header.home') }}</a>
 
                     </li>
-                    <li> <a href="{{ route('frontend.about') }}">about</a> </li>
+                    <li> <a href="{{ route('frontend.about') }}">{{ trans('frontend.header.about') }}</a> </li>
 
                     <li class="menu-item-has-children">
-                        <a href="#">Products</a>
+                        <a href="#">{{ trans('frontend.header.products') }}</a>
                         <ul class="sub-menu">
                             @foreach (\App\Models\ProductCategory::all() as $category)
                                 <li>
@@ -97,27 +89,37 @@
                                     </a>
                                 </li>
                             @endforeach
-                            <li><a href="{{ route('frontend.products',0) }}">All Products</a></li>
+                            <li><a href="{{ route('frontend.products',0) }}">{{ trans('frontend.header.all_products') }}</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('frontend.tutorials') }}">Tutorials </a></li>
+                    <li><a href="{{ route('frontend.tutorials') }}">{{ trans('frontend.header.tutorials') }}</a></li>
 
 
 
 
-                    <li><a href="{{ route('frontend.contact') }}">Contact Us</a></li>
+                    <li><a href="{{ route('frontend.contact') }}">{{ trans('frontend.header.contact_us') }}</a></li>
                 </ul>
             </div>
             <div class="nav-right-part nav-right-part-desktop align-self-center">
                 <a class="navbar-phone" href="{{ route('login') }}">
-                    <h5>@auth Dashboard @else Login @endauth</h5>
+                    <h5>@auth {{ trans('frontend.header.dashboard') }} @else {{ trans('frontend.header.login') }} @endauth</h5>
                 </a>
             </div>
 
             <div class="">
-                <div class="lang"><a href="tago-arabic.html"><i class="fa fa-globe" aria-hidden="true"></i> Ar </a>
-                </div>
-
+                <div class="lang"> 
+                    @if(app()->getLocale() == 'ar')
+                        <a href="{{ url()->current() }}?change_language=en">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            En 
+                        </a>
+                    @else 
+                        <a href="{{ url()->current() }}?change_language=ar">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            Ar 
+                        </a>
+                    @endif
+                </div> 
             </div>
 
 
@@ -141,8 +143,8 @@
                             <div class="col-lg-12 align-self-center text-lg-end">
                                 <form action="{{ route('frontend.subscribe') }}" method="POST">
                                     @csrf 
-                                    <input type="text" placeholder="Your e-mail address" name="email">
-                                    <button type="submit" class="btn  border-radius-10" href="#">Submit now</button>
+                                    <input type="text" placeholder="{{ trans('frontend.footer.email') }}" name="email">
+                                    <button type="submit" class="btn  border-radius-10">{{ trans('frontend.footer.submit') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -165,23 +167,23 @@
                 </div>
                 <div class="col-lg-3 col-6">
                     <div class="widget widget_nav_menu">
-                        <h4 class="widget-title">Quick links</h4>
+                        <h4 class="widget-title">{{ trans('frontend.footer.quick_links') }}</h4>
                         <ul>
-                            <li><a href="{{ route('home') }}"><i class="fas fa-arrow-right"></i> Home</a></li>
-                            <li><a href="{{ route('frontend.products',0) }}"><i class="fas fa-arrow-right"></i> Products</a></li>
-                            <li><a href="{{ route('frontend.about') }}"><i class="fas fa-arrow-right"></i> About Us </a></li>
-                            <li><a href="{{ route('frontend.tutorials') }}"><i class="fas fa-arrow-right"></i> Tutorials</a></li>
-                            <li><a href="{{ route('frontend.contact') }}"><i class="fas fa-arrow-right"></i> Contact Us</a></li> 
+                            <li><a href="{{ route('home') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.home') }}</a></li>
+                            <li><a href="{{ route('frontend.products',0) }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.products') }}</a></li>
+                            <li><a href="{{ route('frontend.about') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.about_us') }}</a></li>
+                            <li><a href="{{ route('frontend.tutorials') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.tutorials') }}</a></li>
+                            <li><a href="{{ route('frontend.contact') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.contact_us') }}</a></li> 
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-6">
                     <div class="widget widget_nav_menu">
-                        <h4 class="widget-title">Products</h4>
+                        <h4 class="widget-title">{{ trans('frontend.footer.products') }}</h4>
                         <ul> 
                             @foreach (\App\Models\ProductCategory::orderBy('created_at','desc')->take(6)->get() as $category)
                                 <li>
-                                    <i class="fas fa-arrow-right"></i>
+                                    <i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>
                                     <a href="{{ route('frontend.products', $category->id) }}">
                                         {{ $category->name }}
                                     </a>
@@ -192,7 +194,7 @@
                 </div>
                 <div class="col-lg-3 col-12 ">
                     <div class="widget widget-recent-post">
-                        <h4 class="widget-title">KEEP IN TOUCH </h4>
+                        <h4 class="widget-title">{{ trans('frontend.footer.keep_in_touch') }}</h4>
                         <ul class="social-media">
                             <li>
                                 <a href="{{ $site_settings->facebook }}">
@@ -240,62 +242,61 @@
     @isset($not_include_cart_popup)
         {{-- nothing to show --}}
     @else 
-    <div class="cd-cart js-cd-cart">
-        <a href="#0" class="cd-cart__trigger text-replace">
-            Cart
-            <ul class="cd-cart__count">
-                <!-- cart items count -->
-                <li>{{ session('cart') ? count(session('cart')) : 0 }}</li> 
-                <li>{{ session('cart') ? count(session('cart')) : 0 }}</li> 
-            </ul> <!-- .cd-cart__count -->
-        </a>
+        <div class="cd-cart js-cd-cart">
+            <a href="#0" class="cd-cart__trigger text-replace">
+                {{ trans('frontend.cart.cart') }}
+                <ul class="cd-cart__count">
+                    <!-- cart items count -->
+                    <li>{{ session('cart') ? count(session('cart')) : 0 }}</li> 
+                    <li>{{ session('cart') ? count(session('cart')) : 0 }}</li> 
+                </ul> <!-- .cd-cart__count -->
+            </a>
 
-        <div class="cd-cart__content">
-            <div class="cd-cart__layout">
-                <header class="cd-cart__header">
-                    <h2>Cart</h2>
-                    <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
-                </header>
+            <div class="cd-cart__content">
+                <div class="cd-cart__layout">
+                    <header class="cd-cart__header">
+                        <h2>{{ trans('frontend.cart.cart') }}</h2>
+                        <span class="cd-cart__undo">{{ trans('frontend.cart.item_removed') }}<a href="#0">{{ trans('frontend.cart.undo') }}</a></span>
+                    </header>
 
-                <div class="cd-cart__body">
-                    <ul>
-                        @php 
-                            $total = 0
-                        @endphp
-                        @if(session('cart'))
-                            @foreach(session('cart') as $cart)
-                                @php
-                                    $product = \App\Models\Product::find($cart['product_id']);
-                                    if($product){
-                                        $total += ($product->price * $cart['quantity']);
-                                    }
-                                @endphp
-                                @if($product)
-                                    @include('frontend.partials.cartItem',['product' => $product, 'quantity' => $cart['quantity']])
-                                @endif 
-                            @endforeach
-                        @endif
-                    </ul>
+                    <div class="cd-cart__body">
+                        <ul>
+                            @php 
+                                $total = 0
+                            @endphp
+                            @if(session('cart'))
+                                @foreach(session('cart') as $cart)
+                                    @php
+                                        $product = \App\Models\Product::find($cart['product_id']);
+                                        if($product){
+                                            $total += ($product->price * $cart['quantity']);
+                                        }
+                                    @endphp
+                                    @if($product)
+                                        @include('frontend.partials.cartItem',['product' => $product, 'quantity' => $cart['quantity']])
+                                    @endif 
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+
+                    <footer class="cd-cart__footer">
+                        <a href="{{ route('frontend.cart') }}" class="cd-cart__checkout">
+                            <em>{{ trans('frontend.cart.checkout') }} - <span>{{ frontend_currency($total)['price'] }}</span> {{frontend_currency($total)['symbol']}}
+                                <svg class="icon icon--sm" viewBox="0 0 24 24">
+                                    <g fill="none" stroke="currentColor">
+                                        <line stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            x1="3" y1="12" x2="21" y2="12" />
+                                        <polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            points="15,6 21,12 15,18 " />
+                                    </g>
+                                </svg>
+                            </em>
+                        </a>
+                    </footer>
                 </div>
-
-                <footer class="cd-cart__footer">
-                    <a href="{{ route('frontend.cart') }}" class="cd-cart__checkout">
-                        <em>Checkout - <span>{{ frontend_currency($total)['price'] }}</span> {{frontend_currency($total)['symbol']}}
-                            <svg class="icon icon--sm" viewBox="0 0 24 24">
-                                <g fill="none" stroke="currentColor">
-                                    <line stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        x1="3" y1="12" x2="21" y2="12" />
-                                    <polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        points="15,6 21,12 15,18 " />
-                                </g>
-                            </svg>
-                        </em>
-                    </a>
-                </footer>
-            </div>
-        </div> <!-- .cd-cart__content -->
-    </div> <!-- cd-cart -->
-
+            </div> <!-- .cd-cart__content -->
+        </div> <!-- cd-cart --> 
     @endisset
 
     <!-- back to top area start -->
@@ -326,12 +327,7 @@
 
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner sponsors_inner">
-
-            <iframe class="youtube-video" src="https://www.youtube.com/embed/5kW0RtcJZC8"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-
+            <?php echo $site_settings->how_it_work ?>
             <a class="popup-close " data-popup-close="popup-1" href="#">x</a>
         </div>
 
