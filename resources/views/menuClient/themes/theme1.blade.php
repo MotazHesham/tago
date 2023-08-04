@@ -113,6 +113,7 @@
             right: 20px;
             font: 25px cookie, cursive;
             color: #fff;
+            font-family: 
         }
 
         .menu_warp {

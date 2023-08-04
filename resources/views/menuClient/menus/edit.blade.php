@@ -30,6 +30,75 @@
                     <span class="help-block">{{ trans('cruds.menuClientList.fields.menu_theme_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
+                    <label for="link">{{ trans('cruds.menuClientList.fields.link') }} <b>( my-tago.com/{your-link} )</b></label>
+                    <input class="form-control {{ $errors->has('link') ? 'is-invalid' : '' }}" type="text"
+                        name="link" id="link" value="{{ old('link', $menuClientList->link) }}" required>
+                    @if ($errors->has('link'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('link') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.link_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="title">{{ trans('cruds.menuClientList.fields.title') }}</label>
+                    <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text"
+                        name="title" id="title" value="{{ old('title', $menuClientList->title) }}">
+                    @if ($errors->has('title'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('title') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.title_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="font_color">{{ trans('cruds.menuClientList.fields.font_color') }}</label>
+                    <input class="form-control {{ $errors->has('font_color') ? 'is-invalid' : '' }}" type="color"
+                        name="font_color" id="font_color" value="{{ old('font_color', $menuClientList->font_color) }}">
+                    @if ($errors->has('font_color'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('font_color') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.font_color_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="header_color">{{ trans('cruds.menuClientList.fields.header_color') }}</label>
+                    <input class="form-control {{ $errors->has('header_color') ? 'is-invalid' : '' }}" type="color"
+                        name="header_color" id="header_color" value="{{ old('header_color', $menuClientList->header_color) }}">
+                    @if ($errors->has('header_color'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('header_color') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.header_color_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="font_family">{{ trans('cruds.menuClientList.fields.font_family') }}</label> 
+                        <select class="form-control {{ $errors->has('font_family') ? 'is-invalid' : '' }}" name="font_family" id="" required>
+                            @foreach(\App\Models\MenuClientList::FONT_FAMILY_SELECT as $key => $entry)
+                                <option value="{{$key}}" style="font-family: {{$key}}" @if($key == $menuClientList->font_family) selected @endif>{{$entry}}</option> 
+                            @endforeach 
+                        </select>
+                    @if ($errors->has('font_family'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('font_family') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.font_family_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="logo_size">{{ trans('cruds.menuClientList.fields.logo_size') }}</label>
+                    <input class="form-control {{ $errors->has('logo_size') ? 'is-invalid' : '' }}" type="number"
+                        name="logo_size" id="logo_size" value="{{ old('logo_size', $menuClientList->logo_size) }}" required>
+                    @if ($errors->has('logo_size'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('logo_size') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.logo_size_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="facebook">{{ trans('cruds.menuClientList.fields.facebook') }}</label>
                     <input class="form-control {{ $errors->has('facebook') ? 'is-invalid' : '' }}" type="text"
                         name="facebook" id="facebook" value="{{ old('facebook', $menuClientList->facebook) }}">
@@ -130,7 +199,7 @@
                         </div>
                     @endif 
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label class="required" for="logo">{{ trans('cruds.menuClientList.fields.logo') }}</label>
                     <div class="needsclick dropzone {{ $errors->has('logo') ? 'is-invalid' : '' }}" id="logo-dropzone">
                     </div>
@@ -141,7 +210,18 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.menuClientList.fields.logo_helper') }}</span>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                    <label class="required" for="background">{{ trans('cruds.menuClientList.fields.background') }}</label>
+                    <div class="needsclick dropzone {{ $errors->has('background') ? 'is-invalid' : '' }}" id="background-dropzone">
+                    </div>
+                    @if ($errors->has('background'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('background') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.background_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="about_us">{{ trans('cruds.menuClientList.fields.about_us') }}</label>
                     <textarea class="form-control ckeditor {{ $errors->has('about_us') ? 'is-invalid' : '' }}" name="about_us"
                         id="about_us">{!! old('about_us', $menuClientList->about_us) !!}</textarea>
@@ -200,6 +280,60 @@
                 this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
                 file.previewElement.classList.add('dz-complete')
                 $('form').append('<input type="hidden" name="logo" value="' + file.file_name + '">')
+                this.options.maxFiles = this.options.maxFiles - 1
+            @endif
+        },
+        error: function(file, response) {
+            if ($.type(response) === 'string') {
+                var message = response //dropzone sends it's own error messages in string
+            } else {
+                var message = response.errors.file
+            }
+            file.previewElement.classList.add('dz-error')
+            _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+            _results = []
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i]
+                _results.push(node.textContent = message)
+            }
+
+            return _results
+        }
+    })
+</script>
+<script> 
+    $("#background-dropzone").dropzone({
+        url: '{{ route('menuClient.menus.storeMedia') }}',
+        maxFilesize: 2, // MB
+        acceptedFiles: '.jpeg,.jpg,.png,.gif',
+        maxFiles: 1,
+        addRemoveLinks: true,
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        params: {
+            size: 2,
+            width: 4096,
+            height: 4096
+        },
+        success: function(file, response) {
+            $('form').find('input[name="background"]').remove()
+            $('form').append('<input type="hidden" name="background" value="' + response.name + '">')
+        },
+        removedfile: function(file) {
+            file.previewElement.remove()
+            if (file.status !== 'error') {
+                $('form').find('input[name="background"]').remove()
+                this.options.maxFiles = this.options.maxFiles + 1
+            }
+        },
+        init: function() {
+            @if (isset($menuClientList) && $menuClientList->background)
+                var file = {!! json_encode($menuClientList->background) !!}
+                this.options.addedfile.call(this, file)
+                this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
+                file.previewElement.classList.add('dz-complete')
+                $('form').append('<input type="hidden" name="background" value="' + file.file_name + '">')
                 this.options.maxFiles = this.options.maxFiles - 1
             @endif
         },

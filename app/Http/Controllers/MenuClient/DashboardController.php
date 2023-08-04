@@ -44,9 +44,12 @@ class DashboardController extends Controller
         }
     }
 
-    public function menu($id){
+    public function menu($link){
 
-        $menuClientList = MenuClientList::findOrFail($id);
+        $menuClientList = MenuClientList::where('link',$link)->first();
+        if(!$menuClientList){
+            return abort(404,'Not Available Right Now.');
+        }
         $menuClientList->load('categories.products'); 
         
         $menuClient = MenuClient::find($menuClientList->menu_client_id);
@@ -112,9 +115,14 @@ class DashboardController extends Controller
         return redirect()->route('menuClient.settings');
     }
 
+    public function show_photos(Request $request){
+        $menuProduct = MenuProduct::find($request->id);
+        return view('menuClient.partials.photos',compact('menuProduct'));
+    }
+
     public function show_qr_code(Request $request){
-        $id = $request->id;
-        return view('partials.qr_code',compact('id'));
+        $text = $request->text;
+        return view('menuClient.partials.qr_code',compact('text'));
     }
 
     public function dashboard(){

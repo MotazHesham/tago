@@ -28,6 +28,21 @@ class StoreMenuClientListRequest extends FormRequest
             'logo' => [
                 'required',
             ],
+            'link' => [
+                'required',
+                'unique:menu_client_lists,link',
+                'regex:/^[A-Za-z][A-Za-z0-9_-]{3,29}$/'
+            ],
+            'title' => [
+                'nullable',
+            ],
+            'font_family' => [
+                'required',
+            ],
+            'logo_size' => [
+                'required',
+                'integer',
+            ],
             'about_us' => [
                 'nullable',
             ],

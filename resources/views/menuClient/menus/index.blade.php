@@ -170,6 +170,7 @@
                             <tr>
                                 <th>id</th>
                                 <th>Theme</th> 
+                                <th>link</th> 
                                 <th>Active</th> 
                                 <th> </th>
                             </tr>
@@ -178,10 +179,11 @@
                                 <tr data-entry-id="{{ $menu->id }}">
                                     <td>{{ $menu->id ?? '' }}</td>
                                     <td>{{ $menu->menu_theme->name ?? '' }}</td> 
+                                    <td>{{ $menu->link ?? '' }}</td> 
                                     <td>{{ $menu->active ? 'Yes' : 'No' }}</td> 
                                     <td>
-                                        <a class="btn btn-outline-dark btn-sm" onclick="show_qr_code('{{$menu->id}}')">Qr Code</a>
-                                        <a class="btn btn-outline-success btn-sm" href="{{ route('menu',$menu->id) }}" target="_blanc">Preview</a>
+                                        <a class="btn btn-outline-dark btn-sm" onclick="show_qr_code('{{route('menu',$menu->link)}}')">Qr Code</a>
+                                        <a class="btn btn-outline-success btn-sm" href="{{ route('menu',$menu->link) }}" target="_blanc">Preview</a>
                                         <a class="btn btn-outline-warning btn-sm" href="{{ route('menuClient.menus.active',$menu->id) }}">{{ $menu->active ? 'DeActive' : 'Active' }}</a>
                                         <a class="btn btn-outline-primary btn-sm" onclick="edit_menu('{{ route('menuClient.menus.edit', $menu->id) }}','{{$menu->id}}')">{{ trans('global.edit') }}</a>
                                         <form action="{{ route('menuClient.menus.destroy', $menu->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">

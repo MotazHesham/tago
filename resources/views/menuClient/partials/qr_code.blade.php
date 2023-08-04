@@ -5,9 +5,9 @@
     </div>
     <div class="modal-body text-center">
         @production
-            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->generate($id)) !!} ">
+            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->generate($text)) !!} ">
         @else
-            {!! QrCode::size(500)->generate($id) !!}
+            {!! QrCode::size(500)->generate($text) !!}
         @endproduction
     </div>
 </div>

@@ -7,12 +7,12 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $menuClient->user->name ?? '' }}</title>
+    <title>{{ $menuClientList->link ?? '' }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-    <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family={{$menuClientList->font_family}}" rel="stylesheet">
 
     <link href="{{ asset('frontend/menus/theme1/model.css') }}" rel="stylesheet" type="text/css" />
 
@@ -50,7 +50,7 @@
             margin: 5px 10px;
             border-bottom: 2px solid var(--wesbos);
             border-radius: 0x;
-            color: #292929;
+            color: {{ $menuClientList->font_color ?? '#292929' }};
             font-weight: bold;
             text-decoration: none;
             letter-spacing: 1px;
@@ -58,7 +58,7 @@
         }
 
         .multipleTabs a.active {
-            background: #333;
+            background: {{ $menuClientList->header_color ?? 'black' }};
             color: #fff;
         }
 
@@ -112,7 +112,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            font: 25px cookie, cursive;
+            font: 25px {{$menuClientList->font_family}}, cursive;
             color: #fff;
         }
 
@@ -145,7 +145,7 @@
 
         .item__title {
             font: 35px;
-            color: #000;
+            color: {{ $menuClientList->font_color ?? 'black' }};
             margin: 0;
         }
 
@@ -217,8 +217,9 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            font-family: {{$menuClientList->font_family}},-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                 Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            color: {{$menuClientList->font_color ?? 'black'}}
         }
 
         .wrapper {
@@ -230,14 +231,14 @@
             margin-top: 30px;
             border-bottom: 4px solid var(--wesbos);
             margin-top: 0;
-            font: 80px cookie, cursive;
+            font: 80px {{$menuClientList->font_family}}, cursive;
             text-align: center;
             color: #fff;
             margin-bottom: 0;
         }
 
         .cover {
-            background-color: #000;
+            background-color: {{ $menuClientList->header_color ?? 'black' }};
             padding: 10px 0 0 0;
         }
 
@@ -365,14 +366,16 @@
     </script> 
 </head>
 
-<body translate="no" style="background-image: url('{{asset('frontend/menus/theme1/menu_bg.jpg')}}')">
+<body translate="no" style="background-image: url('{{ $menuClientList->background ? $menuClientList->background->getUrl() : asset('frontend/menus/theme1/menu_bg.jpg')}}')">
 
     <div class="cover">
         <div class="container">
-            <div class="logo"><img src="{{ $menuClientList->logo ? $menuClientList->logo->getUrl() : '' }}" width="100"> </div>
+            <div class="logo">
+                <img src="{{ $menuClientList->logo ? $menuClientList->logo->getUrl() : '' }}" width="{{ $menuClientList->logo_size ?? '100' }}" style="padding-bottom: 15px;">
+            </div>
             <a class="btn about-btn" data-popup-open="popup-1" href="#">About us</a>
 
-            <h2>Our Menu</h2>
+            <h2>{{ $menuClientList->title ?? '' }}</h2>
         </div>
     </div>
 
@@ -387,7 +390,7 @@
             <div class="next-control">Next</div>
         </nav>
         @foreach($menuClientList->categories as $category)
-            <div id="content-{{$category->id}}" class="tabcontent wow fadeIn" data-wow-duration="3s" data-wow-delay="1s ">
+            <div id="content-{{$category->id}}" class="tabcontent wow fadeIn" data-wow-duration="1s" data-wow-delay="1s ">
 
                 <div class="bannerimage" style="background-image: url('{{ $category->banner ? $category->banner->getUrl() : '' }}');"></div>
 
@@ -399,7 +402,7 @@
                                 <span class="item__dots"></span>
                                 <span class="item__price">{{ $product->price ?? '' }} EGP</span>
                             </div>
-                            <p class="item__description"><?php echo nl2br($product->description); ?> </p>
+                            <p class="item__description"><?php echo nl2br($product->description); ?> <b style="text-weight:bold;cursor: pointer;" onclick="show_photos('{{ $product->id }}')" data-popup-open="popup-2">(pictures)</b> </p>
                         </div> 
                     @endforeach
                 </div> <!-- End Pizza Menu --> 
@@ -442,6 +445,27 @@
 
 
     </div>
+
+    <div class="popup" data-popup="popup-1">
+        <div class="popup-inner sponsors_inner">
+
+            <h3>About us</h3>
+            <p> 
+                <?php echo nl2br($menuClientList->about_us); ?>
+            </p>
+            <a class="popup-close " data-popup-close="popup-1" href="#">x</a>
+        </div>  
+    </div>
+    
+    <div class="popup" data-popup="popup-2" style="z-index: 1;">
+        <div class="popup-inner sponsors_inner">
+            <div  id="product-photos" style="overflow: scroll; height: 455px;">
+                {{-- ajax call --}}
+            </div> 
+            <a class="popup-close " data-popup-close="popup-2" href="#">x</a>
+        </div>  
+    </div>
+    
     <!-- The social media icon bar -->
     <div class="icon-bar">
         @if($menuClientList->facebook) <a href="{{ $menuClientList->facebook }}" class="facebook"><i class="fa fa-facebook"></i></a>@endif
@@ -462,6 +486,17 @@
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script id="rendered-js">
+        
+        function show_photos(id){
+            $.post('{{ route('menuClient.show_photos') }}', {
+                _token: '{{ csrf_token() }}',
+                id: id
+            }, function(data) {
+                $('#product-photos').html(null); 
+                $('#product-photos').html(data); 
+            });
+        }
+        
         var activeTab = $(".multipleTabs").find('a.active').data('trigger');
         $('#' + activeTab).show();
 

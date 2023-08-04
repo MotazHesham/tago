@@ -19,6 +19,7 @@ class MenuProduct extends Model implements HasMedia
 
     protected $appends = [
         'banner',
+        'photos',
     ];
 
     protected $dates = [
@@ -58,10 +59,21 @@ class MenuProduct extends Model implements HasMedia
             $file->url       = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');
             $file->preview   = $file->getUrl('preview'); 
-            $file->preview2   = $file->getUrl('preview2'); 
         }
 
         return $file;
+    }
+    
+    public function getPhotosAttribute()
+    {
+        $files = $this->getMedia('photos');
+        $files->each(function ($item) {
+            $item->url       = $item->getUrl();
+            $item->thumbnail = $item->getUrl('thumb');
+            $item->preview   = $item->getUrl('preview');
+        });
+
+        return $files;
     }
 
     public function menu_category()

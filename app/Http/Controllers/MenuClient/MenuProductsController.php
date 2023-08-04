@@ -44,6 +44,20 @@ class MenuProductsController extends Controller
             $menuProduct->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
         }
 
+        if (count($menuProduct->photos) > 0) {
+            foreach ($menuProduct->photos as $media) {
+                if (! in_array($media->file_name, $request->input('photos', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $menuProduct->photos->pluck('file_name')->toArray();
+        foreach ($request->input('photos', []) as $file) {
+            if (count($media) === 0 || ! in_array($file, $media)) {
+                $menuProduct->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photos');
+            }
+        }
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $menuProduct->id]);
         }
@@ -76,6 +90,20 @@ class MenuProductsController extends Controller
             $menuProduct->banner->delete();
         }
 
+        if (count($menuProduct->photos) > 0) {
+            foreach ($menuProduct->photos as $media) {
+                if (! in_array($media->file_name, $request->input('photos', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $menuProduct->photos->pluck('file_name')->toArray();
+        foreach ($request->input('photos', []) as $file) {
+            if (count($media) === 0 || ! in_array($file, $media)) {
+                $menuProduct->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photos');
+            }
+        }
+        
         return redirect()->route('menuClient.menu-products.index');
     } 
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route; 
 
-Route::get('menu/{id}','MenuClient\DashboardController@menu')->name('menu'); 
+Route::get('menu/{link}','MenuClient\DashboardController@menu')->name('menu'); 
 Route::get('check_subscription','MenuClient\DashboardController@check_subscription')->name('check_subscription'); 
 
 Route::group(['prefix' => 'menu-client' , 'as' => 'menuClient.', 'namespace' => 'MenuClient'], function () {
@@ -16,6 +16,7 @@ Route::group(['prefix' => 'menu-client' , 'as' => 'menuClient.', 'namespace' => 
         Route::post('settings/media', 'DashboardController@storeMedia')->name('settings.storeMedia');
         Route::post('settings/ckmedia', 'DashboardController@storeCKEditorImages')->name('settings.storeCKEditorImages');
         Route::post('show_qr_code', 'DashboardController@show_qr_code')->name('show_qr_code');
+        Route::post('show_photos', 'DashboardController@show_photos')->name('show_photos');
 
         // Menus
         Route::get('menus/active/{id}', 'MenuThemeController@menu_active')->name('menus.active');

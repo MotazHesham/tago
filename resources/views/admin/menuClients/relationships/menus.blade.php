@@ -54,7 +54,7 @@
                             <td>
                                 @can('menu_client_list_show')
                                     <a class="btn btn-xs btn-primary"
-                                        href="{{ route('menu',$menuClientList->id) }}" target="_blanc">
+                                        href="{{ route('menu',$menuClientList->link) }}" target="_blanc">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan

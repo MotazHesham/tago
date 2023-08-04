@@ -17,9 +17,54 @@ class MenuClientList extends Model implements HasMedia
 
     protected $appends = [
         'logo',
+        'background',
     ];
 
     public $table = 'menu_client_lists';
+
+    public const FONT_FAMILY_SELECT = [
+        "Arial" => "Arial", 
+        "cursive" => "Cursive",
+        "Courier" => "Courier",  
+        "Tahoma" => "Tahoma", 
+        "serif" => "Serif", 
+        "Rubik" => "Rubik",  
+        "Borel" => "Borel", 
+        "Cairo" => "Cairo", 
+        "Lato" => "Lato", 
+        "REM" => "REM", 
+        "Inter" => "Inter", 
+        "Roboto Mono" => "Roboto Mono", 
+        "Oswald" => "Oswald", 
+        "Raleway" => "Raleway", 
+        "Roboto Slab" => "Roboto Slab", 
+        "Handjet" => "Handjet", 
+        "Nunito" => "Nunito",  
+        "Mukta" => "Mukta", 
+        "Edu SA Beginner" => "Edu SA Beginner", 
+        "Victor Mono" => "Victor Mono", 
+        "Dosis" => "Dosis", 
+        "Anton" => "Anton", 
+        "Abel" => "Abel", 
+        "Dancing Script" => "Dancing Script", 
+        "Source Code Pro" => "Source Code Pro", 
+        "EB Garamond" => "EB Garamond", 
+        "Barlow Condensed" => "Barlow Condensed", 
+        "Vina Sans" => "Vina Sans", 
+        "Crimson Text" => "Crimson Text", 
+        "Pacifico" => "Pacifico", 
+        "Teko" => "Teko", 
+        "Fjalla One" => "Fjalla One", 
+        "IBM Plex Mono" => "IBM Plex Mono", 
+        "Arvo" => "Arvo", 
+        "Asap" => "Asap", 
+        "Caveat" => "Caveat", 
+        "Abril Fatface" => "Abril Fatface", 
+        "Shadows Into Light" => "Shadows Into Light", 
+        "Indie Flower" => "Indie Flower", 
+        "Play" => "Play", 
+        "Cookie" => "Cookie", 
+    ];
 
     protected $dates = [
         'created_at',
@@ -28,6 +73,12 @@ class MenuClientList extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'link',
+        'title',
+        'font_family',
+        'font_color',
+        'header_color',
+        'logo_size',
         'about_us',
         'facebook',
         'twitter',
@@ -69,6 +120,18 @@ class MenuClientList extends Model implements HasMedia
     public function getLogoAttribute()
     {
         $file = $this->getMedia('logo')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
+    }
+
+    public function getBackgroundAttribute()
+    {
+        $file = $this->getMedia('background')->last();
         if ($file) {
             $file->url       = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');

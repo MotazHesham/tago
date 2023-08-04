@@ -58,7 +58,16 @@
         textarea {
             min-height: 180px;
         }
+
+        .help-block{
+            color: #af7b89;
+            font-size: 13px;
+        }
     </style>
+    
+    @foreach(\App\Models\MenuClientList::FONT_FAMILY_SELECT as $key => $entry) 
+        <link href="https://fonts.googleapis.com/css?family={{$key}}" rel="stylesheet">
+    @endforeach
     @yield('styles')
 </head>
 
@@ -197,10 +206,10 @@
 
     
     <script>
-        function show_qr_code(id){
+        function show_qr_code(text){
             $.post('{{ route('menuClient.show_qr_code') }}', {
                 _token: '{{ csrf_token() }}',
-                id: id
+                text: text
             }, function(data) {
                 $('#AjaxModal .modal-dialog').html(null);
                 $('#AjaxModal').modal('show');

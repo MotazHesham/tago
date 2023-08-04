@@ -86,6 +86,10 @@ class MenuThemeController extends Controller
             $menuClientList->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
         }
 
+        if ($request->input('background', false)) {
+            $menuClientList->addMedia(storage_path('tmp/uploads/' . basename($request->input('background'))))->toMediaCollection('background');
+        }
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $menuClientList->id]);
         } 
@@ -118,6 +122,17 @@ class MenuThemeController extends Controller
             }
         } elseif ($menuClientList->logo) {
             $menuClientList->logo->delete();
+        }
+
+        if ($request->input('background', false)) {
+            if (! $menuClientList->background || $request->input('background') !== $menuClientList->background->file_name) {
+                if ($menuClientList->background) {
+                    $menuClientList->background->delete();
+                }
+                $menuClientList->addMedia(storage_path('tmp/uploads/' . basename($request->input('background'))))->toMediaCollection('background');
+            }
+        } elseif ($menuClientList->background) {
+            $menuClientList->background->delete();
         }
 
         return redirect()->route('menuClient.menus.index');

@@ -10,6 +10,12 @@ class CreateMenuClientListsTable extends Migration
     {
         Schema::create('menu_client_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('link')->unique();
+            $table->string('title')->nullable();
+            $table->string('font_family')->nullable();
+            $table->string('font_color')->nullable();
+            $table->string('header_color')->nullable();
+            $table->integer('logo_size')->nullable();
             $table->longText('about_us')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
