@@ -402,7 +402,10 @@
                                 <span class="item__dots"></span>
                                 <span class="item__price">{{ $product->price ?? '' }} EGP</span>
                             </div>
-                            <p class="item__description"><?php echo nl2br($product->description); ?> <b style="text-weight:bold;cursor: pointer;" onclick="show_photos('{{ $product->id }}')" data-popup-open="popup-2">(pictures)</b> </p>
+                            <p class="item__description">
+                                <?php echo nl2br($product->description); ?>
+                                @if($product->photos->count() > 0) <b style="text-weight:bold;cursor: pointer;" onclick="show_photos('{{ $product->id }}')" data-popup-open="popup-2">(pictures)</b> @endif
+                            </p>
                         </div> 
                     @endforeach
                 </div> <!-- End Pizza Menu --> 
