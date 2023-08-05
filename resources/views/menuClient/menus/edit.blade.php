@@ -88,6 +88,17 @@
                     <span class="help-block">{{ trans('cruds.menuClientList.fields.font_family_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
+                    <label for="header_size">{{ trans('cruds.menuClientList.fields.header_size') }}</label>
+                    <input class="form-control {{ $errors->has('header_size') ? 'is-invalid' : '' }}" type="number"
+                        name="header_size" id="header_size" value="{{ old('header_size',$menuClientList->header_size) }}" required>
+                    @if ($errors->has('header_size'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('header_size') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.menuClientList.fields.header_size_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="logo_size">{{ trans('cruds.menuClientList.fields.logo_size') }}</label>
                     <input class="form-control {{ $errors->has('logo_size') ? 'is-invalid' : '' }}" type="number"
                         name="logo_size" id="logo_size" value="{{ old('logo_size', $menuClientList->logo_size) }}" required>

@@ -79,6 +79,7 @@ class MenuClientList extends Model implements HasMedia
         'font_color',
         'header_color',
         'logo_size',
+        'header_size',
         'about_us',
         'facebook',
         'twitter',

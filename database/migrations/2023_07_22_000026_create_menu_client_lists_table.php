@@ -15,6 +15,7 @@ class CreateMenuClientListsTable extends Migration
             $table->string('font_family')->nullable();
             $table->string('font_color')->nullable();
             $table->string('header_color')->nullable();
+            $table->integer('header_size')->nullable();
             $table->integer('logo_size')->nullable();
             $table->longText('about_us')->nullable();
             $table->string('facebook')->nullable();

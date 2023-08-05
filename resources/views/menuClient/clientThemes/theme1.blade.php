@@ -230,7 +230,7 @@
             margin-top: 30px;
             border-bottom: 4px solid var(--wesbos);
             margin-top: 0;
-            font: 80px {{$menuClientList->font_family}}, cursive;
+            font: {{$menuClientList->header_size ?? 80}}px {{$menuClientList->font_family}}, cursive;
             text-align: center;
             color: #fff;
             margin-bottom: 0;

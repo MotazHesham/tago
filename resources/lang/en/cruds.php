@@ -667,6 +667,8 @@ return [
             'header_color_helper'         => ' ',
             'logo_size'                => 'Logo Size',
             'logo_size_helper'         => ' ',
+            'header_size'                => 'Header Size',
+            'header_size_helper'         => ' ',
         ],
     ],
     'menuCategory' => [
