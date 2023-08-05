@@ -7,7 +7,8 @@ Route::get('check_subscription','MenuClient\DashboardController@check_subscripti
 
 Route::group(['prefix' => 'menu-client' , 'as' => 'menuClient.', 'namespace' => 'MenuClient'], function () {
 
-    Route::get('theme/{id}','MenuThemeController@menu_theme')->name('theme');
+    Route::get('theme/{id}','MenuThemeController@menu_theme')->name('theme'); 
+    Route::post('show_photos', 'DashboardController@show_photos')->name('show_photos');
     
     Route::group(['middleware' => ['menuClient','auth']], function () {
         Route::get('dashboard','DashboardController@dashboard')->name('home'); 
@@ -16,7 +17,6 @@ Route::group(['prefix' => 'menu-client' , 'as' => 'menuClient.', 'namespace' => 
         Route::post('settings/media', 'DashboardController@storeMedia')->name('settings.storeMedia');
         Route::post('settings/ckmedia', 'DashboardController@storeCKEditorImages')->name('settings.storeCKEditorImages');
         Route::post('show_qr_code', 'DashboardController@show_qr_code')->name('show_qr_code');
-        Route::post('show_photos', 'DashboardController@show_photos')->name('show_photos');
 
         // Menus
         Route::get('menus/active/{id}', 'MenuThemeController@menu_active')->name('menus.active');

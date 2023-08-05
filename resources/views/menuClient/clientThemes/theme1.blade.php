@@ -403,7 +403,9 @@
                             </div>
                             <p class="item__description">
                                 <?php echo nl2br($product->description); ?>
-                                @if($product->photos->count() > 0) <b style="text-weight:bold;cursor: pointer;" onclick="show_photos('{{ $product->id }}')" data-popup-open="popup-2">(pictures)</b> @endif
+                                @if($product->photos->count() > 0) 
+                                    <b style="font-weight: bold;cursor: pointer;font-size: 20px;text-decoration: underline;" onclick="show_photos('{{ $product->id }}')" data-popup-open="popup-2">(pictures)</b> 
+                                @endif
                             </p>
                         </div> 
                     @endforeach
