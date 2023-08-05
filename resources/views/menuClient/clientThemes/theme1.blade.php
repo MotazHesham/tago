@@ -217,8 +217,7 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            font-family: {{$menuClientList->font_family}},-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            font-family: {{$menuClientList->font_family}},cursive;
             color: {{$menuClientList->font_color ?? 'black'}}
         }
 
