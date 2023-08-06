@@ -451,7 +451,7 @@
     </div>
 
     <div class="popup" data-popup="popup-1">
-        <div class="popup-inner sponsors_inner">
+        <div class="popup-inner sponsors_inner" style="color:black !important">
 
             <h3>About us</h3>
             <p> 
