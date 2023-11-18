@@ -18,6 +18,8 @@ class MainLinksResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'photo' => $this->photo ? $this->photo->getUrl('preview') : null,
+            'is_number' => $this->base_url ? 1 : 0,
+            'base_url' => $this->base_url ?? '',
         ];
     }
 }

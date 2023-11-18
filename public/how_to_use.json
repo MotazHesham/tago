@@ -1,0 +1,22 @@
+{
+    "IOS":{
+        "en":{
+            "title":"How to scan QR in IOS",
+            "description":"1- Open camera app.\n2- Center the camera on the QR code\n3- Click on the link which appeared in your screen."
+        },
+        "ar":{
+            "title":"طريقة مسح الكود في الايفون",
+            "description":"1- افتح تطبيق الكاميرا.\n2- قم بتوسيط الكاميرا على رمز الاستجابة السريعة\n3- انقر على الرابط الذي ظهر على شاشتك."
+        }
+    },
+    "ANDROID":{
+        "en":{
+            "title":"How to scan QR in Android",
+            "description":"1- On your compatible Android phone or tablet, open the built-in camera app.\n2- Point the camera at the QR code.\n3- Tap the banner that appears on your Android phone or tablet."
+        },
+        "ar":{
+            "title":"طريقة مسح الكود في الاندرويد",
+            "description":"1- على هاتفك أو جهازك اللوحي المتوافق الذي يعمل بنظام التشغيل Android، افتح تطبيق الكاميرا المدمج.\n2- وجّه الكاميرا نحو رمز الاستجابة السريعة.\n3- انقر على الشعار الذي يظهر على هاتفك أو جهازك اللوحي الذي يعمل بنظام التشغيل Android."
+        }
+    }
+}

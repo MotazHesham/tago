@@ -33,6 +33,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.mainLink.fields.base_url') }}
+                        </th>
+                        <td>
+                            {{ $mainLink->base_url }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.mainLink.fields.photo') }}
                         </th>
                         <td>

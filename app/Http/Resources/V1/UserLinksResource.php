@@ -23,12 +23,13 @@ class UserLinksResource extends JsonResource
                 $image = null;
             }
         }
+        $base_url = $this->main_link->base_url ?? null;
         return [
             'id' => $this->id,
             'priority' => $this->priority,
             'active' => $this->active,
             'name' => $this->name,
-            'link' => $this->link,
+            'link' => $base_url ? $base_url . $this->link : $this->link,
             'photo' => $image,
         ];
     }

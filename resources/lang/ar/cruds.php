@@ -233,6 +233,8 @@ return [
             'deleted_at_helper' => ' ',
             'name'              => 'Name',
             'name_helper'       => ' ',
+            'base_url'              => 'Base Url',
+            'base_url_helper'       => ' ',
             'category'          => 'Category',
             'category_helper'   => ' ',
         ],

@@ -20,6 +20,16 @@
                 <span class="help-block">{{ trans('cruds.mainLink.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
+                <label  for="base_url">{{ trans('cruds.mainLink.fields.base_url') }}</label>
+                <input class="form-control {{ $errors->has('base_url') ? 'is-invalid' : '' }}" type="text" name="base_url" id="base_url" value="{{ old('base_url', '') }}">
+                @if($errors->has('base_url'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('base_url') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.mainLink.fields.base_url_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="photo">{{ trans('cruds.mainLink.fields.photo') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
                 </div>

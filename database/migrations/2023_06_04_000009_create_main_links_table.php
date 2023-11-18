@@ -11,6 +11,7 @@ class CreateMainLinksTable extends Migration
         Schema::create('main_links', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('base_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
