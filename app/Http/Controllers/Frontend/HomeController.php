@@ -97,7 +97,7 @@ class HomeController extends Controller
     }
 
     public function user($id){ 
-        $user = User::with(['media','userUserLinks' => function($q){
+        $user = User::with(['media','userUserLinks.main_link','userUserLinks' => function($q){
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($id);
         if(!$user->active_byqr){
@@ -120,7 +120,7 @@ class HomeController extends Controller
             return redirect()->route('home');
         } 
         
-        $user = User::with(['media','userUserLinks' => function($q){
+        $user = User::with(['media','userUserLinks.main_link','userUserLinks' => function($q){
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($orderProduct->scanned_user_id);
         return view('frontend.profile',compact('user'));

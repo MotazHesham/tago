@@ -91,8 +91,11 @@
                             <div class="social-icon">
                                 <ul>
                                     @foreach($user->userUserLinks as $userLink)
+                                        @php 
+                                            $base_url = $userLink->main_link->base_url ?? null;
+                                        @endphp 
                                         <li>
-                                            <a href="{{ $userLink->link }}">
+                                            <a href="{{ $base_url ? $base_url . $userLink->link : $userLink->link }}" target="_blanc">
                                                 @if($userLink->photo)
                                                     <img src="{{$userLink->photo->getUrl('thumb')}}" alt="" style="border-radius: 50%">
                                                 @else 
