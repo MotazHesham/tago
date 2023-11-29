@@ -14,8 +14,11 @@ class CreateOrderProductPivotTable extends Migration
             $table->decimal('price',15,2);
             $table->decimal('total_cost',15,2);
             $table->string('variant')->nullable();
+            $table->string('token')->nullable();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id', 'order_id_fk_8576515')->references('id')->on('orders')->onDelete('cascade');
+            $table->unsignedBigInteger('scanned_user_id');
+            $table->foreign('scanned_user_id', 'scanned_user_fk_124124')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id', 'product_id_fk_8576515')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();

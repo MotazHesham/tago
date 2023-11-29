@@ -21,6 +21,9 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
         Route::get('faq','FAQApiController@faq'); 
         Route::post('fcm-token','UsersApiController@update_fcm_token'); 
 
+        Route::post('check_qr','UsersApiController@check_qr');
+        Route::post('connect_qr','UsersApiController@connect_qr');
+        
         //mainlinks
         Route::group(['prefix' =>'mainlinks'],function(){
             Route::get('/','MainLinksApiController@index');

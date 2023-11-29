@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class HomeController
-{
+{ 
+    public function show_qr_code(Request $request){
+        $token = 'https://my-tago.com/user/token/' . $request->token; 
+        return view('partials.qr_code',compact('token'));
+    }
+
+
     public function index()
     {
         $settings1 = [

@@ -23,6 +23,9 @@
                         <th>
                             total Price
                         </th>  
+                        <th>
+                            token
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +48,10 @@
                             </td>
                             <td>
                                 {{ $orderProduct->total_cost ?? '' }}
+                            </td>  
+                            <td>
+                                {{ $orderProduct->token ?? '' }}
+                                <button class="btn btn-info" onclick="show_qr_code('{{$orderProduct->token}}')">Get QR</button>
                             </td>  
                         </tr>
                     @endforeach

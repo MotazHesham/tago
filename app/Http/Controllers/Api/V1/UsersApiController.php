@@ -5,16 +5,76 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Resources\V1\UserResource;
+use App\Models\OrderProduct;
 use App\Models\UserLink;
 use App\Traits\api_return;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PDO;
 
 class UsersApiController extends Controller
 {
     use api_return; 
     use MediaUploadingTrait;
+
+    public function check_qr(Request $request){
+        
+        $rules = [  
+            'token' => 'required',  
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }
+
+        $token = str_replace('https://my-tago.com/user/token/','',$request->token);
+
+        $orderProduct = OrderProduct::where('token',$token)->first();
+        if(!$orderProduct){
+            return $this->returnError('401', 'كود غير صحيح');
+        }
+
+        if($orderProduct->scanned_user_id){
+            return $this->returnError('500', 'تم استخدام الكود من قبل');
+        } 
+        return $this->returnSuccessMessage(trans('global.flash.api.success')); 
+
+    }
+
+    public function connect_qr(Request $request){
+        $rules = [  
+            'token' => 'required',  
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }  
+        $token = str_replace('https://my-tago.com/user/token/','',$request->token);
+
+        $orderProduct = OrderProduct::where('token',$token)->first();
+        
+        if(!$orderProduct){
+            return $this->returnError('401', 'كود غير صحيح');
+        }
+
+        if($orderProduct->scanned_user_id){
+            return $this->returnError('500', 'تم استخدام الكود من قبل');
+        }  
+
+        $user = Auth::user();
+
+        $orderProduct->scanned_user_id = $user->id;
+        $orderProduct->save();
+        
+        $user->active_byqr = 1;
+        $user->save();
+        return $this->returnSuccessMessage(trans('global.flash.api.success')); 
+    }
     
     public function profile()
     {

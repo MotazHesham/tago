@@ -131,3 +131,19 @@
 
 
 @endsection
+
+@section('scripts')
+    @parent 
+    <script>
+        function show_qr_code(token){
+            $.post('{{ route('admin.show_qr_code') }}', {
+                _token: '{{ csrf_token() }}',
+                token: token, 
+            }, function(data) {
+                $('#AjaxModal .modal-dialog').html(null);
+                $('#AjaxModal').modal('show');
+                $('#AjaxModal .modal-dialog').html(data); 
+            });
+        }
+        </script>
+@endsection

@@ -9,6 +9,7 @@ use App\Models\Connection;
 use App\Models\Contactu;
 use App\Models\FaqCategory;
 use App\Models\FaqQuestion;
+use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Review;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
-    public function index(){ 
+    public function index(){  
         $products = Product::orderBy('created_at','desc')->take(8)->get();
         $counted_products = count(Product::get());
         $counted_customers = count(User::where('user_type','customer')->get());
@@ -99,6 +100,29 @@ class HomeController extends Controller
         $user = User::with(['media','userUserLinks' => function($q){
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($id);
+        if($user->active_byqr){
+            alert('لم يتم التفعيل حتي الأن','','error');
+            return redirect()->route('home');
+        }
+        return view('frontend.profile',compact('user'));
+    }
+
+    public function user_by_token($token){ 
+
+        $orderProduct = OrderProduct::where('token',$token)->first();
+
+        if(!$orderProduct){
+            alert('كود غير صحيح','','error');
+            return redirect()->route('home');
+        } 
+        if($orderProduct->scanned_user_id == null){
+            alert('لم يتم التفعيل حتي الأن','','error');
+            return redirect()->route('home');
+        } 
+        
+        $user = User::with(['media','userUserLinks' => function($q){
+            $q->where('active',1)->orderBy('priority','asc');
+        }])->find($orderProduct->scanned_user_id);
         return view('frontend.profile',compact('user'));
     }
 

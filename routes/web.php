@@ -19,6 +19,8 @@ Route::post('social-login/callback','Auth\LoginController@callback');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth','staff']], function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('show_qr_code', 'HomeController@show_qr_code')->name('show_qr_code');
+
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');

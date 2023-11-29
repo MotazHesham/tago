@@ -21,8 +21,10 @@ class OrderProduct extends Model
         'price',
         'total_cost',
         'variant',
+        'token',
         'order_id',
         'product_id',
+        'scanned_user_id',
         'created_at',
         'updated_at', 
     ];
@@ -38,5 +40,9 @@ class OrderProduct extends Model
 
     public function order(){
         return $this->belongsTo(Order::class,'order_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'scanned_user_id');
     }
 }

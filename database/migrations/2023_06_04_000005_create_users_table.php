@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('email_active')->default(0)->nullable();
             $table->boolean('nickname_active')->default(0)->nullable();
             $table->boolean('bio_active')->default(0)->nullable();
+            $table->boolean('active_byqr')->default(0)->nullable();
             $table->text('fcm_token')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -52,20 +52,22 @@ class OrderController extends Controller
         foreach(session('cart') as $cartItem){ 
             $product = Product::findOrFail($cartItem['product_id']);
             $product->num_of_sale += $cartItem['quantity'];
-            $product->save();
+            $product->save(); 
 
-            $calc_total_for_product = $product->price  * $cartItem['quantity']  ;
-            $total_cost += $calc_total_for_product;
+            $total_cost += $product->price * $cartItem['quantity'];
 
-            $order_items [] = [
-                'order_id' => $order->id,
-                'product_id' => $cartItem['product_id'],     
-                'quantity' => $cartItem['quantity'],
-                'price' => $product->price, 
-                'total_cost' => $calc_total_for_product, 
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ];
+            for($i = 0 ; $i < $cartItem['quantity'] ; $i++){
+                $order_items [] = [
+                    'order_id' => $order->id,
+                    'product_id' => $cartItem['product_id'],     
+                    'quantity' => 1,
+                    'price' => $product->price, 
+                    'total_cost' => $product->price, 
+                    'token' => $order->id . generateRandomString(5),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+            }
         }
         OrderProduct::insert($order_items);
 
