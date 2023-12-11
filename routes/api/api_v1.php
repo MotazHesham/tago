@@ -15,6 +15,7 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
     Route::group(['middleware' => ['auth:sanctum']],function () {
 
         // delete the token
+        Route::get('delete_account','UsersApiController@delete_account'); 
         Route::delete('logout','UserAuthApiController@logout'); 
 
 

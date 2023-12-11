@@ -18,6 +18,11 @@ class UsersApiController extends Controller
     use api_return; 
     use MediaUploadingTrait;
 
+    public function delete_account(){
+        auth()->user()->delete();
+        return $this->returnSuccessMessage(trans('global.flash.api.success')); 
+    }
+
     public function check_qr(Request $request){
         
         $rules = [  
