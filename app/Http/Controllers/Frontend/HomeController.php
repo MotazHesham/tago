@@ -16,11 +16,35 @@ use App\Models\Review;
 use App\Models\Subscribe;
 use App\Models\Tutorial;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
+    public function bussiness_card(){
+        $photos = Cache::remember('photos', 3600, function () {
+            $url = 'https://api.unsplash.com/photos';
+            $headers = [ 
+                'Access-Control-Allow-Origin' => '*',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Client-ID opfef79WNIhEgjaQ2HxGpGVojXAbfU8AQ6bAq40QmRQ', 
+            ];
+            
+            $client = new Client();
+    
+            $response = $client->request('GET', $url, [
+                'headers' => $headers,
+            ]);
+    
+            // $statusCode = $response->getStatusCode();
+            $body = $response->getBody()->getContents();
+            return $body;
+        }); 
+        return view('bussiness_card',compact('photos'));
+    }
+
     public function index(){  
         $products = Product::orderBy('created_at','desc')->take(8)->get();
         $counted_products = count(Product::get());

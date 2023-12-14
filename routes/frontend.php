@@ -7,6 +7,8 @@ Route::get('/','Frontend\HomeController@index')->name('home');
 
 Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
 
+    Route::get('/bussiness_card', 'HomeController@bussiness_card')->name('bussiness_card');
+    
     Route::get('user/{id}','HomeController@user')->name('user'); 
     Route::get('user/token/{token}','HomeController@user_by_token')->name('user_by_token'); 
     Route::post('exchange_contacts','HomeController@exchange_contact')->name('exchange_contacts');

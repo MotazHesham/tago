@@ -66,12 +66,12 @@
                             <div class="contact-icon">
                                 <ul>
                                     <li>
-                                        <a href="mailto:{{ $user->phone_number }}">
+                                        <a href="mailto:{{ $user->email }}">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="tel:{{ $user->email }}">
+                                        <a href="tel:{{ $user->phone_number }}">
                                             <i class="fa fa-phone" aria-hidden="true"></i>
                                         </a>
                                     </li>
