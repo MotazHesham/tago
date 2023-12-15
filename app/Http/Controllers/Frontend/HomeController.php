@@ -27,7 +27,7 @@ class HomeController extends Controller
         $photos = Cache::remember('photos', 3600, function () {
             $url = 'https://api.unsplash.com/photos';
             $headers = [ 
-                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Origin' => 'anonymous',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Client-ID opfef79WNIhEgjaQ2HxGpGVojXAbfU8AQ6bAq40QmRQ', 
             ];
@@ -40,8 +40,8 @@ class HomeController extends Controller
     
             // $statusCode = $response->getStatusCode();
             $body = $response->getBody()->getContents();
-            return $body;
-        }); 
+            return json_decode($body);
+        });   
         return view('bussiness_card',compact('photos'));
     }
 

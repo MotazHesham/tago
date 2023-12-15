@@ -17,12 +17,13 @@ function flipVertical() {
     }
 }
 
-function transperancy_element(element) {
+function transperancy_element(element) { 
+    $('#transparency-span').html(element.value);
     selectedObject.setOpacity(element.value);
     fabricCanvasObj.renderAll(); 
 }
 
-function grey_scale_element(element) {
+function gray_scale_element() {
 
     // Retrieve existing filters
     var existingFilters = selectedObject.filters || [];
@@ -38,7 +39,7 @@ function grey_scale_element(element) {
     save_state();
 }
 
-function remove_grey_scale_element(element) {
+function remove_gray_scale_element() {
 
     selectedObject.filters = selectedObject.filters.filter(function(filter) {
         return !(filter instanceof fabric.Image.filters.Grayscale);
@@ -50,14 +51,46 @@ function remove_grey_scale_element(element) {
     save_state();
 }
 
-function set_shadow_element(element) {
-    selectedObject.set('shadow', {
-        color: 'rgba(0, 0, 0, 0.5)',
-        blur: 10,
-        offsetX: 5,
-        offsetY: 5
-    });
-    fabricCanvasObj.renderAll(); 
+function hexToRgb(hex) {
+    // Remove the hash if it exists
+    hex = hex.replace(/^#/, '');
+
+    // Parse the hexadecimal string into individual color components
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    return r+','+g+','+b;
+}
+
+function shadow_element(status) { 
+    // assign values
+    if(status){
+        $('#shadow-offsetx-span').html($('#shadow-input-offsetx').val());
+        $('#shadow-offsety-span').html($('#shadow-input-offsety').val());
+        $('#shadow-opacity-span').html($('#shadow-input-opacity').val());
+        $('#shadow-blur-span').html($('#shadow-input-blur').val());
+    
+        var rgb = hexToRgb($('#shadow-input-color').val());
+        color_with_opacity = 'rgb('+rgb+','+parseFloat($('#shadow-input-opacity').val())+')'; 
+        selectedObject.set('shadow', {
+            color: color_with_opacity, 
+            blur: parseInt($('#shadow-input-blur').val()), 
+            offsetX: parseInt($('#shadow-input-offsetx').val()),
+            offsetY: parseInt($('#shadow-input-offsety').val())
+        });
+    }else{
+        selectedObject.set('shadow', {
+            color: '#fff', 
+            blur: 0, 
+            offsetX: 0,
+            offsetY: 0
+        });
+    }
+    fabricCanvasObj.renderAll();
+    save_state();
+
 }
 
 function cropActiveObject() {
@@ -85,50 +118,98 @@ function fit_page_element() {
     save_state();
 }
 
-function border_radius_element(element) { 
+function radius_element(element) { 
+
+    var value = 0;
+    if(!element){
+        $('#radius-span').html('');
+    }else{
+        value = element.value;
+        $('#radius-span').html('(' + value + ')');
+    }
 
     // Set the border radius values as per your requirement
-    var borderRadiusX = element.value;
-    var borderRadiusY = element.value;
-
+    var borderRadiusX = value;
+    var borderRadiusY = value; 
     // Create a rounded rectangle as a clip path
     var clipPath = new fabric.Rect({
-        width: selectedObject.width,
-        height: selectedObject.height,
-        rx: borderRadiusX,
-        ry: borderRadiusY,
+        width: selectedObject.width ,
+        height: selectedObject.height , 
+        rx: borderRadiusX / selectedObject.scaleX,
+        ry: borderRadiusY / selectedObject.scaleY,
         originX: 'center',
         originY: 'center'
     });
 
     // Set the clipPath to the image
     selectedObject.set({
-        clipPath: clipPath,
-        scaleX: 1, // Reset scale to ensure clipPath is not affected by object scale
-        scaleY: 1
+        clipPath: clipPath 
     });
     fabricCanvasObj.renderAll(); 
+} 
+function sepia_element(status){
+    // Retrieve existing filters
+    var existingFilters = selectedObject.filters || []; 
+
+    // Set the updated filters array to the object 
+    existingFilters = existingFilters.filter(function(filter) {
+        return !(filter instanceof fabric.Image.filters.Sepia);
+    });
+    if(status){
+        var sepiaFilter = new fabric.Image.filters.Sepia();
+        existingFilters.push(sepiaFilter);
+    }
+
+
+    // Render the canvas
+    selectedObject.filters = existingFilters;
+    selectedObject.applyFilters();
+    fabricCanvasObj.renderAll();
 }
 
-function border_element() {
+function border_element(element){ 
+    if(!element){
+        selectedObject.set({
+            strokeWidth: 0
+        });
+        fabricCanvasObj.renderAll();
+        save_state();
+        return ;
+    }
     selectedObject.set({
-        stroke: 'green',
-        strokeWidth: 10
+        stroke: $('#border-input-color').val(),
+        strokeWidth: parseInt($('#border-input-size').val()),
+        rx: 50 / selectedObject.scaleX,
+        ry: 50 / selectedObject.scaleY,
     });
     fabricCanvasObj.renderAll();
     save_state();
 }
 
-function blur_element(element) { 
-    selectedObject.filters = selectedObject.filters.filter(function(filter) {
+
+function brightness_element(element) { 
+    var value = 0;
+    if(!element){
+        $('#brightness-span').html('');
+    }else{
+        value = element.value;
+        $('#brightness-span').html('(' + value + ')');
+    }
+
+    // Retrieve existing filters
+    var existingFilters = selectedObject.filters || []; 
+
+    // Set the updated filters array to the object 
+    existingFilters = existingFilters.filter(function(filter) {
         return !(filter instanceof fabric.Image.filters.Brightness);
     });
 
     // Apply the brightness filter to the object
     var brightnessFilter = new fabric.Image.filters.Brightness({
-        brightness: element.value // You can adjust the brightness value as needed
+        brightness: value // You can adjust the brightness value as needed
     });
-    selectedObject.filters = [brightnessFilter];
+    existingFilters.push(brightnessFilter);
+    selectedObject.filters = existingFilters;
     selectedObject.applyFilters();
     fabricCanvasObj.renderAll(); 
 }

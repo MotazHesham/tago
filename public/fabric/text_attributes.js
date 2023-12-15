@@ -64,6 +64,7 @@ function toggleUnderline() {
 // Implement Line Height
 function setLineHeight(element) {
     if(selectedObject){
+        $('#line-height-span').html(element.value);
         selectedObject.set('lineHeight', element.value);
         fabricCanvasObj.renderAll();
         save_state();
@@ -73,6 +74,7 @@ function setLineHeight(element) {
 // Implement Letter Spacing
 function setLetterSpacing(element) { 
     if(selectedObject){
+        $('#letter-spacing-span').html(element.value);
         selectedObject.set('charSpacing', element.value);
         fabricCanvasObj.renderAll();
         active_helper_buttons(selectedObject);
@@ -83,7 +85,9 @@ function setLetterSpacing(element) {
 // Implement Text Stroke
 function setStroke(element) { 
     if(selectedObject){
-        selectedObject.set('stroke', element.value);
+        selectedObject.set('strokeWidth', parseInt($('#text-stroke-color-size').val()));
+        selectedObject.set('stroke', $('#text-stroke-color').val());
+        selectedObject.set('fill', selectedObject.fill);
         fabricCanvasObj.renderAll();
         active_helper_buttons(selectedObject);
         save_state();
