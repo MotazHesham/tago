@@ -7,8 +7,8 @@
     <ul
         class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
         <li class="nav-item">
-            <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasImages"
-                aria-controls="offcanvasImages">
+            <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTemplates"
+                aria-controls="offcanvasTemplates">
                 <i class="fa-solid fa-object-group"></i>
                 <br>
                 <small>Templates</small>
@@ -23,16 +23,24 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-original-title="Orders">
-                <i class="fa-solid fa-image"></i>
+            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUnsplash"
+                aria-controls="offcanvasUnsplash">
+                <i class="fa-regular fa-images"></i>
                 <br>
-                <span>Images</span>
+                <span><small>UnSplash</small> </span>
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-original-title="Products">
+            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPixabay"
+                aria-controls="offcanvasPixabay">
+                <i class="fa-duotone fa-image"></i>
+                <br>
+                <span>Pixbay </span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShapes"
+                aria-controls="offcanvasShapes">
                 <i class="fa-solid fa-shapes"></i>
                 <br>
                 <span>Shapes</span>
@@ -47,8 +55,8 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-original-title="Customers">
+            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLayers"
+                aria-controls="offcanvasLayers">
                 <i class="fa-solid fa-layer-group"></i>
                 <br>
                 <span>Layers</span>

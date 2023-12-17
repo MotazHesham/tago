@@ -8,8 +8,8 @@
         </div>
         <div>
             <div id="text_attributes" class="text_attributes" style="display: none;align-items: center"> 
-                <input  style="display: inline;height:33px;padding:0" type="color" oninput="text_color(this)">
-                <select class="form-control" name="" id="" style="display: inline;width:150px !important;padding: 4px 6px;margin:0 10px" onchange="setFontFamily(this)">
+                <input  style="display: inline;height:33px;padding:0" name="text_color" id="text_color" type="color" oninput="text_color(this)">
+                <select class="form-control" name="select_font" id="select_font" style="display: inline;width:150px !important;padding: 4px 6px;margin:0 10px" onchange="setFontFamily(this)">
                     <option value="Arial" style="font-family: 'Arial'">Arial</option>
                     <option value="Helvetica" style="font-family: 'Helvetica'">Helvetica</option>
                     <option value="Times New Roman" style="font-family: 'Times New Roman'">Times New Roman</option>
@@ -20,7 +20,7 @@
                     <option value="Comic Sans MS" style="font-family: 'Comic Sans MS'">Comic Sans MS</option>
                     <option value="Trebuchet MS" style="font-family: 'Trebuchet MS'">Trebuchet MS</option> 
                 </select>
-                <input class="form-control"  style="display: inline;width:60px;padding: 4px 6px;margin:0 10px" type="number" min="1" value="20" max="500"  onchange="text_size(this)" onkeyup="text_size(this)">
+                <input class="form-control"  style="display: inline;width:60px;padding: 4px 6px;margin:0 10px" name="text_size" id="text_size" type="number" min="1" value="20" max="500"  onchange="text_size(this)" onkeyup="text_size(this)">
                 <button class="btn btn-custom" onclick="toggleBold()"><i class="fa-thin fa-bold"></i></button>
                 <button class="btn btn-custom" onclick="toggleItalic()"><i class="fa-thin fa-italic"></i></button>
                 <button class="btn btn-custom" onclick="toggleUnderline()"><i class="fa-thin fa-underline"></i></button>  
@@ -30,18 +30,18 @@
                     </button> 
                     <div class="dropdown-menu" style="width: 200px !important;padding:20px 10px">
                         <div style="display: flex;justify-content:space-between">
-                            <label for="line-height-check">Line Height  </label>
+                            <label>Line Height  </label>
                             <small style="color:black"><b id="line-height-span">0</b></small>
                         </div>
                         <div id="line-height-div"> 
-                            <input type="range" class="form-range" id="line-height-input" min="0" step="0.1" max="10" value="0" oninput="setLineHeight(this)">  
+                            <input type="range" class="form-range" id="line-height-input" name="line_height" id="line_height" min="0" step="0.1" max="10" value="0" oninput="setLineHeight(this)">  
                         </div>
                         <div style="display: flex;justify-content:space-between">
-                            <label for="letter-spacing-check">Letter Spacing</label>
+                            <label>Letter Spacing</label>
                             <small style="color:black"><b id="letter-spacing-span">0</b></small>
                         </div>
                         <div id="letter-spacing-div"> 
-                            <input type="range" class="form-range" id="letter-spacing-input" min="-100" step="1" max="500" value="0" oninput="setLetterSpacing(this)">  
+                            <input type="range" class="form-range" id="letter-spacing-input" name="letter_spacing" id="letter_spacing" min="-100" step="1" max="500" value="0" oninput="setLetterSpacing(this)">  
                         </div>
                     </div> 
                 </div>    
@@ -76,7 +76,7 @@
                 </div>  
             </div>
             <div id="effect_attributes" style="display: none">
-                @include('effects')
+                @include('magico.effects')
             </div>
         </div>
     </div>
@@ -118,18 +118,18 @@
                         <button class="btn btn-custom" onclick="alignTop()" title="alignTop"><i class="fa-light fa-objects-align-top"></i> <b>Top</b></button>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="dropdown" style="display: inline">
-                <button type="button" class="btn btn-custom btn-sm" id="nav-transparency" disabled data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                <button type="button" class="btn btn-custom btn-sm" id="nav-transparency" disabled data-bs-toggle="dropdown" aria-expanded="false" >
                     <i class="fa-thin fa-droplet" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Transparency"></i>
                 </button> 
                 <div class="dropdown-menu" style="width: 200px !important;padding:20px 10px">
                     <div style="display: flex;justify-content:space-between">
-                        <label for="transparency-check">Transparency  </label>
+                        <label>Transparency  </label>
                         <small style="color:black"><b id="transparency-span">1.00</b></small>
                     </div>
                     <div id="transparency-div"> 
-                        <input type="range" class="form-range" id="transparency-input" min="0" step="0.01" max="1.00" value="1.00" oninput="transperancy_element(this)">  
+                        <input type="range" class="form-range" id="transparency-input" id="transparency_range" name="transparency_range" min="0" step="0.01" max="1.00" value="1.00" oninput="transperancy_element(this)">  
                     </div>
                 </div> 
             </div> 
@@ -137,7 +137,7 @@
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-duplicate" data-bs-title="Duplicate element" onclick="duplicate_element()" disabled><i class="fa-thin fa-copy"></i></button>
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-delete" data-bs-title="Remove element" onclick="delete_element()" disabled><i class="fa-thin fa-trash-can-list"></i></button>
         </div>
-        <div style="border-left: 2px solid rgb(68, 67, 67); height: 40px;"></div>
+        <div class="nav-divider"></div>
         <div>
             <button class="btn btn-custom btn-small" onclick="download()"><small><i class="fa-thin fa-cloud-arrow-down"></i> Download</small></button>
         </div> 

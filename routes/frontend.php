@@ -7,7 +7,10 @@ Route::get('/','Frontend\HomeController@index')->name('home');
 
 Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
 
-    Route::get('/bussiness_card', 'HomeController@bussiness_card')->name('bussiness_card');
+    Route::get('/magico', 'MagicoController@magico')->name('magico');
+    Route::post('/unsplash_loading_more_images', 'MagicoController@unsplash_loading_more_images')->name('unsplash_loading_more_images');
+    Route::post('/unsplash_query_images', 'MagicoController@unsplash_query_images')->name('unsplash_query_images');
+    Route::post('/pixabay_loading_images', 'MagicoController@pixabay_loading_images')->name('pixabay_loading_images');
     
     Route::get('user/{id}','HomeController@user')->name('user'); 
     Route::get('user/token/{token}','HomeController@user_by_token')->name('user_by_token'); 

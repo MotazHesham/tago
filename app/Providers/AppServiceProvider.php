@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         
+        \Debugbar::disable();
+        // \Debugbar::enable();
         // Model::preventLazyLoading --------------
         // important Note (disable it on production) How ?
         // - app()->isProduction() it refers to .env file to (APP_ENV)

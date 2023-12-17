@@ -34,22 +34,29 @@ function createCanvas() {
     })
 
     newCanvas.on('selection:created', function(e) {
-        selectedObject = newCanvas.findTarget(e); 
+        if(newCanvas.findTarget(e)){ // if not found that mean update the selection from layers
+            selectedObject = newCanvas.findTarget(e);   
+        }
         active_helper_buttons(selectedObject);
         check_object_type(selectedObject); 
+        active_layer_li('#layer-'+selectedObject.id); 
     });
 
     newCanvas.on('selection:updated', function(e) {
         cropImage();
-        selectedObject = newCanvas.findTarget(e);  
+        if(newCanvas.findTarget(e)){ // if not found that mean update the selection from layers
+            selectedObject = newCanvas.findTarget(e);   
+        }
         active_helper_buttons(selectedObject);
-        check_object_type(selectedObject);
+        check_object_type(selectedObject); 
+        active_layer_li('#layer-'+selectedObject.id); 
     });
 
     newCanvas.on('selection:cleared', function(e) {
         cropImage(); 
         inactive_helper_buttons();
         check_object_type(false);
+        active_layer_li(false);
     });  
 
     newCanvas.on('object:scaling', function(e) {            
