@@ -6,6 +6,15 @@
     <div class="dropdown-menu p-2" style="width:250px" id="dropdown-effects">
         <div class="image_attributes">
             <div class="effect-attribute">
+                <label for="blur-check">Blur <small><b id="blur-span"></b></small> </label>
+                <span><input class="form-check-input" type="checkbox" id="blur-check" onchange="checkbox_activation(this,'blur-div','blur')"></span>
+            </div>
+            <div id="blur-div" style="display: none"> 
+                <input type="range" class="form-range" id="blur-input" min="0.00" step="0.01" value="0" max="1.00" oninput="blur_element(this)">  
+            </div>
+        </div >
+        <div class="image_attributes">
+            <div class="effect-attribute">
                 <label for="brightness-check">Brightness <small><b id="brightness-span"></b></small> </label>
                 <span><input class="form-check-input" type="checkbox" id="brightness-check" onchange="checkbox_activation(this,'brightness-div','brightness')"></span>
             </div>

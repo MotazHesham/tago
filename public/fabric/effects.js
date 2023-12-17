@@ -94,25 +94,16 @@ function shadow_element(status) {
 }
 
 function cropActiveObject() {
-    start_croping(selectedObject);  
+    start_croping(selectedObject);    
 }
 
-function fit_page_element() {
-
-    // Calculate the scaling factors for width and height
-    var scaleX = fabricCanvasObj.width / selectedObject.width;
-    var scaleY = fabricCanvasObj.height / selectedObject.height;
-
-    // Set the scaling factors for the object
-    selectedObject.scaleX = scaleX;
-    selectedObject.scaleY = scaleY;
-
+function fit_page_element() { 
     // Center the object on the canvas
-    selectedObject.set({
-        left: fabricCanvasObj.width / 2,
-        top: fabricCanvasObj.height / 2,
-        originX: 'center',
-        originY: 'center'
+    selectedObject.scaleToHeight(fabricCanvasObj.height);
+    selectedObject.scaleToWidth(fabricCanvasObj.width);
+    selectedObject.set({ 
+        top: 0,
+        left: 0
     });
     fabricCanvasObj.renderAll();
     save_state();
@@ -209,6 +200,33 @@ function brightness_element(element) {
         brightness: value // You can adjust the brightness value as needed
     });
     existingFilters.push(brightnessFilter);
+    selectedObject.filters = existingFilters;
+    selectedObject.applyFilters();
+    fabricCanvasObj.renderAll(); 
+}
+
+function blur_element(element) { 
+    var value = 0;
+    if(!element){
+        $('#blur-span').html('');
+    }else{
+        value = element.value;
+        $('#blur-span').html('(' + value + ')');
+    }
+
+    // Retrieve existing filters
+    var existingFilters = selectedObject.filters || []; 
+
+    // Set the updated filters array to the object 
+    existingFilters = existingFilters.filter(function(filter) {
+        return !(filter instanceof fabric.Image.filters.Blur);
+    });
+
+    // Apply the Blur filter to the object
+    var blurFilter = new fabric.Image.filters.Blur({
+        blur: value // You can adjust the blur value as needed
+    });
+    existingFilters.push(blurFilter);
     selectedObject.filters = existingFilters;
     selectedObject.applyFilters();
     fabricCanvasObj.renderAll(); 

@@ -1,40 +1,39 @@
 
 
     function cropImage() {
-        if(selectedObject && selectedObject.type === 'image' && selectedObject.picArea) {
+        if(objectToCrop && objectToCrop.type === 'image' && objectToCrop.picArea) {
 
-            console.log(selectedObject.picArea);
-            if((selectedObject.width*selectedObject.scaleX < selectedObject.picArea.width*selectedObject.picArea.scaleX) || (selectedObject.height*selectedObject.scaleY < selectedObject.picArea.height * selectedObject.picArea.scaleY)) {
-                //alert(selectedObject.scaleX + " " + selectedObject.oldScaleX);
-                //selectedObject.scaleX = selectedObject.oldScaleX;
-                //selectedObject.scaleY = selectedObject.oldScaleY;
-                //selectedObject.width = selectedObject.picArea.width / selectedObject.scaleX; 
-                //selectedObject.height = selectedObject.picArea.height / selectedObject.scaleY;
-                //selectedObject.oldWidth = selectedObject.width;
-                //selectedObject.oldHeight = selectedObject.height;
-                //selectedObject.oldScaleX = selectedObject.scaleX;
-                //selectedObject.oldScaleY = selectedObject.scaleY;
+            if((objectToCrop.width*objectToCrop.scaleX < objectToCrop.picArea.width*objectToCrop.picArea.scaleX) || (objectToCrop.height*objectToCrop.scaleY < objectToCrop.picArea.height * objectToCrop.picArea.scaleY)) {
+                //alert(objectToCrop.scaleX + " " + objectToCrop.oldScaleX);
+                //objectToCrop.scaleX = objectToCrop.oldScaleX;
+                //objectToCrop.scaleY = objectToCrop.oldScaleY;
+                //objectToCrop.width = objectToCrop.picArea.width / objectToCrop.scaleX; 
+                //objectToCrop.height = objectToCrop.picArea.height / objectToCrop.scaleY;
+                //objectToCrop.oldWidth = objectToCrop.width;
+                //objectToCrop.oldHeight = objectToCrop.height;
+                //objectToCrop.oldScaleX = objectToCrop.scaleX;
+                //objectToCrop.oldScaleY = objectToCrop.scaleY;
             } else {
                 //crop
-                selectedObject.oldScaleX = selectedObject.scaleX;
-                selectedObject.oldScaleY = selectedObject.scaleY;
-                selectedObject.oldWidth = selectedObject.width;
-                selectedObject.oldHeight = selectedObject.height;
+                objectToCrop.oldScaleX = objectToCrop.scaleX;
+                objectToCrop.oldScaleY = objectToCrop.scaleY;
+                objectToCrop.oldWidth = objectToCrop.width;
+                objectToCrop.oldHeight = objectToCrop.height;
 
-                selectedObject.cropX = (selectedObject.picArea.left - selectedObject.left) / selectedObject.scaleX;
-                selectedObject.cropY = (selectedObject.picArea.top - selectedObject.top) / selectedObject.scaleY;
+                objectToCrop.cropX = (objectToCrop.picArea.left - objectToCrop.left) / objectToCrop.scaleX;
+                objectToCrop.cropY = (objectToCrop.picArea.top - objectToCrop.top) / objectToCrop.scaleY;
 
-                selectedObject.width = selectedObject.picArea.width / selectedObject.scaleX; 
-                selectedObject.height = selectedObject.picArea.height / selectedObject.scaleY;
+                objectToCrop.width = objectToCrop.picArea.width / objectToCrop.scaleX; 
+                objectToCrop.height = objectToCrop.picArea.height / objectToCrop.scaleY;
 
-                selectedObject.left = selectedObject.picArea.left;
-                selectedObject.top = selectedObject.picArea.top;
+                objectToCrop.left = objectToCrop.picArea.left;
+                objectToCrop.top = objectToCrop.picArea.top;
             }   
-            selectedObject.setCoords();
-            fabricCanvasObj.remove(selectedObject.picArea);
-            selectedObject.opacity = 1;
-            selectedObject.hasRotatingPoint = true;
-            selectedObject.picArea = null;
+            objectToCrop.setCoords();
+            fabricCanvasObj.remove(objectToCrop.picArea);
+            objectToCrop.opacity = 1;
+            objectToCrop.hasRotatingPoint = true;
+            objectToCrop.picArea = null;
             fabricCanvasObj.discardActiveObject();
 
             console.log(fabricCanvasObj.toJSON());
@@ -54,19 +53,20 @@
             left: picture.left,
             top: picture.top,
             angle: picture.angle,
-            selectable: false
+            selectable: false, 
         });
 
         fabricCanvasObj.add(picArea);
         picArea.setCoords();
-        fabricCanvasObj.sendToBack(picArea);
+        fabricCanvasObj.sendBackwards(picArea); 
         picture.picArea = picArea;
         fabricCanvasObj.renderAll();
     }
 
     function start_croping(target){
         if(target && target.type === 'image' && !target.picArea) {
-            
+
+            objectToCrop = target;
             isCrop = true;
 
             addPictureArea(target);
@@ -93,7 +93,7 @@
         }
     }
     
-    fabric.Image.prototype._renderFill = function(ctx) {
+    fabric.Image.prototype._renderFill = function(ctx) { 
         var elementToDraw = this._element,
             w = this.width, h = this.height,
             sW = Math.min(elementToDraw.naturalWidth || elementToDraw.width, w * this._filterScalingX),

@@ -38,7 +38,7 @@ function check_object_type(selectedObject){
             $('.image_attributes').css('display','none'); 
             $('#effect_attributes').detach().appendTo('#text_attributes'); 
             $('#effect_attributes').css('display','inline');
-        }else if(selectedObject.type === 'image'){ 
+        }else if(selectedObject.type === 'image' || selectedObject.extension === 'svg'){ 
             $('.text_attributes').css('display','none'); 
             $('.image_attributes').css('display','block');   
             $('#effect_attributes').detach().appendTo('#image_attributes'); 
@@ -142,6 +142,8 @@ function checkbox_activation(e,targetId,type){
         $('#' + targetId).css('display','none'); 
         if(type == 'brightness'){
             brightness_element(false);
+        }else if(type == 'blur'){
+            blur_element(false);
         }else if(type == 'radius'){
             radius_element(false);
         }else if(type == 'gray-scale'){
@@ -199,9 +201,17 @@ function lock_element(id = false) {
         if(objectTolock.lockMovementX){
             $('#layer-lock-'+objectTolock.id).removeClass('fa-lock');
             $('#layer-lock-'+objectTolock.id).addClass('fa-lock-open');
+            if(!id){
+                $('#navitem-lock').removeClass('fa-lock');
+                $('#navitem-lock').addClass('fa-lock-open'); 
+            }
         }else{
             $('#layer-lock-'+objectTolock.id).removeClass('fa-lock-open');
             $('#layer-lock-'+objectTolock.id).addClass('fa-lock');
+            if(!id){
+                $('#navitem-lock').removeClass('fa-lock-open');
+                $('#navitem-lock').addClass('fa-lock'); 
+            }
         }
         objectTolock.lockMovementX = !objectTolock.lockMovementX;
         objectTolock.lockMovementY = !objectTolock.lockMovementY;

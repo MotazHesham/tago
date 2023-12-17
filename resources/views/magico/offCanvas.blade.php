@@ -60,72 +60,72 @@
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" style="display:flex" id="offcanvas-shapes">    
         <div>  
-            <img src="{{ asset('fabric/shapes/1.svg') }}" data-src="{{ asset('fabric/shapes/1.svg') }}">
-            <img src="{{ asset('fabric/shapes/20.svg') }}" data-src="{{ asset('fabric/shapes/20.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/1.svg') }}" data-src="{{ asset('fabric/shapes/1.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/20.svg') }}" data-src="{{ asset('fabric/shapes/20.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/3.svg') }}" data-src="{{ asset('fabric/shapes/3.svg') }}">
-            <img src="{{ asset('fabric/shapes/21.svg') }}" data-src="{{ asset('fabric/shapes/21.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/3.svg') }}" data-src="{{ asset('fabric/shapes/3.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/21.svg') }}" data-src="{{ asset('fabric/shapes/21.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/4.svg') }}" data-src="{{ asset('fabric/shapes/4.svg') }}">
-            <img src="{{ asset('fabric/shapes/22.svg') }}" data-src="{{ asset('fabric/shapes/22.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/4.svg') }}" data-src="{{ asset('fabric/shapes/4.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/22.svg') }}" data-src="{{ asset('fabric/shapes/22.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/5.svg') }}" data-src="{{ asset('fabric/shapes/5.svg') }}">
-            <img src="{{ asset('fabric/shapes/23.svg') }}" data-src="{{ asset('fabric/shapes/23.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/5.svg') }}" data-src="{{ asset('fabric/shapes/5.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/23.svg') }}" data-src="{{ asset('fabric/shapes/23.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/6.svg') }}" data-src="{{ asset('fabric/shapes/6.svg') }}">
-            <img src="{{ asset('fabric/shapes/24.svg') }}" data-src="{{ asset('fabric/shapes/24.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/6.svg') }}" data-src="{{ asset('fabric/shapes/6.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/24.svg') }}" data-src="{{ asset('fabric/shapes/24.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/7.svg') }}" data-src="{{ asset('fabric/shapes/7.svg') }}">
-            <img src="{{ asset('fabric/shapes/25.svg') }}" data-src="{{ asset('fabric/shapes/25.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/7.svg') }}" data-src="{{ asset('fabric/shapes/7.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/25.svg') }}" data-src="{{ asset('fabric/shapes/25.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/8.svg') }}" data-src="{{ asset('fabric/shapes/8.svg') }}">
-            <img src="{{ asset('fabric/shapes/26.svg') }}" data-src="{{ asset('fabric/shapes/26.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/8.svg') }}" data-src="{{ asset('fabric/shapes/8.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/26.svg') }}" data-src="{{ asset('fabric/shapes/26.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/9.svg') }}" data-src="{{ asset('fabric/shapes/9.svg') }}">
-            <img src="{{ asset('fabric/shapes/27.svg') }}" data-src="{{ asset('fabric/shapes/27.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/9.svg') }}" data-src="{{ asset('fabric/shapes/9.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/27.svg') }}" data-src="{{ asset('fabric/shapes/27.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/10.svg') }}" data-src="{{ asset('fabric/shapes/10.svg') }}">
-            <img src="{{ asset('fabric/shapes/28.svg') }}" data-src="{{ asset('fabric/shapes/28.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/10.svg') }}" data-src="{{ asset('fabric/shapes/10.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/28.svg') }}" data-src="{{ asset('fabric/shapes/28.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/11.svg') }}" data-src="{{ asset('fabric/shapes/11.svg') }}">
-            <img src="{{ asset('fabric/shapes/29.svg') }}" data-src="{{ asset('fabric/shapes/29.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/11.svg') }}" data-src="{{ asset('fabric/shapes/11.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/29.svg') }}" data-src="{{ asset('fabric/shapes/29.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/12.svg') }}" data-src="{{ asset('fabric/shapes/12.svg') }}">
-            <img src="{{ asset('fabric/shapes/30.svg') }}" data-src="{{ asset('fabric/shapes/30.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/12.svg') }}" data-src="{{ asset('fabric/shapes/12.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/30.svg') }}" data-src="{{ asset('fabric/shapes/30.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/13.svg') }}" data-src="{{ asset('fabric/shapes/13.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/13.svg') }}" data-src="{{ asset('fabric/shapes/13.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/14.svg') }}" data-src="{{ asset('fabric/shapes/14.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/14.svg') }}" data-src="{{ asset('fabric/shapes/14.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/15.svg') }}" data-src="{{ asset('fabric/shapes/15.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/15.svg') }}" data-src="{{ asset('fabric/shapes/15.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/2.svg') }}" data-src="{{ asset('fabric/shapes/2.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/2.svg') }}" data-src="{{ asset('fabric/shapes/2.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/16.svg') }}" data-src="{{ asset('fabric/shapes/16.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/16.svg') }}" data-src="{{ asset('fabric/shapes/16.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/17.svg') }}" data-src="{{ asset('fabric/shapes/17.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/17.svg') }}" data-src="{{ asset('fabric/shapes/17.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/18.svg') }}" data-src="{{ asset('fabric/shapes/18.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/18.svg') }}" data-src="{{ asset('fabric/shapes/18.svg') }}">
         </div>  
         <div>  
-            <img src="{{ asset('fabric/shapes/19.svg') }}" data-src="{{ asset('fabric/shapes/19.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/19.svg') }}" data-src="{{ asset('fabric/shapes/19.svg') }}">
         </div>  
     </div>
 </div>
@@ -141,3 +141,14 @@
         </ul> 
     </div>
 </div>
+
+{{-- Draw --}}
+{{-- <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasDraw" aria-labelledby="offcanvasDrawLabel" style="width:200px">
+    <div class="offcanvas-header common-background"  >
+        <h5 class="offcanvas-title" id="offcanvasDrawLabel" style="color:white">Draw</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-draw" style="display:flex">   
+
+    </div>
+</div> --}}

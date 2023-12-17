@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 
     // Trigger images objects
-    $('body').on('click', 'img', function(e) { 
+    $('body').on('click', '.add-to-canvas', function(e) { 
         let img_url = e.target.getAttribute("data-src"); 
         if(img_url.search('.svg') < 0){ 
             $('#image-spinner').detach().appendTo('#' + e.target.getAttribute('data-id'));

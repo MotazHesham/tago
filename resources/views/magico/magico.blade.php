@@ -34,6 +34,7 @@
             <div class="col-sm min-vh-100 nav-items">  
                 @include('magico.nav_items')
                 <div class="container-scrollable-x" id="page-container">
+                    @include('magico.draw_items')
                     <div style="margin: 6rem">
                         {{-- canvas pages --}}
                     </div> 
@@ -68,7 +69,9 @@
         });   
         var fabricCanvasObj = null;     
         var selectedObject = null;
+        var objectToCrop = null;
         var currentCanvasId = null;
+        var draw_mode = false;
         var isCrop = false;   
         var corner_options = {
             cornerSize: 10,
@@ -82,7 +85,8 @@
         };  
         createCanvas(); 
         
-    </script>
+    </script>  
+    <script src="{{ asset('fabric/draw.js') }}"></script>
     <script src="{{ asset('fabric/listners.js') }}"></script>
     <script src="{{ asset('fabric/undo_redo.js') }}"></script>
     <script src="{{ asset('fabric/alignments.js') }}"></script>

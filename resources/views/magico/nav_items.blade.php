@@ -133,7 +133,7 @@
                     </div>
                 </div> 
             </div> 
-            <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-lock" data-bs-title="Lock elemnt" onclick="lock_element()" disabled><i class="fa-thin fa-lock"></i></button>
+            <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-lock" data-bs-title="Lock elemnt" onclick="lock_element()" disabled><i class="fa-thin fa-lock-open" id="navitem-lock"></i></button>
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-duplicate" data-bs-title="Duplicate element" onclick="duplicate_element()" disabled><i class="fa-thin fa-copy"></i></button>
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-delete" data-bs-title="Remove element" onclick="delete_element()" disabled><i class="fa-thin fa-trash-can-list"></i></button>
         </div>

@@ -9,7 +9,7 @@
         <li class="nav-item">
             <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTemplates"
                 aria-controls="offcanvasTemplates">
-                <i class="fa-solid fa-object-group"></i>
+                <i class="fa-duotone fa-object-group"></i>
                 <br>
                 <small>Templates</small>
             </a>
@@ -17,7 +17,7 @@
         <li>
             <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasText"
             aria-controls="offcanvasText">
-                <i class="fa-solid fa-square-pen"></i>
+                <i class="fa-duotone fa-square-pen"></i>
                 <br>
                 <span>Text</span>
             </a>
@@ -25,7 +25,7 @@
         <li>
             <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUnsplash"
                 aria-controls="offcanvasUnsplash">
-                <i class="fa-regular fa-images"></i>
+                <i class="fa-duotone fa-images"></i>
                 <br>
                 <span><small>UnSplash</small> </span>
             </a>
@@ -39,9 +39,16 @@
             </a>
         </li>
         <li>
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu()"> 
+                <i class="fa-duotone fa-pen-swirl"></i>
+                <br>
+                <span>Draw </span>
+            </a>
+        </li>
+        <li>
             <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShapes"
                 aria-controls="offcanvasShapes">
-                <i class="fa-solid fa-shapes"></i>
+                <i class="fa-duotone fa-shapes"></i>
                 <br>
                 <span>Shapes</span>
             </a>
@@ -49,7 +56,7 @@
         <li>
             <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
                 data-bs-placement="right" data-bs-original-title="Customers">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <i class="fa-duotone fa-cloud-arrow-up"></i>
                 <br>
                 <span>Upload</span>
             </a>
@@ -57,7 +64,7 @@
         <li>
             <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLayers"
                 aria-controls="offcanvasLayers">
-                <i class="fa-solid fa-layer-group"></i>
+                <i class="fa-duotone fa-layer-group"></i>
                 <br>
                 <span>Layers</span>
             </a>
@@ -65,7 +72,7 @@
         <li>
             <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
                 data-bs-placement="right" data-bs-original-title="Customers">
-                <i class="fa-solid fa-minimize"></i>
+                <i class="fa-duotone fa-minimize"></i>
                 <br>
                 <span>Resize</span>
             </a>
