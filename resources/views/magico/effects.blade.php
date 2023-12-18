@@ -1,5 +1,5 @@
 
-<div class="dropdown" style="display: inline">
+<div class="dropdown image_attributes text_attributes polygon_attributes path_attributes circle_attributes">
     <button type="button" class="btn btn-custom" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
         <span><i class="fa-thin fa-spray-can"></i> Effects</span>
     </button>
@@ -10,7 +10,7 @@
                 <span><input class="form-check-input" type="checkbox" id="blur-check" onchange="checkbox_activation(this,'blur-div','blur')"></span>
             </div>
             <div id="blur-div" style="display: none"> 
-                <input type="range" class="form-range" id="blur-input" min="0.00" step="0.01" value="0" max="1.00" oninput="blur_element(this)">  
+                <input type="range" id="blur-input" min="0.00" step="0.01" value="0" max="1.00" oninput="blur_element(this)">  
             </div>
         </div >
         <div class="image_attributes">
@@ -19,10 +19,10 @@
                 <span><input class="form-check-input" type="checkbox" id="brightness-check" onchange="checkbox_activation(this,'brightness-div','brightness')"></span>
             </div>
             <div id="brightness-div" style="display: none"> 
-                <input type="range" class="form-range" id="brightness-input" min="-1.00" step="0.01" max="1.00" oninput="brightness_element(this)">  
+                <input type="range" id="brightness-input" min="-1.00" step="0.01" max="1.00" oninput="brightness_element(this)">  
             </div>
         </div >
-        <div class="image_attributes">
+        <div class="image_attributes polygon_attributes path_attributes circle_attributes">
             <div class="effect-attribute">
                 <label for="border-check">Border <small><b id="border-span"></b></small> </label>
                 <span><input type="checkbox" class="form-check-input" id="border-check" onchange="checkbox_activation(this,'border-div','border')"></span>
@@ -46,13 +46,13 @@
                 </div>
             </div>
         </div> 
-        <div>
+        <div style="display: inline"> {{--  applay to all elemets --}}
             <div class="effect-attribute">
                 <label for="radius-check">Radius <small><b id="radius-span"></b></small> </label>
                 <span><input type="checkbox" class="form-check-input" id="radius-check" onchange="checkbox_activation(this,'radius-div','radius')"></span>
             </div>
             <div id="radius-div" style="display: none"> 
-                <input type="range" class="form-range" id="radius-input" min="1" step="1" max="200" value="1" oninput="radius_element(this)">  
+                <input type="range" id="radius-input" min="1" step="1" max="200" value="1" oninput="radius_element(this)">  
             </div>
         </div> 
         <div class="image_attributes">
@@ -67,27 +67,28 @@
                 <span><input type="checkbox" class="form-check-input" id="sepia-check" onclick="checkbox_activation(this,'sepia-div','sepia')"></span>
             </div> 
         </div>
-        <div >
+        
+        <div style="display: inline"> {{--  applay to all elemets --}}
             <div class="effect-attribute">
                 <label for="shadow-check">Shadow <small><b id="shadow-span"></b></small> </label>
                 <span><input type="checkbox" class="form-check-input" id="shadow-check" onchange="checkbox_activation(this,'shadow-div','shadow')"></span>
             </div>
             <div id="shadow-div" style="display: none">   
                 <div>
-                    <label class="effect-attribute"> <b>Blur</b> <small><b id="shadow-blur-span">0</b></small> </label>  
-                    <input type="range" class="form-range"  id="shadow-input-blur" min="0" step="1" max="50" value="0" oninput="shadow_element(true)">   
+                    <label class="effect-attribute"> <b>Blur</b> <small style="color:black"><b id="shadow-blur-span">0</b></small> </label>  
+                    <input type="range"  id="shadow-input-blur" min="0" step="1" max="50" value="0" oninput="shadow_element(true)">   
                 </div>
                 <div>
-                    <label class="effect-attribute"> <b>Offset X</b> <small><b id="shadow-offsetx-span">0</b></small> </label>  
-                    <input type="range" class="form-range"  id="shadow-input-offsetx" min="0" step="1" max="50" value="0" oninput="shadow_element(true)">   
+                    <label class="effect-attribute"> <b>Offset X</b> <small style="color:black"><b id="shadow-offsetx-span">0</b></small> </label>  
+                    <input type="range"  id="shadow-input-offsetx" min="0" step="1" max="50" value="0" oninput="shadow_element(true)">   
                 </div>
                 <div>
-                    <label class="effect-attribute"> <b>Offset Y</b> <small><b id="shadow-offsety-span">0</b></small> </label>  
-                    <input type="range" class="form-range"  id="shadow-input-offsety" min="0" step="1" max="50" value="0" oninput="shadow_element(true)">   
+                    <label class="effect-attribute"> <b>Offset Y</b> <small style="color:black"><b id="shadow-offsety-span">0</b></small> </label>  
+                    <input type="range"  id="shadow-input-offsety" min="0" step="1" max="50" value="0" oninput="shadow_element(true)">   
                 </div>
                 <div>
-                    <label class="effect-attribute"> <b>Opacity</b> <small><b id="shadow-opacity-span">1</b></small> </label>  
-                    <input type="range" class="form-range"  id="shadow-input-opacity" min="0" step="0.01" max="1.00" value="1.00" oninput="shadow_element(true)">   
+                    <label class="effect-attribute"> <b>Opacity</b> <small style="color:black"><b id="shadow-opacity-span">1</b></small> </label>  
+                    <input type="range"  id="shadow-input-opacity" min="0" step="0.01" max="1.00" value="1.00" oninput="shadow_element(true)">   
                 </div>
                 <div class="effect-attribute">
                     <label>Color <small><b id="shadow-color-span"></b></small> </label>  

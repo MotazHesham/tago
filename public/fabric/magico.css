@@ -217,3 +217,5 @@ body{
 #drawer-menu{
     position: fixed;left:40%;bottom:-70px;z-index: 1;max-height:65px;border-radius: 20px;display: none;
 }
+
+.image_attributes, .polygon_attributes, .path_attributes, .circle_attributes, .text_attributes{display: none;}

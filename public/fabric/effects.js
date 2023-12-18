@@ -19,8 +19,10 @@ function flipVertical() {
 
 function transperancy_element(element) { 
     $('#transparency-span').html(element.value);
-    selectedObject.setOpacity(element.value);
-    fabricCanvasObj.renderAll(); 
+    if(selectedObject){
+        selectedObject.setOpacity(element.value);
+        fabricCanvasObj.renderAll(); 
+    }
 }
 
 function gray_scale_element() {
@@ -133,6 +135,7 @@ function radius_element(element) {
     });
 
     // Set the clipPath to the image
+    selectedObject.border_radius = value;
     selectedObject.set({
         clipPath: clipPath 
     });

@@ -1,5 +1,9 @@
-function drawer_menu(){
-    draw_mode = !draw_mode;
+function drawer_menu(stauts = null){
+    if(stauts){
+        draw_mode = false;
+    }else{
+        draw_mode = !draw_mode;
+    }
     if(draw_mode){ 
         change_draw_mode(true);
         $('#drawer-menu').css('display','block');

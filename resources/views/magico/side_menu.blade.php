@@ -7,7 +7,7 @@
     <ul
         class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
         <li class="nav-item">
-            <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTemplates"
+            <a href="#" class="nav-link py-3 px-2" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTemplates"
                 aria-controls="offcanvasTemplates">
                 <i class="fa-duotone fa-object-group"></i>
                 <br>
@@ -15,7 +15,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasText"
+            <a href="#" class="nav-link py-3 px-2" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasText"
             aria-controls="offcanvasText">
                 <i class="fa-duotone fa-square-pen"></i>
                 <br>
@@ -23,19 +23,19 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUnsplash"
-                aria-controls="offcanvasUnsplash">
-                <i class="fa-duotone fa-images"></i>
-                <br>
-                <span><small>UnSplash</small> </span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPixabay"
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPixabay"
                 aria-controls="offcanvasPixabay">
                 <i class="fa-duotone fa-image"></i>
                 <br>
                 <span>Pixbay </span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUnsplash"
+                aria-controls="offcanvasUnsplash">
+                <i class="fa-duotone fa-images"></i>
+                <br>
+                <span><small>UnSplash</small> </span>
             </a>
         </li>
         <li>
@@ -46,7 +46,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShapes"
+            <a href="#" class="nav-link py-3 px-2" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShapes"
                 aria-controls="offcanvasShapes">
                 <i class="fa-duotone fa-shapes"></i>
                 <br>
@@ -54,7 +54,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="tooltip"
                 data-bs-placement="right" data-bs-original-title="Customers">
                 <i class="fa-duotone fa-cloud-arrow-up"></i>
                 <br>
@@ -62,7 +62,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLayers"
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLayers"
                 aria-controls="offcanvasLayers">
                 <i class="fa-duotone fa-layer-group"></i>
                 <br>
@@ -70,7 +70,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="tooltip"
                 data-bs-placement="right" data-bs-original-title="Customers">
                 <i class="fa-duotone fa-minimize"></i>
                 <br>

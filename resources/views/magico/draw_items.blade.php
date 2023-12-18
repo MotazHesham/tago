@@ -25,9 +25,9 @@
                     <input type="range" name="drawing-line-width" id="drawing-line-width" value="1">
                 </div>
             </div> 
-        </div> 
-        {{-- <button id="clear-canvas">clear</button>  --}}
-        
-        
+        </div>
+        <div style="margin-bottom: 32px;padding:0 20px">  
+            <button type="button" class="btn-close" onclick="drawer_menu('hide')" aria-label="Close"></button> 
+        </div>
     </div>
 </div> 
