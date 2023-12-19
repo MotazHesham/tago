@@ -11,6 +11,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
     Route::post('/unsplash_loading_more_images', 'MagicoController@unsplash_loading_more_images')->name('unsplash_loading_more_images');
     Route::post('/unsplash_query_images', 'MagicoController@unsplash_query_images')->name('unsplash_query_images');
     Route::post('/pixabay_loading_images', 'MagicoController@pixabay_loading_images')->name('pixabay_loading_images');
+    Route::post('/upload_magico_images', 'MagicoController@upload_magico_images')->name('upload_magico_images');
     
     Route::get('user/{id}','HomeController@user')->name('user'); 
     Route::get('user/token/{token}','HomeController@user_by_token')->name('user_by_token'); 

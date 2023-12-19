@@ -1,6 +1,12 @@
 
 $(document).ready(function() { 
     // ------------- Scrolling wheels horizontally ------------
+    var uploadOffCanvas = document.getElementById("offcanvas-upload"); 
+    uploadOffCanvas.addEventListener("wheel", function (e) {
+        if (e.deltaY > 0) uploadOffCanvas.scrollLeft += 100;
+        else uploadOffCanvas.scrollLeft -= 100; 
+    });
+
     var pixabayOffCanvas = document.getElementById("offcanvas-pixabay"); 
     pixabayOffCanvas.addEventListener("wheel", function (e) {
         if (e.deltaY > 0) pixabayOffCanvas.scrollLeft += 100;

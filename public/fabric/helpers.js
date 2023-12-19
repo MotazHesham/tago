@@ -39,7 +39,7 @@ function check_object_type(selectedObject){
         $('.circle_attributes').css('display','none');
         $('.text_attributes').css('display','none');
 
-        if(selectedObject.type == 'i-text'){
+        if(selectedObject.type == 'i-text' || selectedObject.type == 'textbox'){
             $('.text_attributes').css('display','inline');
         }else if(selectedObject.type == 'image'){
             $('.image_attributes').css('display','inline');
@@ -215,6 +215,9 @@ function selectCanvas(canvasObject, canvasId){
         $("#active_helper_buttons").detach().insertAfter(canvasId); 
         $("#page_buttons").detach().insertAfter(canvasId); 
         $('#page_buttons').css('display','block');
+        $("#page_resize").detach().insertAfter(canvasId);
+        $('#canvas_width').val(fabricCanvasObj.width);
+        $('#canvas_height').val(fabricCanvasObj.height);
         inactive_helper_buttons(); 
         refresh_layers()
     }
@@ -297,15 +300,37 @@ function active_layer_li(id){
     }
 } 
 
-function add_text() {
+function canvas_resize(){
+    canvasWidth = parseInt($('#canvas_width').val());
+    canvasHeight  = parseInt($('#canvas_height').val());
+    fabricCanvasObj.setWidth(canvasWidth);
+    fabricCanvasObj.setHeight(canvasHeight);
+}
+function show_resize_buttons(){ 
+    if ($("#page_resize").is(":hidden")) {
+        $('#page_resize').css('display','flex'); 
+    } else { 
+        $('#page_resize').css('display','none');
+    }
+}
+
+function add_text(text,font_size) {
     // Create a text object
-    var text = new fabric.IText('Hello, Fabric.js!', {
+    var text = new fabric.IText(text, {
         left: 50,
         top: 50,
         fontFamily: 'Arial',
-        fontSize: 50,
-        fill: 'black',
+        fontSize: font_size,
+        fill: 'black',  
     }); 
+    text.setControlVisible('tl',false);
+    text.setControlVisible('bl',false);
+    text.setControlVisible('tr',false);
+    text.setControlVisible('br',false);
+    text.setControlVisible('ml',false);
+    text.setControlVisible('mb',false);
+    text.setControlVisible('mr',false);
+    text.setControlVisible('mt',false);
     text.id = 'text' + (new Date()).getTime();
     text.naming = 'text' + (new Date()).getTime();
     text.set(corner_options); 
@@ -313,6 +338,28 @@ function add_text() {
     fabricCanvasObj.renderAll(); 
     save_state();
     refresh_layers();
+}
+
+function add_text_box(id){
+    var text_box = $('#' + id).html(); 
+    // Create a Fabric.js Textbox
+    var textbox = new fabric.Textbox(text_box, {
+        left: 50,
+        top: 50,
+        width: 400, 
+        fontSize:18,
+        splitByGrapheme: true, 
+    });
+    textbox.set(corner_options); 
+    textbox.setControlVisible('tl',false);
+    textbox.setControlVisible('bl',false);
+    textbox.setControlVisible('tr',false);
+    textbox.setControlVisible('br',false);
+    textbox.setControlVisible('mb',false);
+    textbox.setControlVisible('mt',false);
+
+    // Add the Textbox to the canvas
+    fabricCanvasObj.add(textbox);
 }
 
 function lock_element(id = false) {
@@ -382,6 +429,7 @@ function delete_element(id = false) {
         check_object_type(false);
     }  
 } 
+
 function visible_element(id = false) {
     if(id){ 
         var objectTovisible = getObjectById(id);    

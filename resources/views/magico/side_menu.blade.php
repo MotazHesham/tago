@@ -1,5 +1,4 @@
-<div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top"
-    style="background: #383e4700 !important">
+<div style="background: #383e4700 !important">
     <a href="/" class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip"
         data-bs-placement="right" data-bs-original-title="Icon-only">
         <i class="bi-bootstrap fs-1"></i>
@@ -54,8 +53,8 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-original-title="Customers">
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUpload"
+            aria-controls="offcanvasUpload">
                 <i class="fa-duotone fa-cloud-arrow-up"></i>
                 <br>
                 <span>Upload</span>
@@ -70,12 +69,11 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="tooltip"
-                data-bs-placement="right" data-bs-original-title="Customers">
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="show_resize_buttons()">
                 <i class="fa-duotone fa-minimize"></i>
                 <br>
                 <span>Resize</span>
-            </a>
+            </a>  
         </li>
     </ul>
 </div>

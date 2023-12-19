@@ -1,9 +1,12 @@
 
 
-<div class="common-background" style="display:flex;justify-content:space-between ;color:white;padding:15px">
-    <div style="display: flex; align-items: center; "> 
+<div class="common-background container-scrollable-y" style="display:flex;justify-content:space-between ;color:white;padding:15px;position: relative;z-index:1">
+    <div style="display: flex; align-items: center; min-width: fit-content"> 
         <button class="btn btn-custom btn-sm" id="undo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="UnDo"><i class="fa-solid fa-rotate-left"></i></button>
         <button class="btn btn-custom btn-sm" id="redo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Redo" disabled><i class="fa-solid fa-rotate-right"></i></button> 
+        <button class="btn btn-dark btn-sm" onclick="zoomIn()">Zoom In</button>
+        <span id="zoom-precent" style="color:white"></span>
+        <button class="btn btn-dark btn-sm" onclick="zoomOut()">Zoom Out</button>
 
         <input  style="height:33px;padding:0" class="text_attributes polygon_attributes path_attributes circle_attributes" name="text_color" id="text_color" type="color" oninput="text_color(this)">
         <select class="form-control text_attributes" name="select_font" id="select_font" style="width:150px !important;padding: 4px 6px;margin:0 10px" onchange="setFontFamily(this)">
@@ -68,11 +71,11 @@
             <button type="button" class="btn btn-custom" onclick="cropActiveObject()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Move object after click">
                 <i class="fa-thin fa-crop-simple"></i> <span>Crop</span>
             </button> 
-        </div>    
+        </div>     
         @include('magico.effects')
     </div>
-    <div style="display: flex;align-items:center">
-        <div> {{-- icons  --}}
+    <div style="display: flex;align-items:center;min-width: fit-content">
+        <div style="min-width: fit-content"> {{-- icons  --}}
             <div class="dropdown" style="display: inline">
                 <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="nav-positions">
                     <i class="fa-thin fa-layer-group"></i> <span style="font-size: 18px; letter-spacing: 2px;">Positions</span>

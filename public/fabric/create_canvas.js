@@ -2,20 +2,19 @@ function createCanvas() {
 
     var canvasPage = document.createElement('div');
     canvasPage.id = 'pageCanvas' + (new Date()).getTime(); 
-    document.getElementById('page-container').appendChild(canvasPage);
-    $('#' + canvasPage.id).addClass('canvas-page mb-5'); 
+    document.getElementById('canvas-pages').appendChild(canvasPage);
+    $('#' + canvasPage.id).addClass('canvas-page mb-6'); 
 
     var canvasElement = document.createElement('canvas');
     canvasElement.id = 'dynamicCanvas' + (new Date()).getTime(); // Unique ID for each canvas
-    canvasElement.width = 1200;
-    canvasElement.height = 630;
+    canvasElement.width = canvasWidth;
+    canvasElement.height = canvasHeight;
 
     document.getElementById(canvasPage.id).appendChild(canvasElement);
 
     var newCanvas = new fabric.Canvas(canvasElement.id, {
         preserveObjectStacking: true,
-        skipTargetFind: false,
-        backgroundColor: 'white'
+        skipTargetFind: false
     });
     
     selectCanvas(newCanvas,'#' + canvasElement.id); 

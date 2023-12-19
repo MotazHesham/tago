@@ -47,8 +47,44 @@
         <h5 class="offcanvas-title" id="offcanvasTextLabel" style="color:white">Text</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-text" style="display:flex">   
-        <span onclick="add_text()">add text</span>
+    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-text" style="display:flex;justify-content:space-between;color:white;gap:3%">   
+        <div style="min-width: fit-content">
+            <h3 onclick="add_text('Create Header',28)" style="padding:5px;cursor: pointer;">Create Header</h3>
+            <h4 onclick="add_text('Create Header',24)" style="padding:5px;cursor: pointer;">Create Header</h4> 
+            <h5 onclick="add_text('Create Header',20)" style="padding:5px;cursor: pointer;">Create Header</h5> 
+        </div>
+        <div onclick="add_text_box('text-box-1')" id="text-box-1" class="textbox-div">
+            “The Best Way To Get Started Is To 
+            Quit Talking And Begin Doing.”
+
+            - Walt Disney
+        </div>
+        <div onclick="add_text_box('text-box-2')" id="text-box-2" class="textbox-div">
+            “The Pessimist Sees Difficulty In Every Opportunity. The
+            Optimist Sees OpportunityIn Every Difficulty.” 
+            
+            - Winston Churchill
+        </div>
+        <div onclick="add_text_box('text-box-3')" id="text-box-3" class="textbox-div">
+            Two roads diverged in a wood, and I,
+            I took the one less travelled by,
+            and that has made all the difference.
+            
+            - Robert Frost	
+        </div>
+        <div onclick="add_text_box('text-box-4')" id="text-box-4" class="textbox-div">
+            You can fool all of the people some of the time,
+            and some of the people all of the time,
+            but you can't fool all of the people all of the time.	
+            
+            - Abraham Lincoln		
+        </div>
+        <div onclick="add_text_box('text-box-5')" id="text-box-5" class="textbox-div">
+            “if you can dream
+            it, you can do it.”
+
+            - Walt Disney
+        </div> 
     </div>
 </div>
 
@@ -105,6 +141,7 @@
         </div>  
         <div>  
             <img class="add-to-canvas" src="{{ asset('fabric/shapes/13.svg') }}" data-src="{{ asset('fabric/shapes/13.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/alien.svg') }}" data-src="{{ asset('fabric/shapes/alien.svg') }}">
         </div>  
         <div>  
             <img class="add-to-canvas" src="{{ asset('fabric/shapes/14.svg') }}" data-src="{{ asset('fabric/shapes/14.svg') }}">
@@ -140,15 +177,22 @@
         <ul class="list-group list-group-horizontal"  style="display: flex;align-items: center;flex-wrap: wrap;align-content: flex-start;" id="demo1"> 
         </ul> 
     </div>
-</div>
+</div> 
 
-{{-- Draw --}}
-{{-- <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasDraw" aria-labelledby="offcanvasDrawLabel" style="width:200px">
-    <div class="offcanvas-header common-background"  >
-        <h5 class="offcanvas-title" id="offcanvasDrawLabel" style="color:white">Draw</h5>
+{{-- Upload --}}
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasUpload" aria-labelledby="offcanvasUploadLabel">
+    <div class="offcanvas-header common-background" >
+        <h5 class="offcanvas-title" id="offcanvasUploadLabel" style="color:white">Upload </h5>
+        <div style="display: inline">
+            <form action="{{ route('frontend.upload_magico_images')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="image" class="form-control">
+                <button class="btn btn-dark" type="submit">Upload</button> 
+            </form>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div> 
+    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-upload" style="display:flex">   
+        @include('magico.uploaded_images')  
     </div>
-    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-draw" style="display:flex">   
-
-    </div>
-</div> --}}
+</div>  

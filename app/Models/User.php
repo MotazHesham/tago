@@ -25,6 +25,7 @@ class User extends Authenticatable implements HasMedia
 
     protected $appends = [
         'photo',
+        'magico_images',
         'cover',
     ];
 
@@ -72,9 +73,19 @@ class User extends Authenticatable implements HasMedia
     }
 
     public function registerMediaConversions(Media $media = null): void
+    { 
+        $this->addMediaConversion('preview')->width(368)->height(232)->keepOriginalImageFormat(); 
+    } 
+
+    public function getMagicoImagesAttribute()
     {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+        $files = $this->getMedia('magico_images');
+        $files->each(function ($item) {
+            $item->url       = $item->getUrl(); 
+            $item->preview   = $item->getUrl('preview'); 
+        });
+
+        return $files;
     }
 
     public function userUserLinks()

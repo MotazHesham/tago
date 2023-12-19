@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client; 
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MagicoController extends Controller
 {
@@ -86,5 +88,17 @@ class MagicoController extends Controller
             return $this->GETAPI($url,$headers)->hits;
         });   
         return view('magico.pixabay_images',compact('pixabay_images'));
+    }
+
+    public function upload_magico_images(Request $request){
+        $user = Auth::user(); 
+        if($user){
+            if($request->hasFile('image')){
+                $user->addMedia($request->image)->toMediaCollection('magico_images'); 
+                return redirect()->back();
+            }
+        }else{
+            return redirect()->route('login');
+        } 
     }
 }
