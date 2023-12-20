@@ -100,7 +100,7 @@ class HomeController extends Controller
     public function user($id){ 
         $user = User::with(['media','userUserLinks.main_link','userUserLinks' => function($q){
             $q->where('active',1)->orderBy('priority','asc');
-        }])->find($id);
+        }])->findOrFail($id);
         if(!$user->active_byqr){
             alert('لم يتم التفعيل حتي الأن','','error');
             return redirect()->route('home');

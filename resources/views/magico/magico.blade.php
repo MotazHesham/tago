@@ -26,14 +26,20 @@
 
     @include('magico.offCanvas')
 
+    <div style="position: fixed;bottom:0;right:0;z-index:1;display:flex">
+        <button class="btn btn-custom btn-sm" style="background: #9ca9ab" onclick="zoomIn()"><i class="fa-regular fa-magnifying-glass-plus"></i></button> 
+        <input type="number" id="zoom-precent" class="form-control" style="width: 90px" onchange="change_zoom()">
+        <button class="btn btn-custom btn-sm" style="background: #9ca9ab" onclick="zoomOut()"><i class="fa-light fa-magnifying-glass-minus"></i></button>
+    </div>
+
+    @include('magico.draw_items')
     <div class="d-flex">
         <div class="bg-light common-background side-menu d-none d-md-block d-lg-block" style="z-index: 1;padding:0 10px">
             @include('magico.side_menu')
         </div>
         <div class=" min-vh-100 nav-items" style="background: #e7e7e7;width:100%">  
             @include('magico.nav_items')
-            <div class="container-scrollable-x" id="page-container">
-                @include('magico.draw_items')
+            <div class="container-scrollable-x" id="page-container" style="overflow-x:scroll">
                 <div style="margin-top: 6rem;display: flex;flex-direction: column;align-items: center;" id="canvas-pages">
                     {{-- canvas pages --}}
                 </div> 
@@ -75,10 +81,15 @@
             zoomPercentage -= 10;
             updateZoom();
         }
+        
+        function change_zoom(){
+            zoomPercentage = parseInt($('#zoom-precent').val());
+            updateZoom();
+        }
 
         function updateZoom() {
-            document.getElementById('canvas-pages').style.transform = 'scale(' + (zoomPercentage / 100) + ')';
-            $('#zoom-precent').html(zoomPercentage);
+            document.getElementById('page-container').style.transform = 'scale(' + (zoomPercentage / 100) + ')';
+            $('#zoom-precent').val(zoomPercentage);
             console.log(zoomPercentage);
         }
         var corner_options = {
@@ -105,7 +116,8 @@
         function calculateZoom() {
             var containerWidth = $('#page-container').width(); 
             var containerContent = $('#canvas-pages').width(); 
-            zoomPercentage = (containerWidth / canvasWidth) * 70;
+            tozoom = ($('body').width() / canvasWidth) * 66;
+            zoomPercentage = Math.round(tozoom * 100) / 100
             console.log('page-container:' + containerWidth);
             console.log('canvas-width:' + canvasWidth);
             console.log('body width:' + $('body').width());

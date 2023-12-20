@@ -74,7 +74,9 @@ class User extends Authenticatable implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     { 
-        $this->addMediaConversion('preview')->width(368)->height(232)->keepOriginalImageFormat(); 
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+        $this->addMediaConversion('preview2')->width(368)->height(232)->keepOriginalImageFormat(); 
     } 
 
     public function getMagicoImagesAttribute()
@@ -83,6 +85,7 @@ class User extends Authenticatable implements HasMedia
         $files->each(function ($item) {
             $item->url       = $item->getUrl(); 
             $item->preview   = $item->getUrl('preview'); 
+            $item->preview2   = $item->getUrl('preview2'); 
         });
 
         return $files;

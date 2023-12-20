@@ -4,9 +4,6 @@
     <div style="display: flex; align-items: center; min-width: fit-content"> 
         <button class="btn btn-custom btn-sm" id="undo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="UnDo"><i class="fa-solid fa-rotate-left"></i></button>
         <button class="btn btn-custom btn-sm" id="redo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Redo" disabled><i class="fa-solid fa-rotate-right"></i></button> 
-        <button class="btn btn-dark btn-sm" onclick="zoomIn()">Zoom In</button>
-        <span id="zoom-precent" style="color:white"></span>
-        <button class="btn btn-dark btn-sm" onclick="zoomOut()">Zoom Out</button>
 
         <input  style="height:33px;padding:0" class="text_attributes polygon_attributes path_attributes circle_attributes" name="text_color" id="text_color" type="color" oninput="text_color(this)">
         <select class="form-control text_attributes" name="select_font" id="select_font" style="width:150px !important;padding: 4px 6px;margin:0 10px" onchange="setFontFamily(this)">
@@ -133,7 +130,7 @@
         </div>
         <div class="nav-divider"></div>
         <div>
-            <button class="btn btn-custom btn-small" onclick="download()"><small><i class="fa-thin fa-cloud-arrow-down"></i> Download</small></button>
+            <button class="btn btn-custom btn-small" onclick="download()" style="display: flex;align-items: flex-end;"><i class="fa-thin fa-cloud-arrow-down" style="padding:0 6px"></i><small> Download</small></button>
         </div> 
     </div>
 </div> 
