@@ -725,4 +725,30 @@ return [
     ],
 
 
+    'templatesMangment' => [
+        'title'          => 'Templates Mangment',
+        'title_singular' => 'Templates Mangment',
+    ],
+    'template' => [
+        'title'          => 'Templates',
+        'title_singular' => 'Template',
+        'fields'         => [
+            'id'                  => 'ID',
+            'id_helper'           => ' ',
+            'name'                => 'Name',
+            'name_helper'         => ' ',
+            'price'               => 'Price',
+            'price_helper'        => ' ',
+            'photo'               => 'Photo',
+            'photo_helper'        => ' ',
+            'canvas_pages'        => 'Canvas Pages',
+            'canvas_pages_helper' => ' ',
+            'created_at'          => 'Created at',
+            'created_at_helper'   => ' ',
+            'updated_at'          => 'Updated at',
+            'updated_at_helper'   => ' ',
+            'deleted_at'          => 'Deleted at',
+            'deleted_at_helper'   => ' ',
+        ],
+    ],
 ];

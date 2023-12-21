@@ -17,9 +17,11 @@ Auth::routes();
 Route::get('social-login/apple','Auth\LoginController@login_social');
 Route::post('social-login/callback','Auth\LoginController@callback'); 
 
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth','staff']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('show_qr_code', 'HomeController@show_qr_code')->name('show_qr_code');
+    
 
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
@@ -150,6 +152,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Menu Products
     Route::delete('menu-products/destroy', 'MenuProductsController@massDestroy')->name('menu-products.massDestroy');
     Route::resource('menu-products', 'MenuProductsController');
+
+    
+    // Templates 
+    Route::post('templates/save', 'TemplatesController@save')->name('templates.save');
+    Route::delete('templates/destroy', 'TemplatesController@massDestroy')->name('templates.massDestroy');
+    Route::post('templates/media', 'TemplatesController@storeMedia')->name('templates.storeMedia');
+    Route::post('templates/ckmedia', 'TemplatesController@storeCKEditorImages')->name('templates.storeCKEditorImages');
+    Route::resource('templates', 'TemplatesController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

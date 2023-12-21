@@ -5,6 +5,20 @@
     <span class="visually-hidden">Loading...</span>
 </div>
 
+{{-- Templates --}}
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasTemplates" aria-labelledby="offcanvasTemplatesLabel">
+    <div class="offcanvas-header common-background">
+        <h5 class="offcanvas-title" id="offcanvasTemplatesLabel" style="color:white"> 
+            Templates
+        </h5>  
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-templates" style="display:flex">   
+        @include('magico.templates') 
+    </div>
+</div>
+
+
 {{-- Pixbay --}}
 <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasPixabay" aria-labelledby="offcanvasPixabayLabel">
     <div class="offcanvas-header common-background">
@@ -15,10 +29,33 @@
             <input type="text" class="form-control" id="search-pixabay" placeholder="Search...">
             <button class="btn btn-dark" onclick="pixabay_loading_images()">Search</button> 
         </div>
+        <small>
+            Photos By <a href="https://pixabay.com" style="color:black" target="_blanc">Pixabay</a>
+        </small>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-pixabay" style="display:flex">   
         @include('magico.pixabay_images') 
+    </div>
+</div>
+
+{{-- IconScout --}}
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasiconscout" aria-labelledby="offcanvasiconscoutLabel">
+    <div class="offcanvas-header common-background">
+        <h5 class="offcanvas-title" id="offcanvasiconscoutLabel" style="color:white"> 
+            IconScout
+        </h5> 
+        <div style="display: inline">
+            <input type="text" class="form-control" id="search-iconscout" placeholder="Search...">
+            <button class="btn btn-dark" onclick="iconscout_loading_images()">Search</button> 
+        </div>
+        <small>
+            Icons By <a href="https://iconscout.com" style="color:black" target="_blanc">IconScout</a>
+        </small>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-iconscout" style="display:flex">   
+        @include('magico.iconscout_images') 
     </div>
 </div>
 
@@ -42,6 +79,7 @@
     </div>
 </div>
 
+{{-- Text --}}
 <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasText" aria-labelledby="offcanvasTextLabel">
     <div class="offcanvas-header common-background"  >
         <h5 class="offcanvas-title" id="offcanvasTextLabel" style="color:white">Text</h5>
@@ -144,7 +182,7 @@
             <img class="add-to-canvas" src="{{ asset('fabric/shapes/alien.svg') }}" data-src="{{ asset('fabric/shapes/alien.svg') }}">
         </div>  
         <div>  
-            <img class="add-to-canvas" src="{{ asset('fabric/shapes/14.svg') }}" data-src="{{ asset('fabric/shapes/14.svg') }}">
+            <img class="add-to-canvas" src="{{ asset('fabric/shapes/14.svg') }}" data-src="{{ asset('fabric/shapes/14.svg') }}"> 
         </div>  
         <div>  
             <img class="add-to-canvas" src="{{ asset('fabric/shapes/15.svg') }}" data-src="{{ asset('fabric/shapes/15.svg') }}">

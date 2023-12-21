@@ -540,6 +540,30 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 133,
+                'title' => 'templates_mangment_access',
+            ],
+            [
+                'id'    => 134,
+                'title' => 'template_create',
+            ],
+            [
+                'id'    => 135,
+                'title' => 'template_edit',
+            ],
+            [
+                'id'    => 136,
+                'title' => 'template_show',
+            ],
+            [
+                'id'    => 137,
+                'title' => 'template_delete',
+            ],
+            [
+                'id'    => 138,
+                'title' => 'template_access',
+            ],
+            [
+                'id'    => 139,
                 'title' => 'profile_password_edit',
             ],
         ];

@@ -20,10 +20,21 @@
     <link rel="stylesheet" href="{{ asset('fabric/context.standalone.css')}}"> 
     <link rel="stylesheet" href="{{ asset('fabric/magico.css')}}"> 
     @section('styles') 
+    <style>
+        .add-as-template{  
+            transition: all .4s ease-in-out;
+            cursor: pointer;
+        }
+        .add-as-template:hover{
+            transform: scale(1.1);
+            box-shadow: 2px 9px 20px 1px #6e6e6e;
+        }
+    </style>
 </head>
 
-<body> 
+<body>   
 
+    @include('magico.save_template')
     @include('magico.offCanvas')
 
     <div style="position: fixed;bottom:0;right:0;z-index:1;display:flex">
@@ -56,15 +67,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/RubaXa/Sortable/Sortable.min.js"></script>
+    <script src="{{ asset('fabric/jquery-loading-overlay.min.js') }}"></script>  
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script src="{{ asset('fabric/context.js') }}"></script>
     <script src="{{ asset('fabric/initialize_context.js') }}"></script>
     <script src="{{ asset('fabric/fabric.js') }}"></script>
     <script src="{{ asset('fabric/create_canvas.js') }}"></script>
     <script src="{{ asset('fabric/helpers.js') }}"></script>
-    <script> 
+    <script>  
 
-        var fabricCanvasObj = null;     
-        var selectedObject = null;
+        var canvasPages = [];   
+        var selectedObject = null; 
+        var hoverdObject = null; 
+        var clickedObject = null; 
         var objectToCrop = null;
         var currentCanvasId = null;
         var draw_mode = false;
@@ -107,6 +124,13 @@
             $("body").tooltip({ selector: '[data-bs-toggle=tooltip]' });
             Sortable.create(demo1, {  animation: 150, ghostClass: 'blue-background-class','handle':'.handle'});
             $('.select2').select2()  
+            $('.dropdown').on('show.bs.dropdown', function () {
+                $('.nav-bar').css('overflow', 'visible'); 
+            }); 
+            $('.dropdown').on('hide.bs.dropdown', function () {
+                $('.nav-bar').css('overflow-y', 'hidden'); 
+                $('.nav-bar').css('overflow-x', 'scroll'); 
+            });
             calculateZoom()
         });   
         
@@ -127,6 +151,37 @@
 
         createCanvas(); 
         
+        $("#template-form").on("submit", function(ev) {
+            ev.preventDefault(); // Prevent browser default submit.
+            var formData = new FormData(this);
+            $.LoadingOverlay("show"); 
+
+            var pages = {}; 
+            for(var i in canvasPages)
+            { 
+                var dataset = canvasPages[i].toJSON();
+                pages[i] = JSON.parse(JSON.stringify(dataset)).objects;
+            }  
+            formData.append('canvas_pages',JSON.stringify(pages));
+            $.ajax({
+                url: '{{ route("admin.templates.save")}}',
+                type: 'POST', 
+                data: formData, 
+                success: function(response) {   
+                    $.LoadingOverlay("hide"); 
+                    showAlert('success', 'Success Save Template', '');
+                    console.log(response);
+                },
+                error: function(err) {
+                    $.LoadingOverlay("hide"); 
+                    showAlert('error', 'Something Went Wrong', '');
+                    console.log('Error' + err);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            }); 
+        });
     </script>  
     <script src="{{ asset('fabric/draw.js') }}"></script>
     <script src="{{ asset('fabric/listners.js') }}"></script>
@@ -140,6 +195,21 @@
     {{-- script loading images from outsources --}}
     <script>
 
+    
+        $('body').on('click', '.add-as-template', function(e) {   
+            $.LoadingOverlay("show"); 
+            let template_src = e.target.getAttribute("data-src"); 
+            let pages  = JSON.parse(template_src);
+            let page_1_objects = Object.values(pages)[0];
+            var page_1 = {
+                "objects" : page_1_objects
+            } 
+            canvasPages[currentCanvasId].loadFromJSON(JSON.stringify(page_1), function () {
+                // Render canvas after loading JSON
+                canvasPages[currentCanvasId].renderAll();
+                $.LoadingOverlay("hide"); 
+            });
+        });
         var loading_images_unsplash = false;
         var images_page_unsplash = 2 ; 
         $('#offcanvas-unsplash').on('scroll', function (e) {
@@ -163,6 +233,7 @@
                         },
                         error: function(err) {
                             console.log('Error' + err);
+                            loading_images_unsplash = false;  
                         },
                     });
                 }
@@ -185,6 +256,7 @@
                 },
                 error: function(err) {
                     console.log('Error' + err);
+                    $('#offcanvas-unsplash').html('No Results Found Related To ur Search');
                 },
             });
         }
@@ -212,14 +284,15 @@
                             $('#loading_images_pixabay').remove(); 
                         },
                         error: function(err) {
+                            loading_images_pixabay = false;   
                             console.log('Error' + err);
                         },
                     });
                 }
             } 
         }) 
-        function pixabay_loading_images(){
-            
+        function pixabay_loading_images(){ 
+            images_page_pixabay = 1;
             $.ajax({
                 url: '{{ route("frontend.pixabay_loading_images") }}',
                 type: 'POST',
@@ -232,6 +305,56 @@
                     $('#offcanvas-pixabay').html(response);  
                 },
                 error: function(err) {
+                    $('#offcanvas-pixabay').html('No Results Found Related To ur Search');
+                    console.log('Error' + err);
+                },
+            });
+        }
+
+        
+
+        var loading_images_iconscout = false; 
+        $('#offcanvas-iconscout').on('scroll', function (e) {
+            if($(this).scrollLeft() + $(this).innerWidth() >= $(this)[0].scrollWidth) {
+                if(!loading_images_iconscout){
+                    var spinner = '<div style="min-width: fit-content;display:flex;align-items:center" id="loading_images_iconscout"> <div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span> </div></div>';
+                    $(spinner).appendTo(this);
+                    loading_images_iconscout = true;  
+                    $.ajax({
+                        url: '{{ route("frontend.iconscout_loading_images") }}',
+                        type: 'POST',
+                        data: {
+                            page_url: $('.next-icon-scout:last').val(),
+                            search: $('#search-iconscout').val(),
+                            _token: '{{ csrf_token() }}',
+                        }, 
+                        success: function(response) {  
+                            $(response).appendTo(e.target); 
+                            loading_images_iconscout = false;  
+                            $('#loading_images_iconscout').remove(); 
+                        },
+                        error: function(err) {
+                            loading_images_iconscout = false;   
+                            console.log('Error' + err);
+                        },
+                    });
+                }
+            } 
+        }) 
+        function iconscout_loading_images(){  
+            $.ajax({
+                url: '{{ route("frontend.iconscout_loading_images") }}',
+                type: 'POST',
+                data: {
+                    page_url: '/v3/search?',
+                    search: $('#search-iconscout').val(),
+                    _token: '{{ csrf_token() }}',
+                }, 
+                success: function(response) {  
+                    $('#offcanvas-iconscout').html(response);  
+                },
+                error: function(err) {
+                    $('#offcanvas-iconscout').html('No Results Found Related To ur Search');
                     console.log('Error' + err);
                 },
             });

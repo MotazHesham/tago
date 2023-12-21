@@ -3,7 +3,7 @@
 function flipHorizontal() {
     if (selectedObject) {
         selectedObject.flipX = !selectedObject.flipX;
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         save_state();
     }
 }
@@ -12,7 +12,7 @@ function flipHorizontal() {
 function flipVertical() {
     if (selectedObject) {
         selectedObject.flipY = !selectedObject.flipY;
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         save_state();
     }
 }
@@ -21,7 +21,7 @@ function transperancy_element(element) {
     $('#transparency-span').html(element.value);
     if(selectedObject){
         selectedObject.setOpacity(element.value);
-        fabricCanvasObj.renderAll(); 
+        canvasPages[currentCanvasId].renderAll(); 
     }
 }
 
@@ -37,7 +37,7 @@ function gray_scale_element() {
     selectedObject.set('filters', existingFilters);
     selectedObject.applyFilters();
 
-    fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].renderAll();
     save_state();
 }
 
@@ -49,7 +49,7 @@ function remove_gray_scale_element() {
 
     selectedObject.applyFilters();
 
-    fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].renderAll();
     save_state();
 }
 
@@ -90,7 +90,7 @@ function shadow_element(status) {
             offsetY: 0
         });
     }
-    fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].renderAll();
     save_state();
 
 }
@@ -101,13 +101,13 @@ function cropActiveObject() {
 
 function fit_page_element() { 
     // Center the object on the canvas
-    selectedObject.scaleToHeight(fabricCanvasObj.height);
-    selectedObject.scaleToWidth(fabricCanvasObj.width);
+    selectedObject.scaleToHeight(canvasPages[currentCanvasId].height);
+    selectedObject.scaleToWidth(canvasPages[currentCanvasId].width);
     selectedObject.set({ 
         top: 0,
         left: 0
     });
-    fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].renderAll();
     save_state();
 }
 
@@ -139,7 +139,7 @@ function radius_element(element) {
     selectedObject.set({
         clipPath: clipPath 
     });
-    fabricCanvasObj.renderAll(); 
+    canvasPages[currentCanvasId].renderAll(); 
 } 
 function sepia_element(status){
     // Retrieve existing filters
@@ -158,7 +158,7 @@ function sepia_element(status){
     // Render the canvas
     selectedObject.filters = existingFilters;
     selectedObject.applyFilters();
-    fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].renderAll();
 }
 
 function border_element(element){ 
@@ -166,7 +166,7 @@ function border_element(element){
         selectedObject.set({
             strokeWidth: 0
         });
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         save_state();
         return ;
     }
@@ -176,7 +176,7 @@ function border_element(element){
         rx: 50 / selectedObject.scaleX,
         ry: 50 / selectedObject.scaleY,
     });
-    fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].renderAll();
     save_state();
 }
 
@@ -205,7 +205,7 @@ function brightness_element(element) {
     existingFilters.push(brightnessFilter);
     selectedObject.filters = existingFilters;
     selectedObject.applyFilters();
-    fabricCanvasObj.renderAll(); 
+    canvasPages[currentCanvasId].renderAll(); 
 }
 
 function blur_element(element) { 
@@ -232,5 +232,5 @@ function blur_element(element) {
     existingFilters.push(blurFilter);
     selectedObject.filters = existingFilters;
     selectedObject.applyFilters();
-    fabricCanvasObj.renderAll(); 
+    canvasPages[currentCanvasId].renderAll(); 
 }

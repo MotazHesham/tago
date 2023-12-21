@@ -1,6 +1,18 @@
 
 $(document).ready(function() { 
     // ------------- Scrolling wheels horizontally ------------
+    var iconscoutOffCanvas = document.getElementById("offcanvas-iconscout"); 
+    iconscoutOffCanvas.addEventListener("wheel", function (e) {
+        if (e.deltaY > 0) iconscoutOffCanvas.scrollLeft += 100;
+        else iconscoutOffCanvas.scrollLeft -= 100; 
+    });
+
+    var templatesOffCanvas = document.getElementById("offcanvas-templates"); 
+    templatesOffCanvas.addEventListener("wheel", function (e) {
+        if (e.deltaY > 0) templatesOffCanvas.scrollLeft += 100;
+        else templatesOffCanvas.scrollLeft -= 100; 
+    });
+
     var uploadOffCanvas = document.getElementById("offcanvas-upload"); 
     uploadOffCanvas.addEventListener("wheel", function (e) {
         if (e.deltaY > 0) uploadOffCanvas.scrollLeft += 100;
@@ -32,23 +44,33 @@ $(document).ready(function() {
     });
     // ------------------------------------------------------------
 
-
+    // Trigger clicks on templates 
     // Trigger images objects
     $('body').on('click', '.add-to-canvas', function(e) { 
         let img_url = e.target.getAttribute("data-src"); 
+        let img_type = e.target.getAttribute("data-type"); 
         if(img_url.search('.svg') < 0){ 
             $('#image-spinner').detach().appendTo('#' + e.target.getAttribute('data-id'));
             $('#image-spinner').css('display','block');
             $('#' + e.target.getAttribute('data-id') +' div').css('display','block');
-            fabric.Image.fromURL(img_url, function(image) { 
-                image.scaleToHeight(400);
-                image.scaleToWidth(280);
+            fabric.Image.fromURL(img_url, function(image) {  
                 image.set(corner_options); 
+                if(img_type == 'icons'){
+                    image.scaleToHeight(50);
+                    image.scaleToWidth(50);
+                    image.set({
+                        transparentCorners: true,
+                        cornerSize: 6,
+                    }); 
+                }else{
+                    image.scaleToHeight(400);
+                    image.scaleToWidth(280);
+                }
                 image.extension = 'image';
                 image.id = 'image' + (new Date()).getTime();
                 image.naming = 'image' + (new Date()).getTime();
-                fabricCanvasObj.centerObject(image);
-                fabricCanvasObj.add(image);
+                canvasPages[currentCanvasId].centerObject(image);
+                canvasPages[currentCanvasId].add(image);
                 refresh_layers();
                 save_state();
                 $('#image-spinner').css('display','none');
@@ -64,11 +86,11 @@ $(document).ready(function() {
                 svgObject.extension = 'svg';
                 svgObject.id = 'svg' + (new Date()).getTime();
                 svgObject.naming = 'svg' + (new Date()).getTime();
-                fabricCanvasObj.centerObject(svgObject);
-                fabricCanvasObj.add(svgObject);
+                canvasPages[currentCanvasId].centerObject(svgObject);
+                canvasPages[currentCanvasId].add(svgObject);
 
                 // Render the canvas
-                fabricCanvasObj.renderAll();
+                canvasPages[currentCanvasId].renderAll();
                 refresh_layers();
                 save_state();  
             }, null, { crossOrigin: 'anonymous'}); 
@@ -82,9 +104,9 @@ $(document).ready(function() {
         // Check if the clicked element is not within the canvas container
         if (!canvasContainers.is(e.target) && canvasContainers.has(e.target).length === 0) {
             // Deselect all objects
-            if(fabricCanvasObj){
-                fabricCanvasObj.discardActiveObject();
-                fabricCanvasObj.requestRenderAll();
+            if(canvasPages[currentCanvasId]){
+                canvasPages[currentCanvasId].discardActiveObject();
+                canvasPages[currentCanvasId].requestRenderAll();
                 active_layer_li(false);
             }
         }
@@ -150,11 +172,11 @@ $(document).ready(function() {
             var id = list.getAttribute('data-id'); 
             var object = getObjectById(id);    
             if(i == 0){
-                fabricCanvasObj.bringToFront(object);
-                fabricCanvasObj.renderAll();
+                canvasPages[currentCanvasId].bringToFront(object);
+                canvasPages[currentCanvasId].renderAll();
             }else{
-                fabricCanvasObj.sendBackwards(object);
-                fabricCanvasObj.renderAll();
+                canvasPages[currentCanvasId].sendBackwards(object);
+                canvasPages[currentCanvasId].renderAll();
             } 
             i++;
         }); 
@@ -165,8 +187,8 @@ $(document).ready(function() {
         var objectToActivate = getObjectById(id);    
         if(objectToActivate){
             selectedObject = objectToActivate; 
-            fabricCanvasObj.setActiveObject(objectToActivate);
-            fabricCanvasObj.renderAll();  
+            canvasPages[currentCanvasId].setActiveObject(objectToActivate);
+            canvasPages[currentCanvasId].renderAll();  
         }
     })
     // -----------------------------------------------------------

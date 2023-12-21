@@ -4,7 +4,7 @@ function alignTop() {
             top: 0
         }); // Align to the top
         selectedObject.setCoords(); // Update object's coordinates
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -16,7 +16,7 @@ function alignLeft() {
             left: 0
         }); // Align to the left
         selectedObject.setCoords(); // Update object's coordinates
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -24,13 +24,13 @@ function alignLeft() {
 
 function alignRight() { 
     if (selectedObject) {
-        var canvasWidth = fabricCanvasObj.width;
+        var canvasWidth = canvasPages[currentCanvasId].width;
         var objectWidth = selectedObject.width * selectedObject.scaleX;
         selectedObject.set({
             left: canvasWidth - objectWidth
         }); // Align to the right
         selectedObject.setCoords(); // Update object's coordinates
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -38,13 +38,13 @@ function alignRight() {
 
 function alignBottom() { 
     if (selectedObject) {
-        var canvasHeight = fabricCanvasObj.height;
+        var canvasHeight = canvasPages[currentCanvasId].height;
         var objectHeight = selectedObject.height * selectedObject.scaleY;
         selectedObject.set({
             top: canvasHeight - objectHeight
         }); // Align to the bottom
         selectedObject.setCoords(); // Update object's coordinates
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -52,13 +52,13 @@ function alignBottom() {
 
 function alignCenter() {
     if (selectedObject) {
-        var canvasWidth = fabricCanvasObj.width;
+        var canvasWidth = canvasPages[currentCanvasId].width;
         var objectWidth = selectedObject.width * selectedObject.scaleX;
         selectedObject.set({
             left: (canvasWidth - objectWidth) / 2
         }); // Center horizontally
         selectedObject.setCoords(); // Update object's coordinates
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -66,21 +66,21 @@ function alignCenter() {
 
 function alignMiddle() {
     if (selectedObject) {
-        var canvasHeight = fabricCanvasObj.height;
+        var canvasHeight = canvasPages[currentCanvasId].height;
         var objectHeight = selectedObject.height * selectedObject.scaleY;
         selectedObject.set({
             top: (canvasHeight - objectHeight) / 2
         }); // Center vertically
         selectedObject.setCoords(); // Update object's coordinates
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
 }
 function sendBackward() {
     if (selectedObject) {
-        fabricCanvasObj.sendBackwards(selectedObject);
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].sendBackwards(selectedObject);
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -88,8 +88,8 @@ function sendBackward() {
 
 function bringToFront() {
     if (selectedObject) {
-        fabricCanvasObj.bringToFront(selectedObject);
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].bringToFront(selectedObject);
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -97,8 +97,8 @@ function bringToFront() {
 
 function sendToBack() {
     if (selectedObject) {
-        fabricCanvasObj.sendToBack(selectedObject);
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].sendToBack(selectedObject);
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }
@@ -106,8 +106,8 @@ function sendToBack() {
 
 function bringForward() {
     if (selectedObject) {
-        fabricCanvasObj.bringForward(selectedObject);
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].bringForward(selectedObject);
+        canvasPages[currentCanvasId].renderAll();
         active_helper_buttons(selectedObject);
         save_state();
     }

@@ -19,7 +19,7 @@ function save_state() {
         undo.push(state);
         $('#undo').prop('disabled', false);
     }
-    state = JSON.stringify(fabricCanvasObj); 
+    state = JSON.stringify(canvasPages[currentCanvasId]); 
 }
 
 function replay(playStack, saveStack, buttonsOn, buttonsOff) {
@@ -30,9 +30,9 @@ function replay(playStack, saveStack, buttonsOn, buttonsOff) {
     // turn both buttons off for the moment to prevent rapid clicking
     on.prop('disabled', true);
     off.prop('disabled', true);
-    fabricCanvasObj.clear();
-    fabricCanvasObj.loadFromJSON(state, function() {
-        fabricCanvasObj.renderAll();
+    canvasPages[currentCanvasId].clear();
+    canvasPages[currentCanvasId].loadFromJSON(state, function() {
+        canvasPages[currentCanvasId].renderAll();
         // now turn the buttons back on if applicable
         on.prop('disabled', false);
         if (playStack.length) {

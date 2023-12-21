@@ -17,14 +17,14 @@ function drawer_menu(stauts = null){
 }
 
 function change_draw_mode(status){ 
-    fabricCanvasObj.set({isDrawingMode: status});
+    canvasPages[currentCanvasId].set({isDrawingMode: status});
     fabric.Object.prototype.transparentCorners = false;
 }
 
 function active_draw_with_width(width,id){ 
-    fabricCanvasObj.set({isDrawingMode: true});
+    canvasPages[currentCanvasId].set({isDrawingMode: true});
     fabric.Object.prototype.transparentCorners = false;
-    fabricCanvasObj.freeDrawingBrush.width = parseInt(width, 10) || 1;  
+    canvasPages[currentCanvasId].freeDrawingBrush.width = parseInt(width, 10) || 1;  
     active_drawer_item('#' + id);
 }
 
@@ -43,11 +43,11 @@ $('#drawing-mode').on('click',function(){
 })
 
 $('#drawing-color').on('change',function(){
-    var brush = fabricCanvasObj.freeDrawingBrush;
+    var brush = canvasPages[currentCanvasId].freeDrawingBrush;
     brush.color = this.value;  
 })
 $('#drawing-line-width').on('change',function(){
-    fabricCanvasObj.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+    canvasPages[currentCanvasId].freeDrawingBrush.width = parseInt(this.value, 10) || 1;
     this.previousSibling.innerHTML = this.value; 
     $('#draw-line-width-span').html(this.value);
 }) 

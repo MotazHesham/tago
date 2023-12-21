@@ -14,8 +14,11 @@ function createCanvas() {
 
     var newCanvas = new fabric.Canvas(canvasElement.id, {
         preserveObjectStacking: true,
-        skipTargetFind: false
+        skipTargetFind: false,
+        stopContextMenu: true,
+        // backgroundColor: 'white'
     });
+    canvasPages['#' + canvasElement.id] = newCanvas;
     
     selectCanvas(newCanvas,'#' + canvasElement.id); 
 
@@ -31,10 +34,10 @@ function createCanvas() {
         active_helper_buttons(selectedObject);
         save_state();
     })
-
     newCanvas.on('selection:created', function(e) {
         if(newCanvas.findTarget(e)){ // if not found that mean update the selection from layers
             selectedObject = newCanvas.findTarget(e);   
+            console.log('selection cretaed');
         }
         active_helper_buttons(selectedObject);
         check_object_type(selectedObject); 
@@ -66,6 +69,46 @@ function createCanvas() {
         }
         inactive_helper_buttons();
     });
+
+    // newCanvas.on('mouse:over', function(e) { 
+    //     var target = newCanvas.findTarget(e); 
+    //     if(target){
+    //         if(target != clickedObject){
+    //             target['hasControls'] = false; 
+    //             newCanvas.setActiveObject(target); 
+    //             newCanvas.renderAll();
+    //         }
+    //     }
+    // });
+    
+    // newCanvas.on('mouse:down', function(e) {   
+    //     var target = newCanvas.findTarget(e);  
+    //     clickedObject  = target;
+    //     clickedObject['hasControls'] = true; 
+    //     newCanvas.requestRenderAll(); 
+    // });
+    
+    newCanvas.on('mouse:over', function(e) {
+        var target = newCanvas.findTarget(e);  
+        if(target){
+            hoverdObject = target;
+            target._renderControls(target.canvas.contextTop, {
+                hasControls: false,
+            })
+        }
+    })
+    newCanvas.on('mouse:down', function(e) {
+        var target = newCanvas.findTarget(e);  
+        if(target){
+            target.canvas.clearContext(target.canvas.contextTop);
+        }
+    })
+
+    newCanvas.on('mouse:out', function(e) { 
+        if(hoverdObject){ 
+            hoverdObject.canvas.clearContext(hoverdObject.canvas.contextTop);
+        }  
+    })
 
     fabric.util.addListener(newCanvas.upperCanvasEl, 'dblclick', function(e) {
         var target = newCanvas.findTarget(e);

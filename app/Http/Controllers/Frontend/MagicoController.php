@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MagicoController extends Controller
@@ -28,8 +30,22 @@ class MagicoController extends Controller
     public function unsplash_client_id(){
         return 'opfef79WNIhEgjaQ2HxGpGVojXAbfU8AQ6bAq40QmRQ';
     }
+    public function iconscout_client_id(){
+        return '172636883689370';
+    }
     
-    public function magico(){
+    public function magico(){ 
+        $templates = Cache::remember('templates', 3600, function () { 
+            return Template::all();
+        });   
+        $iconscout_images = Cache::remember('iconscout_images', 3600, function () {
+            $url = 'https://api.iconscout.com/v3/search';
+            $headers = [  
+                'Content-Type' => 'application/json', 
+                'Client-ID' => $this->iconscout_client_id(), 
+            ];
+            return $this->GETAPI($url,$headers)->response->items;
+        });     
         $pixabay_images = Cache::remember('pixabay_images', 3600, function () {
             $url = 'https://pixabay.com/api/?key='.$this->pixaby_key();
             $headers = [  
@@ -45,7 +61,7 @@ class MagicoController extends Controller
             ]; 
             return $this->GETAPI($url,$headers);
         });   
-        return view('magico.magico',compact('unsplash_images','pixabay_images'));
+        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images'));
     }
 
     public function unsplash_loading_more_images(Request $request){
@@ -88,6 +104,18 @@ class MagicoController extends Controller
             return $this->GETAPI($url,$headers)->hits;
         });   
         return view('magico.pixabay_images',compact('pixabay_images'));
+    }
+
+    public function iconscout_loading_images(Request $request){ 
+        $search = $request->search; 
+        
+        $url = 'https://api.iconscout.com' . $request->page_url . "&query=" . $search;
+        $headers = [  
+            'Content-Type' => 'application/json', 
+            'Client-ID' => $this->iconscout_client_id(), 
+        ];
+        $iconscout_images =  $this->GETAPI($url,$headers)->response->items;  
+        return view('magico.iconscout_images',compact('iconscout_images'));
     }
 
     public function upload_magico_images(Request $request){

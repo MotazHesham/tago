@@ -20,7 +20,7 @@ function inactive_helper_buttons(){
 }
 
 function getObjectById(id) {
-    var objects = fabricCanvasObj.getObjects();
+    var objects = canvasPages[currentCanvasId].getObjects();
     for (var i = 0; i < objects.length; i++) {
         if (objects[i].id === id) {
             return objects[i];
@@ -38,6 +38,7 @@ function check_object_type(selectedObject){
         $('.path_attributes').css('display','none');
         $('.circle_attributes').css('display','none');
         $('.text_attributes').css('display','none');
+        $('.rect_attributes').css('display','none');
 
         if(selectedObject.type == 'i-text' || selectedObject.type == 'textbox'){
             $('.text_attributes').css('display','inline');
@@ -49,9 +50,12 @@ function check_object_type(selectedObject){
             $('.path_attributes').css('display','inline');
         }else if(selectedObject.type == 'circle'){
             $('.circle_attributes').css('display','inline'); 
+        }else if(selectedObject.type == 'rect'){
+            $('.rect_attributes').css('display','inline'); 
         }  
         assign_nav_values();
     }else{ 
+        $('.rect_attributes').css('display','none');
         $('.image_attributes').css('display','none');
         $('.polygon_attributes').css('display','none');
         $('.path_attributes').css('display','none');
@@ -203,12 +207,11 @@ function rgbaToHexa(rgbaColor) {
 }
 
 function selectCanvas(canvasObject, canvasId){ 
-    if(fabricCanvasObj != canvasObject){ 
-        if(fabricCanvasObj){
-            fabricCanvasObj.discardActiveObject();
-            fabricCanvasObj.requestRenderAll();
-        }
-        fabricCanvasObj = canvasObject ;  
+    if(canvasPages[currentCanvasId] != canvasObject){ 
+        if(canvasPages[currentCanvasId]){
+            canvasPages[currentCanvasId].discardActiveObject();
+            canvasPages[currentCanvasId].requestRenderAll();
+        } 
         currentCanvasId = canvasId ;  
         $('canvas').removeClass('canvas-border');
         $(canvasId).addClass('canvas-border');  
@@ -216,15 +219,15 @@ function selectCanvas(canvasObject, canvasId){
         $("#page_buttons").detach().insertAfter(canvasId); 
         $('#page_buttons').css('display','block');
         $("#page_resize").detach().insertAfter(canvasId);
-        $('#canvas_width').val(fabricCanvasObj.width);
-        $('#canvas_height').val(fabricCanvasObj.height);
+        $('#canvas_width').val(canvasPages[currentCanvasId].width);
+        $('#canvas_height').val(canvasPages[currentCanvasId].height);
         inactive_helper_buttons(); 
         refresh_layers()
     }
 }
 
 function refresh_layers(){ 
-    var layers = fabricCanvasObj.getObjects(); 
+    var layers = canvasPages[currentCanvasId].getObjects(); 
     var html = '';
     for(var i = layers.length - 1 ; i >= 0 ; i--){  
 
@@ -251,15 +254,39 @@ function refresh_layers(){
     $('#offcanvas-layers ul').html(html);
 }
 
-function download(){ 
-    var dataURL    = fabricCanvasObj.toDataURL("image/png");
-    const downloadLink = document.createElement('a');
-    downloadLink.href = dataURL;
-    downloadLink.download = 'canvas_image.png'; 
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+function download_page(type){  
+    if(type == 'png'){
+        var dataURL    = canvasPages[currentCanvasId].toDataURL("image/png");
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = 'canvas_image.png'; 
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink); 
+    }else if(type == 'jpg'){
+        canvasPages[currentCanvasId].backgroundColor = '#fff';
+        var dataURL    = canvasPages[currentCanvasId].toDataURL("image/jpg");
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = 'canvas_image.jpg'; 
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        canvasPages[currentCanvasId].backgroundColor = '#fff0';
+    }else{
+        return ;
+    }
 }
+
+function showAlert(type, title, message) {
+    swal({
+        title: title,
+        text: message,
+        type: type,
+        showConfirmButton: 'Okay',
+        timer: 3000
+    });
+} 
 
 function checkbox_activation(e,targetId,type){
     if(e.checked){
@@ -303,8 +330,8 @@ function active_layer_li(id){
 function canvas_resize(){
     canvasWidth = parseInt($('#canvas_width').val());
     canvasHeight  = parseInt($('#canvas_height').val());
-    fabricCanvasObj.setWidth(canvasWidth);
-    fabricCanvasObj.setHeight(canvasHeight);
+    canvasPages[currentCanvasId].setWidth(canvasWidth);
+    canvasPages[currentCanvasId].setHeight(canvasHeight);
 }
 function show_resize_buttons(){ 
     if ($("#page_resize").is(":hidden")) {
@@ -334,8 +361,8 @@ function add_text(text,font_size) {
     text.id = 'text' + (new Date()).getTime();
     text.naming = 'text' + (new Date()).getTime();
     text.set(corner_options); 
-    fabricCanvasObj.add(text); 
-    fabricCanvasObj.renderAll(); 
+    canvasPages[currentCanvasId].add(text); 
+    canvasPages[currentCanvasId].renderAll(); 
     save_state();
     refresh_layers();
 }
@@ -359,14 +386,14 @@ function add_text_box(id){
     textbox.setControlVisible('mt',false);
 
     // Add the Textbox to the canvas
-    fabricCanvasObj.add(textbox);
+    canvasPages[currentCanvasId].add(textbox);
 }
 
 function lock_element(id = false) {
     if(id){
         var objectTolock = getObjectById(id);
     }else{
-        var objectTolock = fabricCanvasObj.getActiveObject();
+        var objectTolock = canvasPages[currentCanvasId].getActiveObject();
     }
     if (objectTolock) {
         if(objectTolock.lockMovementX){
@@ -386,7 +413,7 @@ function lock_element(id = false) {
         }
         objectTolock.lockMovementX = !objectTolock.lockMovementX;
         objectTolock.lockMovementY = !objectTolock.lockMovementY;
-        fabricCanvasObj.renderAll(); 
+        canvasPages[currentCanvasId].renderAll(); 
         save_state();
     }  
 }
@@ -395,7 +422,7 @@ function duplicate_element(id = false) {
     if(id){
         var objectToDuplicate = getObjectById(id);
     }else{
-        var objectToDuplicate = fabricCanvasObj.getActiveObject();
+        var objectToDuplicate = canvasPages[currentCanvasId].getActiveObject();
     }
 
     if(objectToDuplicate){
@@ -408,9 +435,9 @@ function duplicate_element(id = false) {
             id: objectToDuplicate.type + '-dup-' +  (new Date()).getTime(),
             naming: objectToDuplicate.type + '-dup-' +  (new Date()).getTime()
         }); 
-        fabricCanvasObj.add(clone);
-        fabricCanvasObj.setActiveObject(clone);
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].add(clone);
+        canvasPages[currentCanvasId].setActiveObject(clone);
+        canvasPages[currentCanvasId].renderAll();
         save_state(); 
         refresh_layers();
     }
@@ -420,11 +447,11 @@ function delete_element(id = false) {
     if(id){
         var objectToDelete = getObjectById(id); 
     }else{
-        var objectToDelete = fabricCanvasObj.getActiveObject();   
+        var objectToDelete = canvasPages[currentCanvasId].getActiveObject();   
     }
     if (objectToDelete) {
         $('#layer-'+objectToDelete.id).remove();
-        fabricCanvasObj.remove(objectToDelete);
+        canvasPages[currentCanvasId].remove(objectToDelete);
         save_state();
         check_object_type(false);
     }  
@@ -434,7 +461,7 @@ function visible_element(id = false) {
     if(id){ 
         var objectTovisible = getObjectById(id);    
     }else{
-        var objectTovisible = fabricCanvasObj.getActiveObject();
+        var objectTovisible = canvasPages[currentCanvasId].getActiveObject();
     }
     if (objectTovisible) {   
         if(objectTovisible.visible){
@@ -453,14 +480,14 @@ function visible_element(id = false) {
 } 
 
 function ungroup_elements() {
-    if (!fabricCanvasObj.getActiveObject()) {
+    if (!canvasPages[currentCanvasId].getActiveObject()) {
         return;
     }
-    if (fabricCanvasObj.getActiveObject().type !== 'group') {
+    if (canvasPages[currentCanvasId].getActiveObject().type !== 'group') {
         return;
     }
-    fabricCanvasObj.getActiveObject().toActiveSelection();
-    fabricCanvasObj.requestRenderAll();
+    canvasPages[currentCanvasId].getActiveObject().toActiveSelection();
+    canvasPages[currentCanvasId].requestRenderAll();
     save_state();
     check_object_type(false); 
 } 

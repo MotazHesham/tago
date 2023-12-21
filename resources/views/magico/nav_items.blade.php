@@ -1,11 +1,10 @@
 
 
-<div class="common-background container-scrollable-y" style="display:flex;justify-content:space-between ;color:white;padding:15px;position: relative;z-index:1">
+<div class="common-background container-scrollable-y nav-bar">
     <div style="display: flex; align-items: center; min-width: fit-content"> 
         <button class="btn btn-custom btn-sm" id="undo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="UnDo"><i class="fa-solid fa-rotate-left"></i></button>
         <button class="btn btn-custom btn-sm" id="redo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Redo" disabled><i class="fa-solid fa-rotate-right"></i></button> 
-
-        <input  style="height:33px;padding:0" class="text_attributes polygon_attributes path_attributes circle_attributes" name="text_color" id="text_color" type="color" oninput="text_color(this)">
+        <input  style="height:33px;padding:0" class="text_attributes polygon_attributes path_attributes rect_attributes circle_attributes" name="text_color" id="text_color" type="color" oninput="text_color(this)">
         <select class="form-control text_attributes" name="select_font" id="select_font" style="width:150px !important;padding: 4px 6px;margin:0 10px" onchange="setFontFamily(this)">
             <option value="Arial" style="font-family: 'Arial'">Arial</option>
             <option value="Helvetica" style="font-family: 'Helvetica'">Helvetica</option>
@@ -42,7 +41,7 @@
                 </div>
             </div> 
         </div>      
-        <div class="dropdown image_attributes polygon_attributes path_attributes"> 
+        <div class="dropdown image_attributes polygon_attributes path_attributes rect_attributes"> 
             <button type="button" class="btn btn-custom " data-bs-toggle="dropdown" aria-expanded="false">
                 <span>Flip</span>
             </button> 
@@ -74,7 +73,7 @@
     <div style="display: flex;align-items:center;min-width: fit-content">
         <div style="min-width: fit-content"> {{-- icons  --}}
             <div class="dropdown" style="display: inline">
-                <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="nav-positions">
+                <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="dropdown" aria-expanded="true" data-bs-auto-close="outside" id="nav-positions">
                     <i class="fa-thin fa-layer-group"></i> <span style="font-size: 18px; letter-spacing: 2px;">Positions</span>
                 </button>
                 <div class="dropdown-menu p-4" style="width: 290px">
@@ -129,8 +128,17 @@
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-delete" data-bs-title="Remove element" onclick="delete_element()"><i class="fa-thin fa-trash-can-list"></i></button>
         </div>
         <div class="nav-divider"></div>
-        <div>
-            <button class="btn btn-custom btn-small" onclick="download()" style="display: flex;align-items: flex-end;"><i class="fa-thin fa-cloud-arrow-down" style="padding:0 6px"></i><small> Download</small></button>
+        <div class="dropdown  " style="display: inline">
+            <button class="btn btn-custom " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-thin fa-cloud-arrow-down" style="padding:0 6px"></i><small> Download</small>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+                <li><a class="dropdown-item" href="#" onclick="download_page('png')">Download as PNG</a></li> 
+                <li><a class="dropdown-item" href="#" onclick="download_page('jpg')">Download as JPG</a></li> 
+                @if(auth()->user() && auth()->user()->user_type == 'staff')
+                <li><a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#saveTemplate">Save Template</a></li> 
+                @endif
+            </ul>
         </div> 
     </div>
 </div> 

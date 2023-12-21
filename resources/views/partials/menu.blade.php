@@ -326,6 +326,28 @@
                 </ul>
             </li>
         @endcan
+        @can('templates_mangment_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/templates*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw far fa-file-alt c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.templatesMangment.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('template_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.templates.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/templates") || request()->is("admin/templates/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-images c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.template.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @can('subscribe_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.subscribes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/subscribes") || request()->is("admin/subscribes/*") ? "c-active" : "" }}">

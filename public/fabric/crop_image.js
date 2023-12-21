@@ -30,13 +30,13 @@
                 objectToCrop.top = objectToCrop.picArea.top;
             }   
             objectToCrop.setCoords();
-            fabricCanvasObj.remove(objectToCrop.picArea);
+            canvasPages[currentCanvasId].remove(objectToCrop.picArea);
             objectToCrop.opacity = 1;
             objectToCrop.hasRotatingPoint = true;
             objectToCrop.picArea = null;
-            fabricCanvasObj.discardActiveObject();
+            canvasPages[currentCanvasId].discardActiveObject();
 
-            console.log(fabricCanvasObj.toJSON());
+            console.log(canvasPages[currentCanvasId].toJSON());
 
             isCrop = false; 
         }
@@ -56,11 +56,11 @@
             selectable: false, 
         });
 
-        fabricCanvasObj.add(picArea);
+        canvasPages[currentCanvasId].add(picArea);
         picArea.setCoords();
-        fabricCanvasObj.sendBackwards(picArea); 
+        canvasPages[currentCanvasId].sendBackwards(picArea); 
         picture.picArea = picArea;
-        fabricCanvasObj.renderAll();
+        canvasPages[currentCanvasId].renderAll();
     }
 
     function start_croping(target){
@@ -88,7 +88,7 @@
 
                 target.setCoords();
             }
-            fabricCanvasObj.renderAll(); 
+            canvasPages[currentCanvasId].renderAll(); 
             save_state();
         }
     }

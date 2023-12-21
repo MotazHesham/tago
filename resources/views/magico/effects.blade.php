@@ -1,5 +1,5 @@
 
-<div class="dropdown image_attributes text_attributes polygon_attributes path_attributes circle_attributes">
+<div class="dropdown image_attributes text_attributes polygon_attributes path_attributes circle_attributes rect_attributes">
     <button type="button" class="btn btn-custom" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
         <span><i class="fa-thin fa-spray-can"></i> Effects</span>
     </button>
@@ -22,7 +22,7 @@
                 <input type="range" id="brightness-input" min="-1.00" step="0.01" max="1.00" oninput="brightness_element(this)">  
             </div>
         </div >
-        <div class="image_attributes polygon_attributes path_attributes circle_attributes">
+        <div class="image_attributes polygon_attributes path_attributes circle_attributes rect_attributes">
             <div class="effect-attribute">
                 <label for="border-check">Border <small><b id="border-span"></b></small> </label>
                 <span><input type="checkbox" class="form-check-input" id="border-check" onchange="checkbox_activation(this,'border-div','border')"></span>

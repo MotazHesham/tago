@@ -38,6 +38,14 @@
             </a>
         </li>
         <li>
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasiconscout"
+                aria-controls="offcanvasiconscout">
+                <i class="fa-duotone fa-icons"></i>
+                <br>
+                <span>IconScout </span>
+            </a>
+        </li>
+        <li>
             <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu()"> 
                 <i class="fa-duotone fa-pen-swirl"></i>
                 <br>
