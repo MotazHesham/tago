@@ -56,9 +56,9 @@
                             {{ trans('cruds.template.fields.canvas_pages') }}
                         </th>
                         <td>
-                            {{ $template->canvas_pages }}
+                            <div id="elem"></div>
                         </td>
-                    </tr>
+                    </tr> 
                 </tbody>
             </table>
             <div class="form-group">
@@ -72,4 +72,19 @@
 
 
 
+@endsection
+
+@section('scripts')
+    @parent 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" integrity="sha512-2SP4LOvXWb74RKyIt9jRRFJ05nfXFYFsWabK1/pJFOPx3NsJ2GQ0K8t9oJQ929v22XhlqrrHb7gM0xTjGLHVOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js" integrity="sha512-q2FrCBRlUS5RBd9KoXK7s0S9gANneESF0+HZWgKKWMI45eW4FL/BtNA5T94wYK8PdP7wOCcvnS0mtAqb5P4KXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://warfares.github.io/pretty-json/pretty-json-min.js"></script>
+    <script>
+        var obj = {{ Js::from(json_decode($template->canvas_pages)) }}
+
+        var node = new PrettyJSON.view.Node({
+            el:$('#elem'),
+            data:obj
+        });
+    </script>
 @endsection

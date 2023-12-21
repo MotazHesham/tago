@@ -10,6 +10,7 @@ class CreateTemplatesTable extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('type')->default('business_card');
             $table->string('name');
             $table->decimal('price', 15, 2);
             $table->longText('canvas_pages')->nullable();

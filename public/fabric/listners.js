@@ -145,8 +145,8 @@ $(document).ready(function() {
             var inputValue = $(this).val();
 
             // Get object id to change actual name  
-            var objectId = $(this).parent().data('id');
-            var object = getObjectById(objectId);    
+            var objectId = $(this).parent().data('id'); 
+            var object = getObjectById(objectId);  
             object.naming = inputValue;
 
             // Replace the input field with a new <span> containing the input value

@@ -13,9 +13,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Template extends Model implements HasMedia
 {
-    use SoftDeletes, InteractsWithMedia, Auditable, HasFactory;
+    use SoftDeletes, InteractsWithMedia, HasFactory;
 
     public $table = 'templates';
+
+    public const TYPE_SELECT = [
+        'business_card'     => 'Bussiness Cards',
+        'menu' => 'Menu', 
+    ];
 
     protected $appends = [
         'photo',
@@ -28,6 +33,7 @@ class Template extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'type',
         'name',
         'price',
         'canvas_pages',

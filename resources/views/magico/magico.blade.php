@@ -21,14 +21,15 @@
     <link rel="stylesheet" href="{{ asset('fabric/magico.css')}}"> 
     @section('styles') 
     <style>
-        .add-as-template{  
+        .hover-image{  
             transition: all .4s ease-in-out;
             cursor: pointer;
         }
-        .add-as-template:hover{
+        .hover-image:hover{
             transform: scale(1.1);
             box-shadow: 2px 9px 20px 1px #6e6e6e;
-        }
+            z-index: 1; /* Ensure the transformed element is on top */
+        } 
     </style>
 </head>
 
@@ -131,7 +132,33 @@
                 $('.nav-bar').css('overflow-y', 'hidden'); 
                 $('.nav-bar').css('overflow-x', 'scroll'); 
             });
-            calculateZoom()
+            calculateZoom()  
+
+            // This function to my custom properties when send to backend the canvas page
+            fabric.Object.prototype.toObject = (function (toObject) {
+                return function (propertiesToInclude) {
+                    return toObject.call(this, ['id','naming'].concat(propertiesToInclude));
+                };
+            })(fabric.Object.prototype.toObject);
+
+            
+            $(".filter-button").click(function(){
+                var value = $(this).attr('data-filter');
+                
+                if(value == "all") { 
+                    $('.filter').show('300');
+                } else { 
+                    $(".filter").not('.'+value).hide('300');
+                    $('.filter').filter('.'+value).show('300');
+                    
+                }
+            });
+
+            if ($(".filter-button").removeClass("active")) {
+                $(this).removeClass("active");
+            }else{
+                $(this).addClass("active"); 
+            }
         });   
         
         // Recalculate on window resize
@@ -151,6 +178,68 @@
 
         createCanvas(); 
         
+        $("#form-upload-image").on("submit", function(ev) {
+            ev.preventDefault(); // Prevent browser default submit.
+            var formData = new FormData(this);
+            $.LoadingOverlay("show");  
+            $.ajax({
+                url: '{{ route("frontend.upload_magico_images")}}',
+                type: 'POST', 
+                data: formData, 
+                success: function(response) {   
+                    if(response){
+                        $.LoadingOverlay("hide"); 
+                        showAlert('success', 'Image Uploaded Succussfully', '');
+                        $(response).appendTo('#offcanvas-upload'); 
+                    }else{
+                        $.LoadingOverlay("hide"); 
+                        showAlert('error', 'Not Auth Login Again', ''); 
+                    }
+                },
+                error: function(err) {
+                    $.LoadingOverlay("hide"); 
+                    showAlert('error', 'Something Went Wrong', '');
+                    console.log('Error' + err);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            }); 
+        });
+
+        function delete_uploaded_image(id){
+            $.ajax({
+                url: '{{ route("frontend.delete_upload_magico_images")}}',
+                type: 'POST', 
+                data: {
+                    id:id,
+                    _token: '{{ csrf_token() }}'
+                }, 
+                success: function(response) {    
+                    showAlert('success', 'Image Deleted Succussfully', ''); 
+                    $('#off-canvas-upload-' + id).hide('slow', function(){ $('#off-canvas-upload-' + id).remove(); });
+                },
+                error: function(err) { 
+                    showAlert('error', 'Something Went Wrong', '');
+                    console.log('Error' + err);
+                }
+            }); 
+        } 
+
+        function deleteCanvas(){
+            // detach helpers fron canvas so when deleting the canvas helpers not deleteing
+            $("#active_helper_buttons").detach().insertAfter('body'); 
+            $('#active_helper_buttons').css('display','none');
+            $("#page_buttons").detach().insertAfter('body'); 
+            $('#page_buttons').css('display','none');
+            $("#page_resize").detach().insertAfter('body');
+            $('#page_resize').css('display','none');
+
+            delete canvasPages[currentCanvasId];
+            $(currentCanvasId).closest(".canvas-page").remove(); 
+            console.log(canvasPages)
+        }
+
         $("#template-form").on("submit", function(ev) {
             ev.preventDefault(); // Prevent browser default submit.
             var formData = new FormData(this);
@@ -158,11 +247,15 @@
 
             var pages = {}; 
             for(var i in canvasPages)
-            { 
-                var dataset = canvasPages[i].toJSON();
-                pages[i] = JSON.parse(JSON.stringify(dataset)).objects;
-            }  
+            {  
+                var page = {};
+                page['objects'] = canvasPages[i].getObjects(); 
+                page['height'] = canvasPages[i].height;
+                page['width'] = canvasPages[i].width;
+                pages[i] = page; 
+            }   
             formData.append('canvas_pages',JSON.stringify(pages));
+            console.log(JSON.stringify(pages));
             $.ajax({
                 url: '{{ route("admin.templates.save")}}',
                 type: 'POST', 
@@ -181,7 +274,9 @@
                 contentType: false,
                 processData: false
             }); 
-        });
+        }); 
+
+
     </script>  
     <script src="{{ asset('fabric/draw.js') }}"></script>
     <script src="{{ asset('fabric/listners.js') }}"></script>
@@ -197,19 +292,35 @@
 
     
         $('body').on('click', '.add-as-template', function(e) {   
+
+            // detach helpers fron canvas so when deleting the canvas helpers not deleteing
+            $("#active_helper_buttons").detach().insertAfter('body'); 
+            $('#active_helper_buttons').css('display','none');
+            $("#page_buttons").detach().insertAfter('body'); 
+            $('#page_buttons').css('display','none');
+            $("#page_resize").detach().insertAfter('body');
+            $('#page_resize').css('display','none');
+            canvasPages = [];
+            $('.canvas-page').remove();
             $.LoadingOverlay("show"); 
+
             let template_src = e.target.getAttribute("data-src"); 
-            let pages  = JSON.parse(template_src);
-            let page_1_objects = Object.values(pages)[0];
-            var page_1 = {
-                "objects" : page_1_objects
-            } 
-            canvasPages[currentCanvasId].loadFromJSON(JSON.stringify(page_1), function () {
-                // Render canvas after loading JSON
-                canvasPages[currentCanvasId].renderAll();
-                $.LoadingOverlay("hide"); 
-            });
+            let pages  = JSON.parse(template_src); 
+            for (let index in pages) { 
+                createCanvas(pages[index]['height'],pages[index]['width']);  
+                var page = {
+                    "objects" : pages[index]['objects']
+                }  
+                canvasPages[currentCanvasId].loadFromJSON(JSON.stringify(page), function () {
+                    // Render canvas after loading JSON
+                    canvasPages[currentCanvasId].renderAll();
+                    $.LoadingOverlay("hide"); 
+                    refresh_layers();
+                });
+            }
         });
+
+
         var loading_images_unsplash = false;
         var images_page_unsplash = 2 ; 
         $('#offcanvas-unsplash').on('scroll', function (e) {

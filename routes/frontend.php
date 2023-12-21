@@ -13,6 +13,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
     Route::post('/pixabay_loading_images', 'MagicoController@pixabay_loading_images')->name('pixabay_loading_images');
     Route::post('/iconscout_loading_images', 'MagicoController@iconscout_loading_images')->name('iconscout_loading_images');
     Route::post('/upload_magico_images', 'MagicoController@upload_magico_images')->name('upload_magico_images');
+    Route::post('/delete_upload_magico_images', 'MagicoController@delete_upload_magico_images')->name('delete_upload_magico_images');
     
     Route::get('user/{id}','HomeController@user')->name('user'); 
     Route::get('user/token/{token}','HomeController@user_by_token')->name('user_by_token'); 

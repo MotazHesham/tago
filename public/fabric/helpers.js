@@ -21,8 +21,8 @@ function inactive_helper_buttons(){
 
 function getObjectById(id) {
     var objects = canvasPages[currentCanvasId].getObjects();
-    for (var i = 0; i < objects.length; i++) {
-        if (objects[i].id === id) {
+    for (var i = 0; i < objects.length; i++) { 
+        if (objects[i].id == id) {
             return objects[i];
         }
     }
@@ -213,6 +213,10 @@ function selectCanvas(canvasObject, canvasId){
             canvasPages[currentCanvasId].requestRenderAll();
         } 
         currentCanvasId = canvasId ;  
+        // console.log('page:');
+        // console.log(canvasPages[currentCanvasId]);
+        console.log('json:');
+        console.log(canvasPages[currentCanvasId].getObjects());
         $('canvas').removeClass('canvas-border');
         $(canvasId).addClass('canvas-border');  
         $("#active_helper_buttons").detach().insertAfter(canvasId); 
@@ -227,30 +231,41 @@ function selectCanvas(canvasObject, canvasId){
 }
 
 function refresh_layers(){ 
+    console.log('refresh_layers');
     var layers = canvasPages[currentCanvasId].getObjects(); 
     var html = '';
     for(var i = layers.length - 1 ; i >= 0 ; i--){  
+        let id = layers[i].id ??  i + '' + (new Date()).getTime();
+        let naming = layers[i].naming ??  i + '' + (new Date()).getTime();
+
+        if(!layers[i].id){ 
+            ((canvasPages[currentCanvasId]).item(i)).id = id;  
+        }
+        if(!layers[i].naming){ 
+            ((canvasPages[currentCanvasId]).item(i)).naming = naming;  
+        }
 
         if(layers[i].lockMovementX){
             var lockclass = 'fa-lock';
         }else{
             var lockclass = 'fa-lock-open';
         }
-        
+        "01703173793495"
+        "11703173793494"
         if(layers[i].visible){
             var visibleclass = 'fa-eye';
         }else{
             var visibleclass = 'fa-eye-slash';
         }
-        var delete_button = '<button class="btn btn-custom btn-sm" onclick="delete_element(\''+layers[i].id+'\')"><i class="fa-thin fa-trash-can-list" style="color:black"></i></button>';
-        var lock_button = '<button class="btn btn-custom btn-sm" onclick="lock_element(\''+layers[i].id+'\')"><i class="fa-thin '+lockclass+'" id="layer-lock-'+layers[i].id+'" style="color:black"></i></button>';
-        var duplicate_button = '<button class="btn btn-custom btn-sm" onclick="duplicate_element(\''+layers[i].id+'\')"><i class="fa-thin fa-copy" style="color:black"></i></button>'; 
-        var visible_button = '<button class="btn btn-custom btn-sm" onclick="visible_element(\''+layers[i].id+'\')"><i class="fa-thin '+visibleclass+'" id="layer-eye-'+layers[i].id+'" style="color:black"></i></button>'; 
+        var delete_button = '<button class="btn btn-custom btn-sm" onclick="delete_element(\''+id+'\')"><i class="fa-thin fa-trash-can-list" style="color:black"></i></button>';
+        var lock_button = '<button class="btn btn-custom btn-sm" onclick="lock_element(\''+id+'\')"><i class="fa-thin '+lockclass+'" id="layer-lock-'+id+'" style="color:black"></i></button>';
+        var duplicate_button = '<button class="btn btn-custom btn-sm" onclick="duplicate_element(\''+id+'\')"><i class="fa-thin fa-copy" style="color:black"></i></button>'; 
+        var visible_button = '<button class="btn btn-custom btn-sm" onclick="visible_element(\''+id+'\')"><i class="fa-thin '+visibleclass+'" id="layer-eye-'+id+'" style="color:black"></i></button>'; 
         
-        html += '<li class="list-group-item list-group-item-dark"  id="layer-'+layers[i].id+'" data-id="'+layers[i].id+'">';
+        html += '<li class="list-group-item list-group-item-dark"  id="layer-'+id+'" data-id="'+id+'">';
         html += '<i class="fa-solid fa-grip-dots-vertical handle" style="color:black"></i>&nbsp;&nbsp;';
-        html += '<span>'+layers[i].naming+'</span>&nbsp;&nbsp;' + visible_button + duplicate_button + lock_button + delete_button +'</li>'; 
-    } 
+        html += '<span>'+naming+'</span>&nbsp;&nbsp;' + visible_button + duplicate_button + lock_button + delete_button +'</li>';  
+    }  
     $('#offcanvas-layers ul').html(html);
 }
 

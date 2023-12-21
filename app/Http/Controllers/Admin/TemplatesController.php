@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateTemplateRequest;
 use App\Models\Template;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,6 +21,7 @@ class TemplatesController extends Controller
 
     public function save(Request $request){
         $template = Template::create([
+            'type' => $request->type,
             'name' => $request->name,
             'price' => $request->price,
             'canvas_pages' => $request->canvas_pages,
@@ -28,7 +30,7 @@ class TemplatesController extends Controller
         if ($request->photo) {
             $template->addMedia($request->photo)->toMediaCollection('photo');
         } 
-
+        Cache::forget('templates');
         return 1;
     }
 
@@ -116,6 +118,7 @@ class TemplatesController extends Controller
             $template->photo->delete();
         }
 
+        Cache::forget('templates');
         return redirect()->route('admin.templates.index');
     }
 
@@ -132,6 +135,7 @@ class TemplatesController extends Controller
 
         $template->delete();
 
+        Cache::forget('templates');
         return back();
     }
 

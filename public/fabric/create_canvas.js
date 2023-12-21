@@ -1,4 +1,4 @@
-function createCanvas() {
+function createCanvas(height = canvasHeight,width = canvasWidth) {
 
     var canvasPage = document.createElement('div');
     canvasPage.id = 'pageCanvas' + (new Date()).getTime(); 
@@ -7,8 +7,8 @@ function createCanvas() {
 
     var canvasElement = document.createElement('canvas');
     canvasElement.id = 'dynamicCanvas' + (new Date()).getTime(); // Unique ID for each canvas
-    canvasElement.width = canvasWidth;
-    canvasElement.height = canvasHeight;
+    canvasElement.width = width;
+    canvasElement.height = height;
 
     document.getElementById(canvasPage.id).appendChild(canvasElement);
 

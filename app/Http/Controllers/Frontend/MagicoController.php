@@ -122,11 +122,18 @@ class MagicoController extends Controller
         $user = Auth::user(); 
         if($user){
             if($request->hasFile('image')){
-                $user->addMedia($request->image)->toMediaCollection('magico_images'); 
-                return redirect()->back();
+                $image = $user->addMedia($request->image)->toMediaCollection('magico_images'); 
+                return view('magico.uploaded_images',compact('image'));
             }
         }else{
-            return redirect()->route('login');
+            return 0;
         } 
     }
+
+    public function delete_upload_magico_images(Request $request){
+        $media = Media::findOrFail($request->id);
+        $media->delete();
+        return 1;
+    }
+
 }
