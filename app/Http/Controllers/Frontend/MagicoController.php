@@ -34,7 +34,7 @@ class MagicoController extends Controller
         return '172636883689370';
     }
     
-    public function magico(){ 
+    public function magico($template_id = null){  
         $templates = Cache::remember('templates', 3600, function () { 
             return Template::all();
         });   
@@ -61,7 +61,7 @@ class MagicoController extends Controller
             ]; 
             return $this->GETAPI($url,$headers);
         });   
-        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images'));
+        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id'));
     }
 
     public function unsplash_loading_more_images(Request $request){

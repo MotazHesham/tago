@@ -52,6 +52,7 @@ class Template extends Model implements HasMedia
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
         $this->addMediaConversion('preview2')->width(368)->height(232)->keepOriginalImageFormat(); 
+        $this->addMediaConversion('preview3')->width(720)->height(580)->keepOriginalImageFormat(); 
     }
 
     public function getPhotoAttribute()

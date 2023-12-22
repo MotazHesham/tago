@@ -21,6 +21,7 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
     canvasPages['#' + canvasElement.id] = newCanvas;
     
     selectCanvas(newCanvas,'#' + canvasElement.id); 
+    initAligningGuidelines(newCanvas);
 
     newCanvas.on('mouse:down', function(options) { 
         selectCanvas(newCanvas,'#' + canvasElement.id); 
@@ -68,25 +69,7 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
             selectedObject.setCoords(); 
         }
         inactive_helper_buttons();
-    });
-
-    // newCanvas.on('mouse:over', function(e) { 
-    //     var target = newCanvas.findTarget(e); 
-    //     if(target){
-    //         if(target != clickedObject){
-    //             target['hasControls'] = false; 
-    //             newCanvas.setActiveObject(target); 
-    //             newCanvas.renderAll();
-    //         }
-    //     }
-    // });
-    
-    // newCanvas.on('mouse:down', function(e) {   
-    //     var target = newCanvas.findTarget(e);  
-    //     clickedObject  = target;
-    //     clickedObject['hasControls'] = true; 
-    //     newCanvas.requestRenderAll(); 
-    // });
+    }); 
     
     newCanvas.on('mouse:over', function(e) {
         var target = newCanvas.findTarget(e);  

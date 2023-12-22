@@ -46,6 +46,8 @@ return [
         'how_it_work' => 'كيف تعمل',
         'testimotinal' => 'TESTIMONIAL',
         'our_clients' => "أراء عملائنا",
+        'templates_choose' => "أختر تصميم كارتك",
+        'templates' => "التصاميم",
     ], 
     'about' => [
         'about' => 'اعرف عنا',

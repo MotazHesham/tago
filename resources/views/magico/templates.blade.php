@@ -1,7 +1,9 @@
 
 @foreach ($templates as $key => $template)
     <div class="off-canvas-template off-canvas-images hover-image filter {{ $template->type }}" id="off-canvas-template-{{$template->id}}">
-        <img class="add-as-template"  src="{{ $template->photo ? $template->photo->getUrl('preview2') : '' }}" alt="" data-src="{{$template->canvas_pages}}" data-id="off-canvas-template-{{$template->id}}"> 
+        <img class="add-as-template" onclick="add_as_template('{{ $template->id }}')"
+            src="{{ $template->photo ? $template->photo->getUrl('preview2') : '' }}" 
+            id="template-{{ $template->id }}" alt="" data-src="{{$template->canvas_pages}}" data-id="off-canvas-template-{{$template->id}}"> 
         
         @if(auth()->user() && auth()->user()->user_type == 'staff')
             <form action="{{ route('admin.templates.destroy', $template->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;position: absolute; right: 0px; top: 0px;opacity: 0;">

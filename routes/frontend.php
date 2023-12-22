@@ -7,7 +7,7 @@ Route::get('/','Frontend\HomeController@index')->name('home');
 
 Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
 
-    Route::get('/magico', 'MagicoController@magico')->name('magico');
+    Route::get('/magico/{template_id?}', 'MagicoController@magico')->name('magico');
     Route::post('/unsplash_loading_more_images', 'MagicoController@unsplash_loading_more_images')->name('unsplash_loading_more_images');
     Route::post('/unsplash_query_images', 'MagicoController@unsplash_query_images')->name('unsplash_query_images');
     Route::post('/pixabay_loading_images', 'MagicoController@pixabay_loading_images')->name('pixabay_loading_images');

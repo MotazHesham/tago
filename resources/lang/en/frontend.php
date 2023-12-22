@@ -47,6 +47,8 @@ return [
         'how_it_work' => 'HOW IT WORK',
         'testimotinal' => 'TESTIMONIAL',
         'our_clients' => "Our client's opinions",
+        'templates_choose' => "Choose Your Own Card",
+        'templates' => "Templates",
     ], 
     'about' => [
         'about' => 'About',

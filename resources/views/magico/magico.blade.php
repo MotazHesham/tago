@@ -76,6 +76,7 @@
     <script src="{{ asset('fabric/initialize_context.js') }}"></script>
     <script src="{{ asset('fabric/fabric.js') }}"></script>
     <script src="{{ asset('fabric/create_canvas.js') }}"></script>
+    <script src="{{ asset('fabric/aligning_guidelines.js') }}"></script>
     <script src="{{ asset('fabric/helpers.js') }}"></script>
     <script>  
 
@@ -159,6 +160,11 @@
             }else{
                 $(this).addClass("active"); 
             }
+
+            var template_id = {{ Js::from($template_id) }} 
+            if(template_id && $('#template-'+template_id).length){
+                add_as_template(template_id);
+            }
         });   
         
         // Recalculate on window resize
@@ -227,17 +233,18 @@
         } 
 
         function deleteCanvas(){
-            // detach helpers fron canvas so when deleting the canvas helpers not deleteing
-            $("#active_helper_buttons").detach().insertAfter('body'); 
-            $('#active_helper_buttons').css('display','none');
-            $("#page_buttons").detach().insertAfter('body'); 
-            $('#page_buttons').css('display','none');
-            $("#page_resize").detach().insertAfter('body');
-            $('#page_resize').css('display','none');
+            if(Object.keys(canvasPages).length > 1){
+                // detach helpers fron canvas so when deleting the canvas helpers not deleteing
+                $("#active_helper_buttons").detach().insertAfter('body'); 
+                $('#active_helper_buttons').css('display','none');
+                $("#page_buttons").detach().insertAfter('body'); 
+                $('#page_buttons').css('display','none');
+                $("#page_resize").detach().insertAfter('body');
+                $('#page_resize').css('display','none');
 
-            delete canvasPages[currentCanvasId];
-            $(currentCanvasId).closest(".canvas-page").remove(); 
-            console.log(canvasPages)
+                delete canvasPages[currentCanvasId];
+                $(currentCanvasId).closest(".canvas-page").remove();  
+            }
         }
 
         $("#template-form").on("submit", function(ev) {
@@ -276,7 +283,12 @@
             }); 
         }); 
 
-
+        function clearCanvas(){ 
+            canvasPages[currentCanvasId].clear();
+            hoverdObject = null;
+            selectedObject = null;
+            clickedObject = null; 
+        }
     </script>  
     <script src="{{ asset('fabric/draw.js') }}"></script>
     <script src="{{ asset('fabric/listners.js') }}"></script>
@@ -293,6 +305,9 @@
     
         $('body').on('click', '.add-as-template', function(e) {   
 
+        });
+
+        function add_as_template(id){ 
             // detach helpers fron canvas so when deleting the canvas helpers not deleteing
             $("#active_helper_buttons").detach().insertAfter('body'); 
             $('#active_helper_buttons').css('display','none');
@@ -302,10 +317,8 @@
             $('#page_resize').css('display','none');
             canvasPages = [];
             $('.canvas-page').remove();
-            $.LoadingOverlay("show"); 
-
-            let template_src = e.target.getAttribute("data-src"); 
-            let pages  = JSON.parse(template_src); 
+            $.LoadingOverlay("show");  
+            let pages = $('#template-'+id).data("src");   
             for (let index in pages) { 
                 createCanvas(pages[index]['height'],pages[index]['width']);  
                 var page = {
@@ -318,9 +331,7 @@
                     refresh_layers();
                 });
             }
-        });
-
-
+        }
         var loading_images_unsplash = false;
         var images_page_unsplash = 2 ; 
         $('#offcanvas-unsplash').on('scroll', function (e) {

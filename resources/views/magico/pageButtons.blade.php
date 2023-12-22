@@ -1,7 +1,7 @@
 
 <div id="page_buttons" class="btn-group btn-group-sm"  role="group" >
     <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom"
-        data-bs-title="Duplicate" onclick="#"><i class="fa-light fa-copy"></i></button>
+        data-bs-title="Clear Area" onclick="clearCanvas()"><i class="fa-regular fa-broom-wide"></i></button>
     <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom"
         data-bs-title="Remove" onclick="deleteCanvas()"><i class="fa-light fa-trash-can-list"></i></button> 
     <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom"

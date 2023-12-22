@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Review;
 use App\Models\Subscribe;
+use App\Models\Template;
 use App\Models\Tutorial;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,14 +24,15 @@ class HomeController extends Controller
 {
 
     public function index(){  
+        $templates = Template::where('type','business_card')->orderBy('created_at','desc')->take(8)->get();
         $products = Product::orderBy('created_at','desc')->take(8)->get();
         $counted_products = count(Product::get());
         $counted_customers = count(User::where('user_type','customer')->get());
-        $rates = Review::orderBy('created_at','desc')->get();
+        $rates = Review::orderBy('created_at','desc')->take(15)->get();
         $faq_category = FaqCategory::where('category','how_it_work')->first();
         $faq_questions = FaqQuestion::where('category_id',$faq_category->id)->get();
         $site_settings = get_site_setting();
-        return view('frontend.home',compact('products','counted_products','counted_customers','rates','faq_questions','site_settings'));
+        return view('frontend.home',compact('products','counted_products','counted_customers','rates','faq_questions','site_settings','templates'));
     }
 
     public function privacy(){ 

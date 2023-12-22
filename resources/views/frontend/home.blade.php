@@ -1,5 +1,16 @@
 @extends('layouts.frontend')
 
+@section('styles')
+    <style>
+        .template-item{ 
+            transition: all .4s ease-in-out;
+            cursor: pointer;
+        }
+        .template-item:hover{ 
+            transform: scale(1.1); 
+        }
+    </style>
+@endsection
 @section('content')
     
     <!-- page title start -->
@@ -191,6 +202,33 @@
     </section><!-- /.video-box -->
 
 
+    <!-- Templates start -->
+    <div class="testimonial-area pd-top-120 pd-bottom-90" style="background-image: url('./frontend/img/bg/11.png');direction: ltr;">
+        <div class="container">
+            <div class="section-title">
+                <h6 class="sub-title">{{ trans('frontend.home.templates') }}</h6>
+                <h2 class="title">{{ trans('frontend.home.templates_choose') }}</h2>
+            </div>
+            <div  class="testimonial-slider-1 owl-carousel slider-control-round slider-control-dots slider-control-right-top">
+                @foreach($templates as $template)
+                    <div class="item template-item">
+                        <a href="{{ route('frontend.magico',['template_id'=>$template->id]) }}">
+                            <div class="single-testimonial-inner style-1 text-center">
+                                <div class="card d-flex">
+                                    <img class="img-fluid img-thumbnail rounded" alt="100%x280" src="{{ $template->photo ? $template->photo->getUrl('preview3') : '' }}">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ $template->name }}</h4> 
+                                        <small>{{ frontend_currency($template->price)['as_text'] }}</small>
+                                    </div> 
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Templates start -->
 
 
     <!-- testimonial-area start -->
@@ -201,7 +239,7 @@
                 <h2 class="title">{{ trans('frontend.home.our_clients') }}</h2>
             </div>
             <div  class="testimonial-slider-1 owl-carousel slider-control-round slider-control-dots slider-control-right-top">
-                @foreach($rates->take(15) as $rate)
+                @foreach($rates as $rate)
                     <div class="item">
                         <div class="single-testimonial-inner style-1 text-center">
                             <h5>{{ $rate->name }}</h5> 
