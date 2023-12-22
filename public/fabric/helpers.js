@@ -269,29 +269,6 @@ function refresh_layers(){
     $('#offcanvas-layers ul').html(html);
 }
 
-function download_page(type){  
-    if(type == 'png'){
-        var dataURL    = canvasPages[currentCanvasId].toDataURL("image/png");
-        const downloadLink = document.createElement('a');
-        downloadLink.href = dataURL;
-        downloadLink.download = 'canvas_image.png'; 
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink); 
-    }else if(type == 'jpg'){
-        canvasPages[currentCanvasId].backgroundColor = '#fff';
-        var dataURL    = canvasPages[currentCanvasId].toDataURL("image/jpg");
-        const downloadLink = document.createElement('a');
-        downloadLink.href = dataURL;
-        downloadLink.download = 'canvas_image.jpg'; 
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        canvasPages[currentCanvasId].backgroundColor = '#fff0';
-    }else{
-        return ;
-    }
-}
 
 function showAlert(type, title, message) {
     swal({

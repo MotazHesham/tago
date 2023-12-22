@@ -289,6 +289,67 @@
             selectedObject = null;
             clickedObject = null; 
         }
+        function copy_element() { 
+            canvasPages[currentCanvasId].getActiveObject().clone(function(cloned) {
+                _clipboard = cloned;
+            });
+        }
+
+        function paste_element() {
+            // clone again, so you can do multiple copies.
+            _clipboard.clone(function(clonedObj) {
+                canvasPages[currentCanvasId].discardActiveObject();
+                clonedObj.set({
+                    left: clonedObj.left + 10,
+                    top: clonedObj.top + 10,
+                    evented: true, 
+                    id : 'clone' + (new Date()).getTime(),
+                    naming : 'clone' + (new Date()).getTime(),
+                }); 
+                clonedObj.set(corner_options); 
+                if (clonedObj.type === 'activeSelection') {
+                    // active selection needs a reference to the canvas.
+                    clonedObj.canvas = canvasPages[currentCanvasId];
+                    clonedObj.forEachObject(function(obj) {
+                        canvasPages[currentCanvasId].add(obj);
+                    });
+                    // this should solve the unselectability
+                    clonedObj.setCoords();
+                } else {
+                    canvasPages[currentCanvasId].add(clonedObj);
+                }
+                _clipboard.top += 10;
+                _clipboard.left += 10;
+                canvasPages[currentCanvasId].setActiveObject(clonedObj);
+                canvasPages[currentCanvasId].requestRenderAll();
+            });
+            refresh_layers();
+        }
+
+        
+        function download_page(type){   
+            if(type == 'png'){
+                var dataURL    = canvasPages[currentCanvasId].toDataURL("image/png");
+                const downloadLink = document.createElement('a');
+                downloadLink.href = dataURL;
+                downloadLink.download = 'canvas_image.png'; 
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink); 
+            }else if(type == 'jpg'){
+                canvasPages[currentCanvasId].backgroundColor = '#fff';
+                var dataURL    = canvasPages[currentCanvasId].toDataURL("image/jpg");
+                const downloadLink = document.createElement('a');
+                downloadLink.href = dataURL;
+                downloadLink.download = 'canvas_image.jpg'; 
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                canvasPages[currentCanvasId].backgroundColor = '#fff0';
+            }else{
+                return ;
+            }
+        }
     </script>  
     <script src="{{ asset('fabric/draw.js') }}"></script>
     <script src="{{ asset('fabric/listners.js') }}"></script>

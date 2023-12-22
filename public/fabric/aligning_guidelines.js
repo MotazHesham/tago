@@ -289,7 +289,7 @@ function initAligningGuidelines(canvas) {
     });
 
     canvas.on("before:render", function () {
-        canvas.clearContext(canvas.contextTop);
+        canvas.clearContext(ctx);
     });
 
     canvas.on("after:render", function () {

@@ -26,7 +26,7 @@
                 aria-controls="offcanvasPixabay">
                 <i class="fa-duotone fa-image"></i>
                 <br>
-                <span>Pixbay </span>
+                <span>Pixabay </span>
             </a>
         </li>
         <li>
