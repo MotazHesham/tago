@@ -34,6 +34,7 @@ function paste_element() {
         canvasPages[currentCanvasId].requestRenderAll();
     });
     refresh_layers();
+    save_state();
 }
 
 function lock_element(id = false) {
@@ -96,10 +97,18 @@ function delete_element(id = false) {
     }else{
         var objectToDelete = canvasPages[currentCanvasId].getActiveObject();   
     }
-    if (objectToDelete) {
+    if (objectToDelete) { 
+        if(objectToDelete.type == 'activeSelection'){
+            var groupItems = objectToDelete.getObjects();
+            groupItems.forEach(function(item) {
+                canvasPages[currentCanvasId].remove(item);
+            }); 
+        }
         $('#layer-'+objectToDelete.id).remove();
         canvasPages[currentCanvasId].remove(objectToDelete);
+        canvasPages[currentCanvasId].discardActiveObject();
         save_state();
+        refresh_layers();
         check_object_type(false);
     }  
 } 
@@ -137,4 +146,18 @@ function ungroup_elements() {
     canvasPages[currentCanvasId].requestRenderAll();
     save_state();
     check_object_type(false); 
+    refresh_layers();
+} 
+function group_elements() {
+    if (!canvasPages[currentCanvasId].getActiveObject()) {
+        return;
+    }
+    if (canvasPages[currentCanvasId].getActiveObject().type !== 'activeSelection') {
+        return;
+    }
+    canvasPages[currentCanvasId].getActiveObject().toGroup();
+    canvasPages[currentCanvasId].requestRenderAll();
+    save_state();
+    check_object_type(false); 
+    refresh_layers();
 } 

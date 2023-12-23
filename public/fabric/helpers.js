@@ -39,8 +39,9 @@ function check_object_type(selectedObject){
         $('.circle_attributes').css('display','none');
         $('.text_attributes').css('display','none');
         $('.rect_attributes').css('display','none');
+        $('.group_attributes').css('display','none');
 
-        if(selectedObject.type == 'i-text' || selectedObject.type == 'textbox'){
+        if(selectedObject.type == 'i-text' || selectedObject.type == 'textbox' || selectedObject.type == 'text'){
             $('.text_attributes').css('display','inline');
         }else if(selectedObject.type == 'image'){
             $('.image_attributes').css('display','inline');
@@ -52,7 +53,9 @@ function check_object_type(selectedObject){
             $('.circle_attributes').css('display','inline'); 
         }else if(selectedObject.type == 'rect'){
             $('.rect_attributes').css('display','inline'); 
-        }  
+        }else if(selectedObject.type == 'group' || selectedObject.type == 'activeSelection'){
+            $('.group_attributes').css('display','inline'); 
+        }   
         assign_nav_values();
     }else{ 
         $('.rect_attributes').css('display','none');
@@ -61,6 +64,7 @@ function check_object_type(selectedObject){
         $('.path_attributes').css('display','none');
         $('.circle_attributes').css('display','none');
         $('.text_attributes').css('display','none'); 
+        $('.group_attributes').css('display','none'); 
     }
 } 
 
@@ -231,8 +235,7 @@ function selectCanvas(canvasObject, canvasId){
     }
 }
 
-function refresh_layers(){ 
-    console.log('refresh_layers');
+function refresh_layers(){  
     var layers = canvasPages[currentCanvasId].getObjects(); 
     var html = '';
     for(var i = layers.length - 1 ; i >= 0 ; i--){  
@@ -250,9 +253,8 @@ function refresh_layers(){
             var lockclass = 'fa-lock';
         }else{
             var lockclass = 'fa-lock-open';
-        }
-        "01703173793495"
-        "11703173793494"
+        } 
+        
         if(layers[i].visible){
             var visibleclass = 'fa-eye';
         }else{

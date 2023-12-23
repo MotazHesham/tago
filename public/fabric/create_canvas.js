@@ -21,7 +21,8 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
     canvasPages['#' + canvasElement.id] = newCanvas;
     
     selectCanvas(newCanvas,'#' + canvasElement.id); 
-    initAligningGuidelines(newCanvas);
+    initAligningGuidelines(newCanvas); // alliging between objects
+    initCenteringGuidelines(newCanvas); // Centering object to page
 
     newCanvas.on('mouse:down', function(options) { 
         selectCanvas(newCanvas,'#' + canvasElement.id); 
@@ -37,8 +38,7 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
     })
     newCanvas.on('selection:created', function(e) {
         if(newCanvas.findTarget(e)){ // if not found that mean update the selection from layers
-            selectedObject = newCanvas.findTarget(e);   
-            console.log('selection cretaed');
+            selectedObject = newCanvas.findTarget(e);    
         }
         active_helper_buttons(selectedObject);
         check_object_type(selectedObject); 

@@ -83,12 +83,11 @@
         var zoomPercentage = 100; // Initial zoom level
         
         var corner_options = {
-            cornerSize: 10,
-            cornerStyle: 'rect',
+            cornerSize: 12,
+            cornerStyle: 'circle',
             cornerStrokeColor: '#5DADE2',
-            borderColor: '#5DADE2',
-            borderDashArray: [10, 5],
-            borderScaleFactor: 1.5,
+            borderColor: '#5DADE2', 
+            borderScaleFactor: 3,
             cornerColor: 'white',
             transparentCorners: false,
         };  
@@ -124,7 +123,7 @@
     <script src="{{ asset('fabric/custom_rotation.js') }}"></script> 
     <script src="{{ asset('fabric/crop_image.js') }}"></script>
     <script src="{{ asset('fabric/text_attributes.js') }}"></script> 
-    <script src="{{ asset('fabric/element_functions.js') }}"></script> 
+    <script src="{{ asset('fabric/element_functions.js') }}"></script>  
 
     {{-- scripts ajax to backend --}}
     <script>

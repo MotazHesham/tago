@@ -101,6 +101,9 @@ $(document).ready(function() {
                     $('#' + e.target.getAttribute('data-id') +' div').css('display','none');
                 }, {crossOrigin: 'anonymous'}); 
             }else{
+                $('#image-spinner').detach().appendTo('#' + e.target.getAttribute('data-id'));
+                $('#image-spinner').css('display','block');
+                $('#' + e.target.getAttribute('data-id') +' div').css('display','block');
                 fabric.loadSVGFromURL(img_url, function(objects, options) { 
                     var svgObject = fabric.util.groupSVGElements(objects, options);
                     // Add the SVG object to the canvas
@@ -115,6 +118,8 @@ $(document).ready(function() {
 
                     // Render the canvas
                     canvasPages[currentCanvasId].renderAll();
+                    $('#image-spinner').css('display','none');
+                    $('#' + e.target.getAttribute('data-id') +' div').css('display','none');
                     refresh_layers();
                     save_state();  
                 }, null, { crossOrigin: 'anonymous'}); 

@@ -11,7 +11,7 @@
                 <form method="POST" action="{{ route("admin.templates.store") }}" enctype="multipart/form-data" id="template-form">
                     @csrf
                     <div class="form-group">
-                        <label class="required">النوع</label>
+                        <label class="required">Type</label>
                         <select class="form-control {{ $errors->has('type') ? 'is-invalid' : '' }}" name="type" id="type" required>
                             <option value disabled {{ old('type', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                             @foreach(App\Models\Template::TYPE_SELECT as $key => $label)
