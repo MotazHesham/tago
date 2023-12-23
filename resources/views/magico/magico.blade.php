@@ -19,23 +19,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('fabric/context.standalone.css')}}"> 
     <link rel="stylesheet" href="{{ asset('fabric/magico.css')}}"> 
-    @section('styles') 
-    <style>
-        .hover-image{  
-            transition: all .4s ease-in-out;
-            cursor: pointer;
-        }
-        .hover-image:hover{
-            transform: scale(1.1);
-            box-shadow: 2px 9px 20px 1px #6e6e6e;
-            z-index: 1; /* Ensure the transformed element is on top */
-        } 
-    </style>
+    @section('styles')  
 </head>
 
 <body>   
 
-    @include('magico.save_template')
+    @include('magico.templates.saveTemplate')
     @include('magico.offCanvas')
 
     <div style="position: fixed;bottom:0;right:0;z-index:1;display:flex">
@@ -44,21 +33,21 @@
         <button class="btn btn-custom btn-sm" style="background: #9ca9ab" onclick="zoomOut()"><i class="fa-light fa-magnifying-glass-minus"></i></button>
     </div>
 
-    @include('magico.draw_items')
+    @include('magico.partials.draw_items')
     <div class="d-flex">
         <div class="bg-light common-background side-menu d-none d-md-block d-lg-block" style="z-index: 1;padding:0 10px">
-            @include('magico.side_menu')
+            @include('magico.partials.sideMenu')
         </div>
         <div class=" min-vh-100 nav-items" style="background: #e7e7e7;width:100%">  
-            @include('magico.nav_items')
+            @include('magico.partials.nav_items')
             <div class="container-scrollable-x" id="page-container" style="overflow-x:scroll">
                 <div style="margin-top: 6rem;display: flex;flex-direction: column;align-items: center;" id="canvas-pages">
                     {{-- canvas pages --}}
                 </div> 
                 <div id="active_helper_buttons" class="btn-group btn-group-sm active_helper_buttons" role="group" >
-                    @include('magico.objectButtons')
+                    @include('magico.buttons.object')
                 </div>  
-                @include('magico.pageButtons') 
+                @include('magico.buttons.page') 
             </div> 
         </div>
     </div> 
@@ -78,6 +67,7 @@
     <script src="{{ asset('fabric/create_canvas.js') }}"></script>
     <script src="{{ asset('fabric/aligning_guidelines.js') }}"></script>
     <script src="{{ asset('fabric/helpers.js') }}"></script>
+    <script src="{{ asset('fabric/zoom.js') }}"></script>
     <script>  
 
         var canvasPages = [];   
@@ -91,26 +81,7 @@
         var canvasWidth = 1200;
         var canvasHeight = 630;
         var zoomPercentage = 100; // Initial zoom level
-        function zoomIn() {
-            zoomPercentage += 10;
-            updateZoom();
-        }
-
-        function zoomOut() {
-            zoomPercentage -= 10;
-            updateZoom();
-        }
         
-        function change_zoom(){
-            zoomPercentage = parseInt($('#zoom-precent').val());
-            updateZoom();
-        }
-
-        function updateZoom() {
-            document.getElementById('page-container').style.transform = 'scale(' + (zoomPercentage / 100) + ')';
-            $('#zoom-precent').val(zoomPercentage);
-            console.log(zoomPercentage);
-        }
         var corner_options = {
             cornerSize: 10,
             cornerStyle: 'rect',
@@ -125,17 +96,11 @@
         $(document).ready(function() {  
             $("body").tooltip({ selector: '[data-bs-toggle=tooltip]' });
             Sortable.create(demo1, {  animation: 150, ghostClass: 'blue-background-class','handle':'.handle'});
-            $('.select2').select2()  
-            $('.dropdown').on('show.bs.dropdown', function () {
-                $('.nav-bar').css('overflow', 'visible'); 
-            }); 
-            $('.dropdown').on('hide.bs.dropdown', function () {
-                $('.nav-bar').css('overflow-y', 'hidden'); 
-                $('.nav-bar').css('overflow-x', 'scroll'); 
-            });
-            calculateZoom()  
+            $('.select2').select2(); 
+            createCanvas(); // intialize first canvas page  
+            calculateZoom();
 
-            // This function to my custom properties when send to backend the canvas page
+            // TO Append my Custom properties that added to object like ['id','naming'.. etc] when sending to backend 
             fabric.Object.prototype.toObject = (function (toObject) {
                 return function (propertiesToInclude) {
                     return toObject.call(this, ['id','naming'].concat(propertiesToInclude));
@@ -143,49 +108,30 @@
             })(fabric.Object.prototype.toObject);
 
             
-            $(".filter-button").click(function(){
-                var value = $(this).attr('data-filter');
-                
-                if(value == "all") { 
-                    $('.filter').show('300');
-                } else { 
-                    $(".filter").not('.'+value).hide('300');
-                    $('.filter').filter('.'+value).show('300');
-                    
-                }
-            });
-
-            if ($(".filter-button").removeClass("active")) {
-                $(this).removeClass("active");
-            }else{
-                $(this).addClass("active"); 
-            }
-
+            // if there user choose specifc template from homePage => render it on canvas area
             var template_id = {{ Js::from($template_id) }} 
             if(template_id && $('#template-'+template_id).length){
                 add_as_template(template_id);
-            }
+            } 
         });   
         
-        // Recalculate on window resize
-        window.onresize = calculateZoom;
+    </script>  
+    <script src="{{ asset('fabric/draw.js') }}"></script>
+    <script src="{{ asset('fabric/listners.js') }}"></script>
+    <script src="{{ asset('fabric/undo_redo.js') }}"></script>
+    <script src="{{ asset('fabric/alignments.js') }}"></script>
+    <script src="{{ asset('fabric/effects.js') }}"></script>
+    <script src="{{ asset('fabric/custom_rotation.js') }}"></script> 
+    <script src="{{ asset('fabric/crop_image.js') }}"></script>
+    <script src="{{ asset('fabric/text_attributes.js') }}"></script> 
+    <script src="{{ asset('fabric/element_functions.js') }}"></script> 
 
-        function calculateZoom() {
-            var containerWidth = $('#page-container').width(); 
-            var containerContent = $('#canvas-pages').width(); 
-            tozoom = ($('body').width() / canvasWidth) * 66;
-            zoomPercentage = Math.round(tozoom * 100) / 100
-            console.log('page-container:' + containerWidth);
-            console.log('canvas-width:' + canvasWidth);
-            console.log('body width:' + $('body').width());
-            updateZoom();
-        }
-
-
-        createCanvas(); 
+    {{-- scripts ajax to backend --}}
+    <script>
         
+        // save user uploaded image
         $("#form-upload-image").on("submit", function(ev) {
-            ev.preventDefault(); // Prevent browser default submit.
+            ev.preventDefault(); 
             var formData = new FormData(this);
             $.LoadingOverlay("show");  
             $.ajax({
@@ -213,42 +159,9 @@
             }); 
         });
 
-        function delete_uploaded_image(id){
-            $.ajax({
-                url: '{{ route("frontend.delete_upload_magico_images")}}',
-                type: 'POST', 
-                data: {
-                    id:id,
-                    _token: '{{ csrf_token() }}'
-                }, 
-                success: function(response) {    
-                    showAlert('success', 'Image Deleted Succussfully', ''); 
-                    $('#off-canvas-upload-' + id).hide('slow', function(){ $('#off-canvas-upload-' + id).remove(); });
-                },
-                error: function(err) { 
-                    showAlert('error', 'Something Went Wrong', '');
-                    console.log('Error' + err);
-                }
-            }); 
-        } 
-
-        function deleteCanvas(){
-            if(Object.keys(canvasPages).length > 1){
-                // detach helpers fron canvas so when deleting the canvas helpers not deleteing
-                $("#active_helper_buttons").detach().insertAfter('body'); 
-                $('#active_helper_buttons').css('display','none');
-                $("#page_buttons").detach().insertAfter('body'); 
-                $('#page_buttons').css('display','none');
-                $("#page_resize").detach().insertAfter('body');
-                $('#page_resize').css('display','none');
-
-                delete canvasPages[currentCanvasId];
-                $(currentCanvasId).closest(".canvas-page").remove();  
-            }
-        }
-
+        // save template
         $("#template-form").on("submit", function(ev) {
-            ev.preventDefault(); // Prevent browser default submit.
+            ev.preventDefault(); 
             var formData = new FormData(this);
             $.LoadingOverlay("show"); 
 
@@ -283,116 +196,33 @@
             }); 
         }); 
 
-        function clearCanvas(){ 
-            canvasPages[currentCanvasId].clear();
-            hoverdObject = null;
-            selectedObject = null;
-            clickedObject = null; 
-        }
-        function copy_element() { 
-            canvasPages[currentCanvasId].getActiveObject().clone(function(cloned) {
-                _clipboard = cloned;
-            });
-        }
-
-        function paste_element() {
-            // clone again, so you can do multiple copies.
-            _clipboard.clone(function(clonedObj) {
-                canvasPages[currentCanvasId].discardActiveObject();
-                clonedObj.set({
-                    left: clonedObj.left + 10,
-                    top: clonedObj.top + 10,
-                    evented: true, 
-                    id : 'clone' + (new Date()).getTime(),
-                    naming : 'clone' + (new Date()).getTime(),
+        // delete user uploaded image
+        function delete_uploaded_image(id){
+            let status = confirm('{{ trans('global.areYouSure') }}');
+            if(status){
+                $.ajax({
+                    url: '{{ route("frontend.delete_upload_magico_images")}}',
+                    type: 'POST', 
+                    data: {
+                        id:id,
+                        _token: '{{ csrf_token() }}'
+                    }, 
+                    success: function(response) {    
+                        showAlert('success', 'Image Deleted Succussfully', ''); 
+                        $('#off-canvas-upload-' + id).hide('slow', function(){ $('#off-canvas-upload-' + id).remove(); });
+                    },
+                    error: function(err) { 
+                        showAlert('error', 'Something Went Wrong', '');
+                        console.log('Error' + err);
+                    }
                 }); 
-                clonedObj.set(corner_options); 
-                if (clonedObj.type === 'activeSelection') {
-                    // active selection needs a reference to the canvas.
-                    clonedObj.canvas = canvasPages[currentCanvasId];
-                    clonedObj.forEachObject(function(obj) {
-                        canvasPages[currentCanvasId].add(obj);
-                    });
-                    // this should solve the unselectability
-                    clonedObj.setCoords();
-                } else {
-                    canvasPages[currentCanvasId].add(clonedObj);
-                }
-                _clipboard.top += 10;
-                _clipboard.left += 10;
-                canvasPages[currentCanvasId].setActiveObject(clonedObj);
-                canvasPages[currentCanvasId].requestRenderAll();
-            });
-            refresh_layers();
-        }
-
-        
-        function download_page(type){   
-            if(type == 'png'){
-                var dataURL    = canvasPages[currentCanvasId].toDataURL("image/png");
-                const downloadLink = document.createElement('a');
-                downloadLink.href = dataURL;
-                downloadLink.download = 'canvas_image.png'; 
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink); 
-            }else if(type == 'jpg'){
-                canvasPages[currentCanvasId].backgroundColor = '#fff';
-                var dataURL    = canvasPages[currentCanvasId].toDataURL("image/jpg");
-                const downloadLink = document.createElement('a');
-                downloadLink.href = dataURL;
-                downloadLink.download = 'canvas_image.jpg'; 
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                canvasPages[currentCanvasId].backgroundColor = '#fff0';
-            }else{
-                return ;
             }
-        }
-    </script>  
-    <script src="{{ asset('fabric/draw.js') }}"></script>
-    <script src="{{ asset('fabric/listners.js') }}"></script>
-    <script src="{{ asset('fabric/undo_redo.js') }}"></script>
-    <script src="{{ asset('fabric/alignments.js') }}"></script>
-    <script src="{{ asset('fabric/effects.js') }}"></script>
-    <script src="{{ asset('fabric/custom_rotation.js') }}"></script> 
-    <script src="{{ asset('fabric/crop_image.js') }}"></script>
-    <script src="{{ asset('fabric/text_attributes.js') }}"></script> 
+        } 
+    </script>
 
     {{-- script loading images from outsources --}}
-    <script>
+    <script> 
 
-    
-        $('body').on('click', '.add-as-template', function(e) {   
-
-        });
-
-        function add_as_template(id){ 
-            // detach helpers fron canvas so when deleting the canvas helpers not deleteing
-            $("#active_helper_buttons").detach().insertAfter('body'); 
-            $('#active_helper_buttons').css('display','none');
-            $("#page_buttons").detach().insertAfter('body'); 
-            $('#page_buttons').css('display','none');
-            $("#page_resize").detach().insertAfter('body');
-            $('#page_resize').css('display','none');
-            canvasPages = [];
-            $('.canvas-page').remove();
-            $.LoadingOverlay("show");  
-            let pages = $('#template-'+id).data("src");   
-            for (let index in pages) { 
-                createCanvas(pages[index]['height'],pages[index]['width']);  
-                var page = {
-                    "objects" : pages[index]['objects']
-                }  
-                canvasPages[currentCanvasId].loadFromJSON(JSON.stringify(page), function () {
-                    // Render canvas after loading JSON
-                    canvasPages[currentCanvasId].renderAll();
-                    $.LoadingOverlay("hide"); 
-                    refresh_layers();
-                });
-            }
-        }
         var loading_images_unsplash = false;
         var images_page_unsplash = 2 ; 
         $('#offcanvas-unsplash').on('scroll', function (e) {

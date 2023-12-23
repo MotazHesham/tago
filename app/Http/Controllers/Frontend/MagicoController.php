@@ -74,7 +74,7 @@ class MagicoController extends Controller
             ];
             return $this->GETAPI($url,$headers);
         });   
-        return view('magico.unsplash_images',compact('unsplash_images'));
+        return view('magico.integrations.unsplash',compact('unsplash_images'));
     }
 
     public function unsplash_query_images(Request $request){
@@ -90,7 +90,7 @@ class MagicoController extends Controller
             
             return $this->GETAPI($url,$headers)->results;
         });   
-        return view('magico.unsplash_images',compact('unsplash_images'));
+        return view('magico.integrations.unsplash',compact('unsplash_images'));
     }
     public function pixabay_loading_images(Request $request){
         $page = $request->page;
@@ -103,7 +103,7 @@ class MagicoController extends Controller
             ];
             return $this->GETAPI($url,$headers)->hits;
         });   
-        return view('magico.pixabay_images',compact('pixabay_images'));
+        return view('magico.integrations.pixabay',compact('pixabay_images'));
     }
 
     public function iconscout_loading_images(Request $request){ 
@@ -115,7 +115,7 @@ class MagicoController extends Controller
             'Client-ID' => $this->iconscout_client_id(), 
         ];
         $iconscout_images =  $this->GETAPI($url,$headers)->response->items;  
-        return view('magico.iconscout_images',compact('iconscout_images'));
+        return view('magico.integrations.iconscout',compact('iconscout_images'));
     }
 
     public function upload_magico_images(Request $request){
@@ -123,7 +123,7 @@ class MagicoController extends Controller
         if($user){
             if($request->hasFile('image')){
                 $image = $user->addMedia($request->image)->toMediaCollection('magico_images'); 
-                return view('magico.uploaded_images',compact('image'));
+                return view('magico.partials.uploaded_images',compact('image'));
             }
         }else{
             return 0;

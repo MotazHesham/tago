@@ -68,7 +68,7 @@
                 <i class="fa-thin fa-crop-simple"></i> <span>Crop</span>
             </button> 
         </div>     
-        @include('magico.effects')
+        @include('magico.partials.effects')
     </div>
     <div style="display: flex;align-items:center;min-width: fit-content">
         <div style="min-width: fit-content"> {{-- icons  --}}

@@ -195,6 +195,7 @@ function assign_nav_values(){
         }  
     }
 } 
+
 function rgbaToHexa(rgbaColor) {
     // Parse RGBA values
     var rgbaValues = rgbaColor.match(/(\d+(\.\d+)?)/g) || [];
@@ -325,6 +326,7 @@ function canvas_resize(){
     canvasPages[currentCanvasId].setWidth(canvasWidth);
     canvasPages[currentCanvasId].setHeight(canvasHeight);
 }
+
 function show_resize_buttons(){ 
     if ($("#page_resize").is(":hidden")) {
         $('#page_resize').css('display','flex'); 
@@ -381,105 +383,74 @@ function add_text_box(id){
     canvasPages[currentCanvasId].add(textbox);
 }
 
-function lock_element(id = false) {
-    if(id){
-        var objectTolock = getObjectById(id);
-    }else{
-        var objectTolock = canvasPages[currentCanvasId].getActiveObject();
+function add_as_template(id){ 
+    // detach helpers fron canvas so when deleting the canvas helpers not deleteing
+    $("#active_helper_buttons").detach().insertAfter('body'); 
+    $('#active_helper_buttons').css('display','none');
+    $("#page_buttons").detach().insertAfter('body'); 
+    $('#page_buttons').css('display','none');
+    $("#page_resize").detach().insertAfter('body');
+    $('#page_resize').css('display','none');
+    canvasPages = [];
+    $('.canvas-page').remove();
+    $.LoadingOverlay("show");  
+    let pages = $('#template-'+id).data("src");   
+    for (let index in pages) { 
+        createCanvas(pages[index]['height'],pages[index]['width']);  
+        var page = {
+            "objects" : pages[index]['objects']
+        }  
+        canvasPages[currentCanvasId].loadFromJSON(JSON.stringify(page), function () {
+            // Render canvas after loading JSON
+            canvasPages[currentCanvasId].renderAll();
+            $.LoadingOverlay("hide"); 
+            refresh_layers();
+        });
     }
-    if (objectTolock) {
-        if(objectTolock.lockMovementX){
-            $('#layer-lock-'+objectTolock.id).removeClass('fa-lock');
-            $('#layer-lock-'+objectTolock.id).addClass('fa-lock-open');
-            if(!id){
-                $('#navitem-lock').removeClass('fa-lock');
-                $('#navitem-lock').addClass('fa-lock-open'); 
-            }
-        }else{
-            $('#layer-lock-'+objectTolock.id).removeClass('fa-lock-open');
-            $('#layer-lock-'+objectTolock.id).addClass('fa-lock');
-            if(!id){
-                $('#navitem-lock').removeClass('fa-lock-open');
-                $('#navitem-lock').addClass('fa-lock'); 
-            }
-        }
-        objectTolock.lockMovementX = !objectTolock.lockMovementX;
-        objectTolock.lockMovementY = !objectTolock.lockMovementY;
-        canvasPages[currentCanvasId].renderAll(); 
-        save_state();
-    }  
 }
 
-function duplicate_element(id = false) {
-    if(id){
-        var objectToDuplicate = getObjectById(id);
+function clearCanvas(){ 
+    canvasPages[currentCanvasId].clear();
+    hoverdObject = null;
+    selectedObject = null;
+    clickedObject = null; 
+}
+
+function deleteCanvas(){
+    if(Object.keys(canvasPages).length > 1){
+        // detach helpers fron canvas so when deleting the canvas helpers not deleteing
+        $("#active_helper_buttons").detach().insertAfter('body'); 
+        $('#active_helper_buttons').css('display','none');
+        $("#page_buttons").detach().insertAfter('body'); 
+        $('#page_buttons').css('display','none');
+        $("#page_resize").detach().insertAfter('body');
+        $('#page_resize').css('display','none');
+
+        delete canvasPages[currentCanvasId];
+        $(currentCanvasId).closest(".canvas-page").remove();  
+    }
+}
+
+function download_page(type){   
+    if(type == 'png'){
+        var dataURL    = canvasPages[currentCanvasId].toDataURL("image/png");
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = 'canvas_image.png'; 
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink); 
+    }else if(type == 'jpg'){
+        canvasPages[currentCanvasId].backgroundColor = '#fff';
+        var dataURL    = canvasPages[currentCanvasId].toDataURL("image/jpg");
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = 'canvas_image.jpg'; 
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        canvasPages[currentCanvasId].backgroundColor = '#fff0';
     }else{
-        var objectToDuplicate = canvasPages[currentCanvasId].getActiveObject();
+        return ;
     }
-
-    if(objectToDuplicate){
-        var clone = fabric.util.object.clone(objectToDuplicate);
-    
-        // Offset the clone to prevent overlapping with the original object
-        clone.set({
-            left: objectToDuplicate.left + 15,
-            top: objectToDuplicate.top + 15,
-            id: objectToDuplicate.type + '-dup-' +  (new Date()).getTime(),
-            naming: objectToDuplicate.type + '-dup-' +  (new Date()).getTime()
-        }); 
-        canvasPages[currentCanvasId].add(clone);
-        canvasPages[currentCanvasId].setActiveObject(clone);
-        canvasPages[currentCanvasId].renderAll();
-        save_state(); 
-        refresh_layers();
-    }
-} 
-
-function delete_element(id = false) {
-    if(id){
-        var objectToDelete = getObjectById(id); 
-    }else{
-        var objectToDelete = canvasPages[currentCanvasId].getActiveObject();   
-    }
-    if (objectToDelete) {
-        $('#layer-'+objectToDelete.id).remove();
-        canvasPages[currentCanvasId].remove(objectToDelete);
-        save_state();
-        check_object_type(false);
-    }  
-} 
-
-function visible_element(id = false) {
-    if(id){ 
-        var objectTovisible = getObjectById(id);    
-    }else{
-        var objectTovisible = canvasPages[currentCanvasId].getActiveObject();
-    }
-    if (objectTovisible) {   
-        if(objectTovisible.visible){
-            $('#layer-eye-'+objectTovisible.id).removeClass('fa-eye');
-            $('#layer-eye-'+objectTovisible.id).addClass('fa-eye-slash');
-        }else{
-            $('#layer-eye-'+objectTovisible.id).removeClass('fa-eye-slash');
-            $('#layer-eye-'+objectTovisible.id).addClass('fa-eye');
-        }
-        objectTovisible.set({
-            visible: !objectTovisible.visible
-        });
-        save_state();
-        check_object_type(false);
-    }  
-} 
-
-function ungroup_elements() {
-    if (!canvasPages[currentCanvasId].getActiveObject()) {
-        return;
-    }
-    if (canvasPages[currentCanvasId].getActiveObject().type !== 'group') {
-        return;
-    }
-    canvasPages[currentCanvasId].getActiveObject().toActiveSelection();
-    canvasPages[currentCanvasId].requestRenderAll();
-    save_state();
-    check_object_type(false); 
-} 
+}

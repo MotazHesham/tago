@@ -22,7 +22,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-templates" style="display:flex">
-        @include('magico.templates')
+        @include('magico.templates.templates')
     </div>
 </div>
 
@@ -44,7 +44,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-pixabay" style="display:flex">
-        @include('magico.pixabay_images')
+        @include('magico.integrations.pixabay')
     </div>
 </div>
 
@@ -66,7 +66,7 @@
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-iconscout"
         style="display:flex">
-        @include('magico.iconscout_images')
+        @include('magico.integrations.iconscout')
     </div>
 </div>
 
@@ -88,7 +88,7 @@
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-unsplash"
         style="display:flex">
-        @include('magico.unsplash_images')
+        @include('magico.integrations.unsplash')
     </div>
 </div>
 
@@ -261,8 +261,8 @@
     </div>
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-layers"
         style="overflow-y:scroll ">
-        <ul class="list-group list-group-horizontal"
-            style="display: flex;align-items: center;flex-wrap: wrap;align-content: flex-start;" id="demo1">
+        <ul class="list-group list-group-horizontal" style="display: flex;align-items: center;flex-wrap: wrap;align-content: flex-start;" id="demo1">
+            {{-- rendered layers --}}
         </ul>
     </div>
 </div>
@@ -276,7 +276,7 @@
             <form action="{{ route('frontend.upload_magico_images') }}" method="POST" enctype="multipart/form-data"
                 id="form-upload-image">
                 @csrf
-                <input type="file" name="image" class="form-control" style="width:300px">
+                <input type="file" name="image" class="form-control" style="width:300px" required>
                 @auth
                     <button class="btn btn-dark" type="submit">Upload</button>
                 @else
@@ -289,7 +289,7 @@
     <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-upload" style="display:flex">
         @auth
             @foreach (auth()->user()->magico_images as $image)
-                @include('magico.uploaded_images')
+                @include('magico.partials.uploaded_images')
             @endforeach
         @endauth
     </div>
