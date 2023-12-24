@@ -1,8 +1,10 @@
 
 function copy_element() { 
-    canvasPages[currentCanvasId].getActiveObject().clone(function(cloned) {
-        _clipboard = cloned;
-    });
+    if(selectedObject){
+        canvasPages[currentCanvasId].getActiveObject().clone(function(cloned) {
+            _clipboard = cloned;
+        });
+    }
 }
 
 function paste_element() {
@@ -80,6 +82,7 @@ function duplicate_element(id = false) {
         clone.set({
             left: objectToDuplicate.left + 15,
             top: objectToDuplicate.top + 15,
+            evented: true, 
             id: objectToDuplicate.type + '-dup-' +  (new Date()).getTime(),
             naming: objectToDuplicate.type + '-dup-' +  (new Date()).getTime()
         }); 

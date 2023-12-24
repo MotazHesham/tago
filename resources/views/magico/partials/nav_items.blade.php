@@ -129,12 +129,12 @@
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-duplicate" data-bs-title="Duplicate element" onclick="duplicate_element()"><i class="fa-thin fa-copy"></i></button>
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-delete" data-bs-title="Remove element" onclick="delete_element()"><i class="fa-thin fa-trash-can-list"></i></button>
         </div>
-        <div class="nav-divider"></div>
-        <button class="btn btn-custom " type="button" >
-            <i class="fa-duotone fa-bags-shopping" style="padding:0 6px"></i><small> Order Now</small>
+        <div class="nav-divider" ></div>
+        <button class="btn btn-custom " style="display: flex;align-items:center" type="button" >
+            <i class="fa-duotone fa-bags-shopping" style="padding:0 6px"></i><small > Order&nbsp;Now</small>
         </button>
         <div class="dropdown  " style="display: inline">
-            <button class="btn btn-custom " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-custom " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex;align-items:center">
                 <i class="fa-duotone fa-cloud-arrow-down" style="padding:0 6px"></i><small> Download</small>
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">

@@ -17,7 +17,7 @@
             </a></li>
         <li><a class="dropdown-item" href="#" onclick="duplicate_element()">
                 <div><i class="fa-duotone fa-clone"></i> <b>Duplicate</b></div> <span
-                    class="badge text-bg-light">Ctrl+D</span>
+                    class="badge text-bg-light">Ctrl+B</span>
             </a></li>
         <li><a class="dropdown-item" href="#" onclick="delete_element()">
                 <div><i class="fa-duotone fa-trash-can-list"></i> <b>Delete</b></div> <span

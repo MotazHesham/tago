@@ -19,7 +19,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('fabric/context.standalone.css')}}"> 
     <link rel="stylesheet" href="{{ asset('fabric/magico.css')}}"> 
-    @section('styles')  
+    @section('styles')   
 </head>
 
 <body>   
@@ -27,7 +27,7 @@
     @include('magico.templates.saveTemplate')
     @include('magico.offCanvas')
 
-    <div style="position: fixed;bottom:0;right:0;z-index:1;display:flex">
+    <div style="position: fixed;bottom:0;right:0;z-index:1;display:flex" id="zooming-buttons">
         <button class="btn btn-custom btn-sm" style="background: #9ca9ab" onclick="zoomIn()"><i class="fa-regular fa-magnifying-glass-plus"></i></button> 
         <input type="number" id="zoom-precent" class="form-control" style="width: 90px" onchange="change_zoom()">
         <button class="btn btn-custom btn-sm" style="background: #9ca9ab" onclick="zoomOut()"><i class="fa-light fa-magnifying-glass-minus"></i></button>
@@ -35,20 +35,23 @@
 
     @include('magico.partials.draw_items')
     <div class="d-flex">
-        <div class="bg-light common-background side-menu d-none d-md-block d-lg-block" style="z-index: 1;padding:0 10px">
+        {{-- <div class="bg-light common-background side-menu d-none d-md-block d-lg-block" style="z-index: 1;padding:0 10px">
             @include('magico.partials.sideMenu')
-        </div>
+        </div> --}}
         <div class=" min-vh-100 nav-items" style="background: #e7e7e7;width:100%">  
+            <div class="bg-light common-background " id="side_menu" style="position: fixed;bottom:0;z-index:1;overflow-y: scroll;height: -webkit-fill-available;margin-top: 70px;">
+                @include('magico.partials.sideMenu')
+            </div>
             @include('magico.partials.nav_items')
             <div class="container-scrollable-x" id="page-container" style="overflow-x:scroll">
-                <div style="margin-top: 6rem;display: flex;flex-direction: column;align-items: center;" id="canvas-pages">
+                <div style="margin-top:6rem;display: flex;flex-direction: column;align-items:center" id="canvas-pages">
                     {{-- canvas pages --}}
                 </div> 
                 <div id="active_helper_buttons" class="btn-group btn-group-sm active_helper_buttons" role="group" >
                     @include('magico.buttons.object')
                 </div>  
                 @include('magico.buttons.page') 
-            </div> 
+            </div>   
         </div>
     </div> 
 
@@ -114,6 +117,42 @@
             } 
         });   
         
+        function zoomIn() {
+            zoomPercentage += 10;
+            updateZoom();
+        }
+
+        function zoomOut() {
+            zoomPercentage -= 10;
+            updateZoom();
+        }
+
+        function change_zoom(){
+            zoomPercentage = parseInt($('#zoom-precent').val());
+            updateZoom();
+        }
+
+        function updateZoom() { 
+            $('.canvas-page').css('transform','scale(' + ((zoomPercentage) / 100)  + ')');
+            $('.canvas-page').css('transform-origin','top');
+            $('#zoom-precent').val(zoomPercentage);
+            console.log(zoomPercentage);
+        }
+
+        function calculateZoom() {
+            var bodyw = $('body').width(); 
+            var bodyh = $('body').height(); 
+            var containerWidth = $('#page-container').width(); 
+            var containerContent = $('#canvas-pages').width(); 
+            zoomPercentage = (((bodyw) / (canvasHeight + canvasWidth) ) * 100); 
+            console.log('bodyw: '+ bodyw);
+            console.log('bodyh: '+ bodyh);
+            console.log('page-container: '+containerWidth);
+            console.log('canvas-pages: '+containerContent);
+            updateZoom();
+        }
+
+        window.onresize = calculateZoom;
     </script>  
     <script src="{{ asset('fabric/draw.js') }}"></script>
     <script src="{{ asset('fabric/listners.js') }}"></script>

@@ -87,8 +87,8 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
         }
     })
 
-    newCanvas.on('mouse:out', function(e) { 
-        if(hoverdObject){ 
+    newCanvas.on('mouse:out', function(e) {  
+        if(hoverdObject && newCanvas.getObjects().indexOf(hoverdObject) != -1){ 
             hoverdObject.canvas.clearContext(hoverdObject.canvas.contextTop);
         }  
     })
@@ -115,16 +115,8 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
     //     } else { 
     //         console.log('right click on canvas');
     //     }  
-    //     // context.init({preventDoubleContext: false});
-    //     // context.attach('canvas', test_menu);
+    //     context.init({preventDoubleContext: false});
+    //     context.attach('canvas', test_menu);
     // });  
 
-    // When the user selects a picture that has been added and press the DEL key
-    // The object will be removed !
-    document.addEventListener("keydown", function(e) {
-        var keyCode = e.keyCode; 
-        if (keyCode == 46) { 
-            delete_element()
-        }
-    }, false); 
 }

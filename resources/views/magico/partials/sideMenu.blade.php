@@ -1,10 +1,5 @@
-<div style="background: #383e4700 !important">
-    <a href="/" class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip"
-        data-bs-placement="right" data-bs-original-title="Icon-only">
-        <i class="bi-bootstrap fs-1"></i>
-    </a>
-    <ul
-        class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+<div style="background: #383e4700 !important" > 
+    <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
         <li class="nav-item">
             <a href="#" class="nav-link py-3 px-2" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTemplates"
                 aria-controls="offcanvasTemplates">

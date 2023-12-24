@@ -124,8 +124,8 @@ body{
 .canvas-page{
     background:white;
     width: fit-content;
-    margin:auto;
-    position: relative;
+    /* margin:auto; */
+    /* position: relative; */
 }  
 
 /* image_attributes */
@@ -263,3 +263,33 @@ body{
     box-shadow: 2px 9px 20px 1px #6e6e6e;
     z-index: 1; /* Ensure the transformed element is on top */
 } 
+
+#side_menu::-webkit-scrollbar {
+    width: 8px;
+    height: 4px;
+}
+
+#side_menu::-webkit-scrollbar-track {
+    background: #b8222200;
+    border-radius: 10px;
+}
+
+#side_menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(160, 192, 186, 0.8);
+}
+
+#side_menu::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+@media only screen and (max-width: 575px) {
+    #side_menu {
+        width: 100%;
+        margin-top: 0 !important;
+        height: fit-content !important;
+    }
+    #zooming-buttons{ 
+        bottom: 91px !important;
+        right: 11px !important;
+    }
+}

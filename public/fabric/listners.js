@@ -218,6 +218,45 @@ $(document).ready(function() {
                 canvasPages[currentCanvasId].renderAll();  
             }
         })
-    // ------------------------------------------------------------  
+    // ------------------------------------------------------------   
+    // shortcuts
+        document.addEventListener("keydown", function(e) {
+            var keyCode = e.keyCode; 
+            if (keyCode == 46) { 
+                delete_element()
+            } 
+        }, false); 
+    // ------------------------------------------------------------   
+    // ---- shortcuts 
+        document.addEventListener('keyup', function(event) {
+            // Check Ctrl key is pressed. 
+            if (event.ctrlKey) { 
+                // Prevent the default behavior for certain browser shortcuts
+                switch (event.key.toLowerCase()) {
+                    case 'z':
+                        event.preventDefault();
+                        replay(undo, redo, '#redo', this);
+                        break;
+                    case 'y':
+                        event.preventDefault();
+                        replay(redo, undo, '#undo', this);
+                        break;
+                    case 'c':
+                        event.preventDefault();  
+                        copy_element();
+                        break;
+                    case 'v':
+                        event.preventDefault();  
+                        paste_element();
+                        break;
+                    case 'b':
+                        event.preventDefault();  
+                        duplicate_element();
+                        break;
+                    // Add more cases for other custom shortcuts as needed
+                }
+            } 
+        })
+    // ------------------------------------------------------------ 
 });
 
