@@ -287,9 +287,13 @@ body{
         width: 100%;
         margin-top: 0 !important;
         height: fit-content !important;
+        left: 0 !important;
     }
     #zooming-buttons{ 
         bottom: 91px !important;
         right: 11px !important;
+    }
+    #toggle-bar{
+        display: none;
     }
 }

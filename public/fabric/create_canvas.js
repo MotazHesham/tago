@@ -23,6 +23,7 @@ function createCanvas(height = canvasHeight,width = canvasWidth) {
     selectCanvas(newCanvas,'#' + canvasElement.id); 
     initAligningGuidelines(newCanvas); // alliging between objects
     initCenteringGuidelines(newCanvas); // Centering object to page
+    calculateZoom();
 
     newCanvas.on('mouse:down', function(options) { 
         selectCanvas(newCanvas,'#' + canvasElement.id); 

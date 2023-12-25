@@ -2,6 +2,7 @@
 
 <div class="common-background container-scrollable-y nav-bar">
     <div style="display: flex; align-items: center; min-width: fit-content"> 
+        <button class="btn btn-custom btn-sm" onclick="toggle_sidermenu()" id="toggle-bar"><i class="fa-duotone fa-bars"></i></button>
         <button class="btn btn-custom btn-sm" id="undo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="UnDo"><i class="fa-solid fa-rotate-left"></i></button>
         <button class="btn btn-custom btn-sm" id="redo" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Redo" disabled><i class="fa-solid fa-rotate-right"></i></button> 
         <button class="btn btn-custom btn-sm group_attributes" style="color:white" onclick="ungroup_elements()">Un Group</button>

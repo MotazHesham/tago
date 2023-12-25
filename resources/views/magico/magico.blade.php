@@ -39,7 +39,7 @@
             @include('magico.partials.sideMenu')
         </div> --}}
         <div class=" min-vh-100 nav-items" style="background: #e7e7e7;width:100%">  
-            <div class="bg-light common-background " id="side_menu" style="position: fixed;bottom:0;z-index:1;overflow-y: scroll;height: -webkit-fill-available;margin-top: 70px;">
+            <div class="bg-light common-background " id="side_menu" style="position: fixed;bottom:0;left:0;z-index:1;overflow-y: scroll;height: -webkit-fill-available;margin-top: 70px;">
                 @include('magico.partials.sideMenu')
             </div>
             @include('magico.partials.nav_items')
@@ -72,6 +72,16 @@
     <script src="{{ asset('fabric/helpers.js') }}"></script>
     <script src="{{ asset('fabric/zoom.js') }}"></script>
     <script>  
+
+        function toggle_sidermenu(){ 
+            var side_menu = $("#side_menu");
+            var position = side_menu.position();
+            if(position.left == 0){
+                side_menu.animate({  left: "-100px", }, 750 );
+            }else{
+                side_menu.animate({  left: "0", }, 750 );
+            }
+        }
 
         var canvasPages = [];   
         var selectedObject = null; 
@@ -135,8 +145,8 @@
         function updateZoom() { 
             $('.canvas-page').css('transform','scale(' + ((zoomPercentage) / 100)  + ')');
             $('.canvas-page').css('transform-origin','top');
-            $('#zoom-precent').val(zoomPercentage);
-            console.log(zoomPercentage);
+            $('#zoom-precent').val(Math.round(zoomPercentage * 100) / 100);
+            // console.log(zoomPercentage);
         }
 
         function calculateZoom() {
@@ -144,11 +154,11 @@
             var bodyh = $('body').height(); 
             var containerWidth = $('#page-container').width(); 
             var containerContent = $('#canvas-pages').width(); 
-            zoomPercentage = (((bodyw) / (canvasHeight + canvasWidth) ) * 100); 
-            console.log('bodyw: '+ bodyw);
-            console.log('bodyh: '+ bodyh);
-            console.log('page-container: '+containerWidth);
-            console.log('canvas-pages: '+containerContent);
+            zoomPercentage = (((containerWidth) / (canvasHeight + canvasWidth) ) * 100) + 10; 
+            // console.log('bodyw: '+ bodyw);
+            // console.log('bodyh: '+ bodyh);
+            // console.log('page-container: '+containerWidth);
+            // console.log('canvas-pages: '+containerContent);
             updateZoom();
         }
 

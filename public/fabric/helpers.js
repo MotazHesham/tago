@@ -409,6 +409,7 @@ function add_as_template(id){
             refresh_layers();
         });
     }
+    calculateZoom();
 }
 
 function clearCanvas(){ 
