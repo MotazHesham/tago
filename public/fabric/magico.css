@@ -283,6 +283,10 @@ body{
 #side_menu::-webkit-scrollbar-thumb:hover {
     background: black;
 }
+.offcanvas-header{
+    display: flex;
+    flex-wrap: wrap;
+}
 @media only screen and (max-width: 575px) {
     #side_menu {
         width: 100%;
