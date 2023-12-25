@@ -1,5 +1,5 @@
 
-<div class="common-background"  id="drawer-menu">
+<div class="common-background"  id="drawer-menu" >
     <div style="display: flex;align-items:center"> 
         <div><img src="{{ asset('fabric/shapes/pencil-1.svg') }}" id="drawer-item-pencil-1" onclick="active_draw_with_width('1','drawer-item-pencil-1')" alt="" style=""></div> 
         <div><img src="{{ asset('fabric/shapes/pencil-2.svg') }}" id="drawer-item-pencil-2" onclick="active_draw_with_width('4','drawer-item-pencil-2')" alt="" style=""></div>  

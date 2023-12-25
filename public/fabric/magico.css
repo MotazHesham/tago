@@ -214,6 +214,7 @@ body{
 }
 #drawer-menu img{ 
     height: 100px;
+    width: 100px;
     cursor: pointer;
     position: relative;
     transition: top 0.4s;
@@ -229,7 +230,7 @@ body{
     top: -40px;
 }
 #drawer-menu{
-    position: fixed;left:40%;bottom:-70px;z-index: 1;max-height:65px;border-radius: 20px;display: none;
+    position: fixed;bottom:-70px;z-index: 1;max-height:65px;border-radius: 20px;display: none;z-index: 3
 }
 
 .image_attributes, .polygon_attributes, .path_attributes, .circle_attributes, .text_attributes, .group_attributes, .active_selection_attributes{display: none;}
@@ -295,5 +296,11 @@ body{
     }
     #toggle-bar{
         display: none;
+    }
+    #drawer-menu img{
+        width: 7vh !important;
+    }
+    #drawer-menu{
+        bottom: 135px !important;
     }
 }
