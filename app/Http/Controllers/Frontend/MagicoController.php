@@ -38,6 +38,9 @@ class MagicoController extends Controller
     public function iconscout_client_id(){
         return '172636883689370';
     }
+    public function pexels_key(){
+        return 'nu6ZdVIN8S5eLzKXd5uCM6rUe7IeXxD0FaJvveQcdhcM9ctB1Ivna1hk';
+    }
     
     public function magico($template_id = null){  
         $templates = Cache::remember('templates', 3600, function () { 
@@ -58,15 +61,26 @@ class MagicoController extends Controller
             ];
             return $this->GETAPI($url,$headers)->hits;
         });     
-        $unsplash_images = Cache::remember('unsplash_images', 3600, function () {
-            $url = 'https://api.unsplash.com/photos?per_page=20';
+        
+        $pexels_images = Cache::remember('pexels_images', 3600, function () {
+            $url = 'https://api.pexels.com/v1/curated?per_page=40';
             $headers = [  
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Client-ID '. $this->unsplash_client_id(), 
-            ]; 
+                'Content-Type' => 'application/json', 
+                'Authorization' => $this->pexels_key(), 
+            ];
             return $this->GETAPI($url,$headers);
-        });   
-        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id'));
+        });  
+        // $unsplash_images = Cache::remember('unsplash_images', 3600, function () {
+        //     $url = 'https://api.unsplash.com/photos?per_page=20';
+        //     $headers = [  
+        //         'Content-Type' => 'application/json',
+        //         'Authorization' => 'Client-ID '. $this->unsplash_client_id(), 
+        //     ]; 
+        //     return $this->GETAPI($url,$headers);
+        // });  
+        $unsplash_images = [];
+        
+        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id','pexels_images'));
     }
 
     public function unsplash_loading_more_images(Request $request){
@@ -121,6 +135,18 @@ class MagicoController extends Controller
         ];
         $iconscout_images =  $this->GETAPI($url,$headers)->response->items;  
         return view('magico.integrations.iconscout',compact('iconscout_images'));
+    }
+
+    public function pexels_loading_images(Request $request){ 
+        $search = $request->search; 
+        
+        $url = $request->page_url;
+        $headers = [  
+            'Content-Type' => 'application/json', 
+            'Authorization' => $this->pexels_key(), 
+        ];
+        $pexels_images =  $this->GETAPI($url,$headers);  
+        return view('magico.integrations.pexels',compact('pexels_images'));
     }
 
     public function upload_magico_images(Request $request){

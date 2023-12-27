@@ -92,6 +92,28 @@
     </div>
 </div>
 
+{{--  Pexels --}}
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1"
+    id="offcanvasPexels" aria-labelledby="offcanvasPexelsLabel">
+    <div class="offcanvas-header common-background">
+        <h5 class="offcanvas-title" id="offcanvasPexelsLabel" style="color:white">
+            UnSplash
+        </h5>
+        <div style="display: inline">
+            <input type="text" class="form-control" id="search-pexels" placeholder="Search...">
+            <button class="btn btn-dark" onclick="pexels_query_images()">Search</button>
+        </div>
+        <small>
+            Photos By <a href="https://pexels.com" style="color:black" target="_blanc">Pexels</a>
+        </small>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-scrollable-y common-background" id="offcanvas-pexels"
+        style="display:flex">
+        @include('magico.integrations.pexels')
+    </div>
+</div>
+
 {{-- Text --}}
 <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1"
     id="offcanvasText" aria-labelledby="offcanvasTextLabel">

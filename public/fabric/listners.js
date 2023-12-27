@@ -1,6 +1,12 @@
 
 $(document).ready(function() { 
     // ------------- Scrolling wheels horizontally ------------
+        var pexelsOffCanvas = document.getElementById("offcanvas-pexels"); 
+        pexelsOffCanvas.addEventListener("wheel", function (e) {
+            if (e.deltaY > 0) pexelsOffCanvas.scrollLeft += 100;
+            else pexelsOffCanvas.scrollLeft -= 100; 
+        });
+
         var iconscoutOffCanvas = document.getElementById("offcanvas-iconscout"); 
         iconscoutOffCanvas.addEventListener("wheel", function (e) {
             if (e.deltaY > 0) iconscoutOffCanvas.scrollLeft += 100;

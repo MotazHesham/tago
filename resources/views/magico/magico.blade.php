@@ -374,6 +374,51 @@
             });
         }
 
+        var loading_images_pexels = false; 
+        $('#offcanvas-pexels').on('scroll', function (e) {
+            if($(this).scrollLeft() + $(this).innerWidth() >= $(this)[0].scrollWidth) {
+                if(!loading_images_pexels){
+                    var spinner = '<div style="min-width: fit-content;display:flex;align-items:center" id="loading_images_pexels"> <div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span> </div></div>';
+                    $(spinner).appendTo(this);
+                    loading_images_pexels = true;  
+                    $.ajax({
+                        url: '{{ route("frontend.pexels_loading_images") }}',
+                        type: 'POST',
+                        data: {
+                            page_url: $('.next-pexels:last').val(), 
+                            _token: '{{ csrf_token() }}',
+                        }, 
+                        success: function(response) {  
+                            $(response).appendTo(e.target); 
+                            loading_images_pexels = false;  
+                            $('#loading_images_pexels').remove(); 
+                        },
+                        error: function(err) {
+                            loading_images_pexels = false;   
+                            console.log('Error' + err);
+                        },
+                    });
+                }
+            } 
+        }) 
+        function pexels_query_images(){  
+            $.ajax({
+                url: '{{ route("frontend.pexels_loading_images") }}',
+                type: 'POST',
+                data: {
+                    page_url: 'https://api.pexels.com/v1/search?query='+$('#search-pexels').val()+'&per_page=40', 
+                    _token: '{{ csrf_token() }}',
+                }, 
+                success: function(response) {  
+                    $('#offcanvas-pexels').html(response);  
+                },
+                error: function(err) {
+                    $('#offcanvas-pexels').html('No Results Found Related To ur Search');
+                    console.log('Error' + err);
+                },
+            });
+        }
+
     </script>
 </body> 
 </html>

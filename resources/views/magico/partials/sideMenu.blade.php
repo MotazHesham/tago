@@ -24,12 +24,20 @@
                 <span>Pixabay </span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUnsplash"
                 aria-controls="offcanvasUnsplash">
                 <i class="fa-duotone fa-images"></i>
                 <br>
                 <span><small>UnSplash</small> </span>
+            </a>
+        </li> --}}
+        <li>
+            <a href="#" class="nav-link py-3 px-2" title="" onclick="drawer_menu('hide')" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPexels"
+                aria-controls="offcanvasPexels">
+                <i class="fa-duotone fa-images"></i>
+                <br>
+                <span>Pexels</span>
             </a>
         </li>
         <li>
