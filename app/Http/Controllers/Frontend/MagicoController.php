@@ -14,14 +14,19 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class MagicoController extends Controller
 {
     public function GETAPI($url,$headers){ 
-        $client = new Client();
-    
-        $response = $client->request('GET', $url, [
-            'headers' => $headers,
-        ]); 
-        // $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-        return json_decode($body);
+        try{
+            $client = new Client();
+        
+            $response = $client->request('GET', $url, [
+                'headers' => $headers,
+            ]); 
+            // $statusCode = $response->getStatusCode();
+            $body = $response->getBody()->getContents();
+            return json_decode($body);
+        }catch(\Exception $ex){
+            // do nothing
+        }
+        return [];
     }
 
     public function pixaby_key(){
