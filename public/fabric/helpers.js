@@ -412,6 +412,17 @@ function add_as_template(id){
     calculateZoom();
 }
 
+
+function toggle_sidermenu(){ 
+    var side_menu = $("#side_menu");
+    var position = side_menu.position();
+    if(position.left == 0){
+        side_menu.animate({  left: "-100px", }, 750 );
+    }else{
+        side_menu.animate({  left: "0", }, 750 );
+    }
+}
+
 function clearCanvas(){ 
     canvasPages[currentCanvasId].clear();
     hoverdObject = null;
