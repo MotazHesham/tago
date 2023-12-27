@@ -16,59 +16,6 @@ class UpdateSettingRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'website_name' => [
-                'string',
-                'required',
-            ],
-            'description' => [
-                'required',
-            ],
-            'how_it_work_description' => [
-                'required',
-            ],
-            'how_it_work' => [
-                'required',
-            ],
-            'contact_description' => [
-                'required',
-            ],
-            'email' => [
-                'required',
-            ],
-            'phone_number' => [
-                'string',
-                'required',
-            ],
-            'address' => [
-                'required',
-            ],
-            'facebook' => [
-                'string',
-                'required',
-            ],
-            'instagram' => [
-                'string',
-                'required',
-            ],
-            'tiktok' => [
-                'string',
-                'required',
-            ],
-            'youtube' => [
-                'string',
-                'required',
-            ],
-            'supporters' => [
-                'array',
-                'required',
-            ],
-            'supporters.*' => [
-                'required',
-            ],
-            'logo' => [
-                'required',
-            ],
-        ];
+        return [];
     }
 }

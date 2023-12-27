@@ -17,6 +17,16 @@ class SettingsController extends Controller
 {
     use MediaUploadingTrait;
 
+    public function shapes($id){
+        $setting = Setting::findOrFail($id);
+        return view('admin.settings.shapes', compact('setting'));
+    }
+    public function shape_delete($id){
+        $media = Media::findOrFail($id);
+        $media->delete();
+        return redirect()->back();
+    }
+
     public function index()
     {
         abort_if(Gate::denies('setting_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -37,10 +47,9 @@ class SettingsController extends Controller
     {
         $validated_request = $request->all(); 
         $validated_request['keywords_seo'] = implode('|',$request->keywords_seo);  
-        $setting = Setting::create($validated_request);
-
-        foreach ($request->input('supporters', []) as $file) {
-            $setting->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('supporters');
+        $setting = Setting::create($validated_request); 
+        foreach ($request->input('shapes', []) as $file) {
+            $setting->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('shapes');
         }
 
         if ($request->input('logo', false)) {
@@ -64,7 +73,9 @@ class SettingsController extends Controller
     public function update(UpdateSettingRequest $request, Setting $setting)
     {
         $validated_request = $request->all(); 
-        $validated_request['keywords_seo'] = implode('|',$request->keywords_seo);  
+        if($request->has('keywords_seo')){
+            $validated_request['keywords_seo'] = implode('|',$request->keywords_seo);  
+        }
         $setting->update($validated_request);
 
         if (count($setting->supporters) > 0) {
@@ -78,6 +89,13 @@ class SettingsController extends Controller
         foreach ($request->input('supporters', []) as $file) {
             if (count($media) === 0 || ! in_array($file, $media)) {
                 $setting->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('supporters');
+            }
+        }
+
+        $media = $setting->shapes->pluck('file_name')->toArray();
+        foreach ($request->input('shapes', []) as $file) {
+            if (count($media) === 0 || ! in_array($file, $media)) {
+                $setting->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('shapes');
             }
         }
         

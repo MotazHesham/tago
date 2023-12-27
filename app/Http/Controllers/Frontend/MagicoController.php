@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\Template;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -43,6 +44,7 @@ class MagicoController extends Controller
     }
     
     public function magico($template_id = null){  
+        $setting = Setting::first();  
         $templates = Cache::remember('templates', 3600, function () { 
             return Template::all();
         });   
@@ -80,7 +82,7 @@ class MagicoController extends Controller
         // });  
         $unsplash_images = [];
         
-        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id','pexels_images'));
+        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id','pexels_images','setting'));
     }
 
     public function unsplash_loading_more_images(Request $request){

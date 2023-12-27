@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('products', 'ProductController');
 
     // Settings
+    Route::get('settings/shape_delete/{id}', 'SettingsController@shape_delete')->name('settings.shape_delete');
+    Route::get('settings/shapes/{id}', 'SettingsController@shapes')->name('settings.shapes');
     Route::delete('settings/destroy', 'SettingsController@massDestroy')->name('settings.massDestroy');
     Route::post('settings/media', 'SettingsController@storeMedia')->name('settings.storeMedia');
     Route::post('settings/ckmedia', 'SettingsController@storeCKEditorImages')->name('settings.storeCKEditorImages');

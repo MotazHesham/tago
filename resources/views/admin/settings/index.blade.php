@@ -61,6 +61,10 @@
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
+                                
+                                <a class="btn btn-xs btn-warning" href="{{ route('admin.settings.shapes', $setting->id) }}">
+                                    Shapes
+                                </a> 
 
                                 @can('setting_edit')
                                     <a class="btn btn-xs btn-info" href="{{ route('admin.settings.edit', $setting->id) }}">

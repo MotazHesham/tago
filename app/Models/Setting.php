@@ -18,6 +18,7 @@ class Setting extends Model implements HasMedia
 
     protected $appends = [
         'supporters',
+        'shapes',
         'logo',
     ];
 
@@ -69,6 +70,17 @@ class Setting extends Model implements HasMedia
             $item->url       = $item->getUrl();
             $item->thumbnail = $item->getUrl('thumb');
             $item->preview   = $item->getUrl('preview');
+        });
+
+        return $files;
+    }
+    public function getShapesAttribute()
+    {
+        $files = $this->getMedia('shapes');
+        $files->each(function ($item) {
+            $item->url       = $item->getUrl();
+            $item->thumbnail = $item->getUrl('thumb');
+            $item->preview   = $item->getUrl('preview'); 
         });
 
         return $files;
