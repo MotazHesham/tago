@@ -129,23 +129,27 @@ class MagicoController extends Controller
         $search = $request->search; 
         
         $url = 'https://api.iconscout.com' . $request->page_url . "&query=" . $search;
-        $headers = [  
-            'Content-Type' => 'application/json', 
-            'Client-ID' => $this->iconscout_client_id(), 
-        ];
-        $iconscout_images =  $this->GETAPI($url,$headers)->response->items;  
+
+        $iconscout_images = Cache::remember($url , 3600, function () use ($url) {
+            $headers = [  
+                'Content-Type' => 'application/json', 
+                'Client-ID' => $this->iconscout_client_id(), 
+            ];
+            return $this->GETAPI($url,$headers)->response->items; 
+        });     
         return view('magico.integrations.iconscout',compact('iconscout_images'));
     }
 
-    public function pexels_loading_images(Request $request){ 
-        $search = $request->search; 
-        
+    public function pexels_loading_images(Request $request){  
         $url = $request->page_url;
-        $headers = [  
-            'Content-Type' => 'application/json', 
-            'Authorization' => $this->pexels_key(), 
-        ];
-        $pexels_images =  $this->GETAPI($url,$headers);  
+        
+        $pexels_images = Cache::remember($url , 3600, function () use ($url) {
+            $headers = [  
+                'Content-Type' => 'application/json', 
+                'Authorization' => $this->pexels_key(), 
+            ];
+            return  $this->GETAPI($url,$headers);  
+        });     
         return view('magico.integrations.pexels',compact('pexels_images'));
     }
 
