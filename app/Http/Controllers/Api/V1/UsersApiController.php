@@ -42,7 +42,7 @@ class UsersApiController extends Controller
             return $this->returnError('401', 'كود غير صحيح');
         }
 
-        if($orderProduct->scanned_user_id){
+        if($orderProduct->scanned_user_id && $orderProduct->scanned_user_id != Auth::id()){
             return $this->returnError('500', 'تم استخدام الكود من قبل');
         } 
         return $this->returnSuccessMessage(trans('global.flash.api.success')); 
@@ -67,7 +67,7 @@ class UsersApiController extends Controller
             return $this->returnError('401', 'كود غير صحيح');
         }
 
-        if($orderProduct->scanned_user_id){
+        if($orderProduct->scanned_user_id && $orderProduct->scanned_user_id != Auth::id()){
             return $this->returnError('500', 'تم استخدام الكود من قبل');
         }  
 
