@@ -97,7 +97,7 @@
     id="offcanvasPexels" aria-labelledby="offcanvasPexelsLabel">
     <div class="offcanvas-header common-background">
         <h5 class="offcanvas-title" id="offcanvasPexelsLabel" style="color:white">
-            UnSplash
+            Pexels
         </h5>
         <div style="display: inline">
             <input type="text" class="form-control" id="search-pexels" placeholder="Search...">

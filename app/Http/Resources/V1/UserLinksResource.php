@@ -29,7 +29,7 @@ class UserLinksResource extends JsonResource
             'priority' => $this->priority,
             'active' => $this->active,
             'name' => $this->name,
-            'link' => $base_url ? $base_url . $this->link : $this->link,
+            'link' => $this->link ?? '',
             'photo' => $image,
         ];
     }

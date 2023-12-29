@@ -130,6 +130,42 @@
     {{-- scripts ajax to backend --}}
     <script>
         
+        // order now
+        function order_now(){
+            // var formData = new FormData(this);
+            // $.LoadingOverlay("show"); 
+
+            // var pages = {}; 
+            // for(var i in canvasPages)
+            // {  
+            //     var page = {};
+            //     page['objects'] = canvasPages[i].getObjects(); 
+            //     page['height'] = canvasPages[i].height;
+            //     page['width'] = canvasPages[i].width;
+            //     pages[i] = page; 
+            // }   
+            // formData.append('canvas_pages',JSON.stringify(pages));
+            // console.log(JSON.stringify(pages));
+            // $.ajax({
+            //     url: '{{ route("admin.templates.save")}}',
+            //     type: 'POST', 
+            //     data: formData, 
+            //     success: function(response) {   
+            //         $.LoadingOverlay("hide"); 
+            //         showAlert('success', 'Success Save Template', '');
+            //         console.log(response);
+            //     },
+            //     error: function(err) {
+            //         $.LoadingOverlay("hide"); 
+            //         showAlert('error', 'Something Went Wrong', '');
+            //         console.log('Error' + err);
+            //     },
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false
+            // }); 
+        } 
+
         // save user uploaded image
         $("#form-upload-image").on("submit", function(ev) {
             ev.preventDefault(); 
