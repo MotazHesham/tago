@@ -430,42 +430,44 @@
                                 @php
                                     $total = 0;
                                 @endphp
-                                @foreach(session('cart') as $cartItem)
-                                    @php
-                                        $product = \App\Models\Product::find($cartItem['product_id']);
-                                        if($product){
-                                            $total += $product->price;
-                                        }
-                                    @endphp
-                                    @if($product)
-                                        <li class="items odd">
+                                @if(session('cart') != null && count(session('cart')) > 0)
+                                    @foreach(session('cart') as $cartItem)
+                                        @php
+                                            $product = \App\Models\Product::find($cartItem['product_id']);
+                                            if($product){
+                                                $total += $product->price * $cartItem['quantity'];
+                                            }
+                                        @endphp
+                                        @if($product)
+                                            <li class="items @if($loop->even) even @else odd @endif" id="cart-li-{{$product->id}}">
+                                                <input type="hidden" class="cart-product-prices" id="cart-product-price-{{$product->id}}" data-id="{{$product->id}}" value="{{$product->price}}">
+                                                <div class="infoWrap">
+                                                    <div class="cartSection">
+                                                        <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt=""
+                                                            class="itemImg" /> 
+                                                        <h3>{{ $product->name }}</h3>
 
-                                            <div class="infoWrap">
-                                                <div class="cartSection">
-                                                    <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt=""
-                                                        class="itemImg" /> 
-                                                    <h3>{{ $product->name }}</h3>
+                                                        <p> <input type="text" class="qty" id="cart-product-quantity-{{$product->id}}" min="1" max="{{$product->current_stock }}" value="{{ $cartItem['quantity'] }}" onkeyup="update_quantity('{{$product->id}}',this)"  /> x {{ frontend_currency($product->price)['as_text'] }}</p>
 
-                                                    <p> <input type="text" class="qty" value="{{ $cartItem['quantity'] }}" onkeyup="update_quantity('{{$product->id}}',this)" disabled/> x {{ frontend_currency($product->price)['as_text'] }}</p>
+                                                        @if($product->current_stock > 0)
+                                                            <p class="stockStatus"> In Stock</p>
+                                                        @else  
+                                                            <p class="stockStatus out"> Out of Stock</p>
+                                                        @endif
+                                                    </div>
 
-                                                    @if($product->current_stock > 0)
-                                                        <p class="stockStatus"> In Stock</p>
-                                                    @else  
-                                                        <p class="stockStatus out"> Out of Stock</p>
-                                                    @endif
+
+                                                    <div class="prodTotal cartSection">
+                                                        <p id="prodTotal-{{$product->id}}">{{frontend_currency($product->price * $cartItem['quantity'])['as_text']}}</p>
+                                                    </div>
+                                                    <div class="cartSection removeWrap">
+                                                        <a href="#" class="remove" data-id="{{$product->id}}">x</a>
+                                                    </div>
                                                 </div>
-
-
-                                                <div class="prodTotal cartSection">
-                                                    <p>{{frontend_currency($product->price * $cartItem['quantity'])['as_text']}}</p>
-                                                </div>
-                                                {{-- <div class="cartSection removeWrap">
-                                                    <a href="#" class="remove">x</a>
-                                                </div> --}}
-                                            </div>
-                                        </li> 
-                                    @endif
-                                @endforeach
+                                            </li> 
+                                        @endif
+                                    @endforeach
+                                @endif 
                             </ul>
                         </div>
                     </div>
@@ -475,8 +477,9 @@
                         <div class="subtotal cf">
 
                             <h4>Summary</h4>
+                            <input type="hidden" value="{{$total}}" name="" id="sub_total_input">
                             <ul>
-                                <li class="totalRow"><span class="label">Subtotal</span><span class="value" id="sub_total"  data-sub_total="{{$total}}">{{ frontend_currency($total)['as_text'] }}</span></li>
+                                <li class="totalRow"><span class="label">Subtotal</span><span class="value" id="sub_total" >{{ frontend_currency($total)['as_text'] }}</span></li>
 
                                 <li class="totalRow"><span class="label">Shipping</span><span class="value" id="shipping_cost">0 EGP</span></li>
 
@@ -499,6 +502,7 @@
 @endsection
 
 @section('scripts')
+    @parent
     <script>
         
         function create_account_with_order(el){ 
@@ -515,7 +519,21 @@
         $('a.remove').click(function() {
             event.preventDefault();
             $(this).parent().parent().parent().hide(400);
-
+            var id = $(this).data('id');
+            $.post('{{ route('frontend.cart.delete') }}', {
+                _token: '{{ csrf_token() }}',
+                id: id
+            }, function(data) { 
+                $('#cart-li-'+id).remove();
+                var subTotal = 0;
+                $('.cart-product-prices').each(function(){ 
+                    var price = $(this).val();
+                    var quantity = $('#cart-product-quantity-' + $(this).data('id')).val();
+                    subTotal += parseInt(price) * parseInt(quantity);
+                })
+                $('#sub_total_input').val(subTotal); 
+                country_change();
+            });
         })
 
         // Just for testing, show all items
@@ -526,7 +544,23 @@
         
         $(document).ready(function() {
             country_change();
-        });
+        }); 
+
+        function update_quantity(id,element){
+            var quantity = element.value;
+            eventUpdateCartQuantity(id,quantity);
+            var product_price = parseInt($('#cart-product-price-'+id).val());
+            var total_price   = product_price * quantity;
+            $('#prodTotal-'+id).html('EGP ' + total_price); 
+            var subTotal = 0;
+            $('.cart-product-prices').each(function(){ 
+                var price = $(this).val();
+                var quantity = $('#cart-product-quantity-' + $(this).data('id')).val();
+                subTotal += parseInt(price) * parseInt(quantity);
+            })
+            $('#sub_total_input').val(subTotal); 
+            country_change();
+        }
 
         function country_change(){
             // Get the selected option
@@ -536,7 +570,8 @@
             var optionValue = selectedOption.val();
             var optionPrice = selectedOption.data('price');
             $('#shipping_cost').html(optionPrice + ' EGP');
-            var sub_total = $('#sub_total').data('sub_total'); 
+            var sub_total = $('#sub_total_input').val(); 
+            $('#sub_total').html(sub_total + ' EGP');
             $('#total_cost').html((parseInt(optionPrice) + parseInt(sub_total)) + ' EGP');
         }
     </script>

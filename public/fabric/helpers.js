@@ -217,11 +217,7 @@ function selectCanvas(canvasObject, canvasId){
             canvasPages[currentCanvasId].discardActiveObject();
             canvasPages[currentCanvasId].requestRenderAll();
         } 
-        currentCanvasId = canvasId ;  
-        // console.log('page:');
-        // console.log(canvasPages[currentCanvasId]);
-        console.log('json:');
-        console.log(canvasPages[currentCanvasId].getObjects());
+        currentCanvasId = canvasId ;   
         $('canvas').removeClass('canvas-border');
         $(canvasId).addClass('canvas-border');  
         $("#active_helper_buttons").detach().insertAfter(canvasId); 
@@ -386,6 +382,22 @@ function add_text_box(id){
 }
 
 function add_as_template(id){ 
+    
+    loadFromJson('template',id);
+
+    // for order now option 
+        var base_price = $('#template-'+id).data("price");
+        $('#templateIdInput').val(id); 
+        $('#base_price_input').val(base_price); 
+        country_change();
+        $('#cart-item-price').html(base_price + ' EGP');
+        $('#cart-item-name').html($('#template-'+id).data("name"));
+    // ---------------------
+
+}
+
+function loadFromJson(type,id){
+    
     // detach helpers fron canvas so when deleting the canvas helpers not deleteing
     $("#active_helper_buttons").detach().insertAfter('body'); 
     $('#active_helper_buttons').css('display','none');
@@ -393,10 +405,12 @@ function add_as_template(id){
     $('#page_buttons').css('display','none');
     $("#page_resize").detach().insertAfter('body');
     $('#page_resize').css('display','none');
+
+    var pages = type == 'template' ? $('#template-'+id).data("src") : $(id).data("src");    
+    
     canvasPages = [];
     $('.canvas-page').remove();
-    $.LoadingOverlay("show");  
-    let pages = $('#template-'+id).data("src");   
+    $.LoadingOverlay("show");   
     for (let index in pages) { 
         createCanvas(pages[index]['height'],pages[index]['width']);  
         var page = {

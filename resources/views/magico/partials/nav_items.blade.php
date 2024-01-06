@@ -131,9 +131,9 @@
             <button class="btn btn-custom btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" id="nav-delete" data-bs-title="Remove element" onclick="delete_element()"><i class="fa-thin fa-trash-can-list"></i></button>
         </div>
         <div class="nav-divider" ></div>
-        <button class="btn btn-custom " style="display: flex;align-items:center" type="button" >
-            <i class="fa-duotone fa-bags-shopping" style="padding:0 6px"></i><small > Order&nbsp;Now</small>
-        </button>
+        <a class="btn btn-custom " style="display: flex;align-items:center" href="#" data-bs-toggle="modal" data-bs-target="#orderTemplate">
+            <i class="fa-duotone fa-bags-shopping" style="padding:0 6px"></i><small > Order&nbsp;Now&nbsp;</small>
+        </a>
         <div class="dropdown  " style="display: inline">
             <button class="btn btn-custom " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex;align-items:center">
                 <i class="fa-duotone fa-cloud-arrow-down" style="padding:0 6px"></i><small> Download</small>

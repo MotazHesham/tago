@@ -1,35 +1,40 @@
-@extends('layouts.admin')
-@section('content')
-@can('setting_create')
+@can('user_alert_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.settings.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.setting.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.user-alerts.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.userAlert.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
+
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.setting.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.userAlert.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Setting">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-userUserAlerts">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.setting.fields.id') }}
+                            {{ trans('cruds.userAlert.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.setting.fields.website_name') }}
+                            {{ trans('cruds.userAlert.fields.alert_text') }}
                         </th>
                         <th>
-                            {{ trans('cruds.setting.fields.logo') }}
+                            {{ trans('cruds.userAlert.fields.alert_link') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.userAlert.fields.user') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.userAlert.fields.created_at') }}
                         </th>
                         <th>
                             &nbsp;
@@ -37,43 +42,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($settings as $key => $setting)
-                        <tr data-entry-id="{{ $setting->id }}">
+                    @foreach($userAlerts as $key => $userAlert)
+                        <tr data-entry-id="{{ $userAlert->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $setting->id ?? '' }}
+                                {{ $userAlert->id ?? '' }}
                             </td>
                             <td>
-                                {{ $setting->website_name ?? '' }}
+                                {{ $userAlert->alert_text ?? '' }}
                             </td>
                             <td>
-                                @if($setting->logo)
-                                    <a href="{{ $setting->logo->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $setting->logo->getUrl('icon') }}">
-                                    </a>
-                                @endif
+                                {{ $userAlert->alert_link ?? '' }}
                             </td>
                             <td>
-                                @can('setting_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.settings.show', $setting->id) }}">
+                                @foreach($userAlert->users as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                {{ $userAlert->created_at ?? '' }}
+                            </td>
+                            <td>
+                                @can('user_alert_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.user-alerts.show', $userAlert->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-                                
-                                <a class="btn btn-xs btn-warning" href="{{ route('admin.settings.shapes', $setting->id) }}">
-                                    Shapes
-                                </a> 
 
-                                @can('setting_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.settings.edit', $setting->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
 
-                                @can('setting_delete')
-                                    <form action="{{ route('admin.settings.destroy', $setting->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('user_alert_delete')
+                                    <form action="{{ route('admin.user-alerts.destroy', $userAlert->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -90,19 +90,16 @@
     </div>
 </div>
 
-
-
-@endsection
 @section('scripts')
 @parent
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('setting_delete')
+@can('user_alert_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.settings.massDestroy') }}",
+    url: "{{ route('admin.user-alerts.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -131,9 +128,9 @@
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
-    pageLength: 100,
+    pageLength: 25,
   });
-  let table = $('.datatable-Setting:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-userUserAlerts:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

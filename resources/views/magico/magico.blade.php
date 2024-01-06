@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Magico</title>
+    <link rel="icon" href="{{ asset('frontend/img/theme-2.png') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 
@@ -25,7 +26,13 @@
 <body>   
 
     @include('magico.templates.saveTemplate')
+    @include('magico.templates.orderTemplate')
     @include('magico.offCanvas')
+    
+    
+    @if($order_template)
+        <input type="hidden" id="order_template" data-src="{{ $order_template }}">
+    @endif
 
     <div style="position: fixed;bottom:0;right:0;z-index:1;display:flex" id="zooming-buttons">
         <button class="btn btn-custom btn-sm" style="background: #9ca9ab" onclick="zoomIn()"><i class="fa-regular fa-magnifying-glass-plus"></i></button> 
@@ -109,12 +116,15 @@
                 };
             })(fabric.Object.prototype.toObject);
 
-            
-            // if there user choose specifc template from homePage => render it on canvas area
-            var template_id = {{ Js::from($template_id) }} 
-            if(template_id && $('#template-'+template_id).length){
-                add_as_template(template_id);
-            } 
+            @if($order_template)
+                loadFromJson('order_template','#order_template');
+            @else 
+                // if there user choose specifc template from homePage => render it on canvas area
+                var template_id = {{ Js::from($template_id) }} 
+                if(template_id && $('#template-'+template_id).length){
+                    add_as_template(template_id);
+                } 
+            @endif
         });   
     </script>  
     <script src="{{ asset('fabric/draw.js') }}"></script>
@@ -130,41 +140,52 @@
     {{-- scripts ajax to backend --}}
     <script>
         
-        // order now
-        function order_now(){
-            // var formData = new FormData(this);
-            // $.LoadingOverlay("show"); 
+        // orderTemplate
+        $('#orderTemplate-form').on("submit", function(ev) {  
+            ev.preventDefault(); 
+            var formData = new FormData(this);
+            $.LoadingOverlay("show"); 
 
-            // var pages = {}; 
-            // for(var i in canvasPages)
-            // {  
-            //     var page = {};
-            //     page['objects'] = canvasPages[i].getObjects(); 
-            //     page['height'] = canvasPages[i].height;
-            //     page['width'] = canvasPages[i].width;
-            //     pages[i] = page; 
-            // }   
-            // formData.append('canvas_pages',JSON.stringify(pages));
-            // console.log(JSON.stringify(pages));
-            // $.ajax({
-            //     url: '{{ route("admin.templates.save")}}',
-            //     type: 'POST', 
-            //     data: formData, 
-            //     success: function(response) {   
-            //         $.LoadingOverlay("hide"); 
-            //         showAlert('success', 'Success Save Template', '');
-            //         console.log(response);
-            //     },
-            //     error: function(err) {
-            //         $.LoadingOverlay("hide"); 
-            //         showAlert('error', 'Something Went Wrong', '');
-            //         console.log('Error' + err);
-            //     },
-            //     cache: false,
-            //     contentType: false,
-            //     processData: false
-            // }); 
-        } 
+            var pages = {}; 
+            for(var i in canvasPages)
+            {  
+                var page = {};
+                page['objects'] = canvasPages[i].getObjects(); 
+                page['height'] = canvasPages[i].height;
+                page['width'] = canvasPages[i].width;
+                pages[i] = page; 
+            }   
+            formData.append('canvas_pages',JSON.stringify(pages)); 
+            $.ajax({
+                url: '{{ route("frontend.ordertemplate")}}',
+                type: 'POST', 
+                data: formData, 
+                success: function(response) {   
+                    $.LoadingOverlay("hide"); 
+                    if(response['status']){
+                        $('#orderTemplate').modal('hide');
+                        showAlert('success', 'Success Placed Order', '');  
+                        $('#show-errors').css('display','none');
+                    }else{  
+                        $('#show-errors').html(null);
+                        for (let error in response['errors']) { 
+                            $('#show-errors').append(response['errors'][error] + '<br>'); 
+                        } 
+                        showAlert('error', 'Validation Error', '');  
+                        $('#show-errors').css('display','block');
+                    }
+                },
+                error: function(err) {
+                    $.LoadingOverlay("hide"); 
+                    showAlert('error', 'Something Went Wrong', '');
+                    $('#show-errors').css('display','none');
+                    console.log('Error' + err);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            }); 
+        }); 
 
         // save user uploaded image
         $("#form-upload-image").on("submit", function(ev) {
@@ -211,16 +232,14 @@
                 page['width'] = canvasPages[i].width;
                 pages[i] = page; 
             }   
-            formData.append('canvas_pages',JSON.stringify(pages));
-            console.log(JSON.stringify(pages));
+            formData.append('canvas_pages',JSON.stringify(pages)); 
             $.ajax({
                 url: '{{ route("admin.templates.save")}}',
                 type: 'POST', 
                 data: formData, 
                 success: function(response) {   
                     $.LoadingOverlay("hide"); 
-                    showAlert('success', 'Success Save Template', '');
-                    console.log(response);
+                    showAlert('success', 'Success Save Template', ''); 
                 },
                 error: function(err) {
                     $.LoadingOverlay("hide"); 
@@ -456,5 +475,7 @@
         }
 
     </script>
+    
+    @yield('scripts')
 </body> 
 </html>

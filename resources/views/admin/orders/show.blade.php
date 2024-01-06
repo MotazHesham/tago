@@ -59,6 +59,18 @@
                             </tr> 
                             <tr>
                                 <th>
+                                    نوع الطلب
+                                </th>
+                                <td>
+                                    @if($order->order_type == 'template')
+                                        <b>Design</b>
+                                    @else 
+                                        <b>Products</b>
+                                    @endif
+                                </td>
+                            </tr> 
+                            <tr>
+                                <th>
                                     {{ trans('cruds.order.fields.total_price') }}
                                 </th>
                                 <td>
@@ -84,17 +96,7 @@
                                 <td>
                                     {{ $order->user->name ?? '' }}
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    {{ trans('cruds.order.fields.products') }}
-                                </th>
-                                <td>
-                                    @foreach($order->products as $key => $products)
-                                        <span class="label label-info">{{ $products->name }}</span>
-                                    @endforeach
-                                </td>
-                            </tr>
+                            </tr> 
                         </tbody>
                     </table>
                     <div class="form-group">
@@ -113,16 +115,31 @@
                 {{ trans('global.relatedData') }}
             </div>
             <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#orderProducts" role="tab" data-toggle="tab">
-                        المنتجات
-                    </a>
-                </li> 
+                
+                @if($order->order_type == 'normal')
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#orderProducts" role="tab" data-toggle="tab">
+                            المنتجات
+                        </a>
+                    </li> 
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#orderTemplates" role="tab" data-toggle="tab">
+                            الديزاينات
+                        </a>
+                    </li> 
+                @endif
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" role="tabpanel" id="orderProducts">
-                    @includeIf('admin.orders.relationships.orderProducts', ['orderProducts' => $order->products])
-                </div> 
+                @if($order->order_type == 'normal')
+                    <div class="tab-pane active" role="tabpanel" id="orderProducts">
+                        @includeIf('admin.orders.relationships.orderProducts', ['orderProducts' => $order->products])
+                    </div> 
+                @else
+                    <div class="tab-pane active" role="tabpanel" id="orderTemplates">
+                        @includeIf('admin.orders.relationships.orderTemplates', ['orderTemplates' => $order->templates])
+                    </div> 
+                @endif
             </div>
         </div>
     </div>

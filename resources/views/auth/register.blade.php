@@ -136,6 +136,9 @@
             width: 40px;
         }
 
+        .invalid-feedback{
+            display: inline !important;
+        }
 
         @media all and (max-width: 768px) {
             .overlay-panel {
@@ -178,11 +181,12 @@
                                 <span>or use your email for registration</span>
 
                                 <div class="single-input-inner style-border">
-                                    <input type="text" placeholder="Name" name="name" required value="{{ old('name')}}">@error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <input type="text" placeholder="Name" name="name" required value="{{ old('name')}}">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <div class="single-input-inner style-border">

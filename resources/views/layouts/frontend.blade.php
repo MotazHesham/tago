@@ -13,7 +13,7 @@
     <meta name="keywords" content="@yield('meta_keywords', $site_settings->keywords_seo)">
     <meta name="author" content="{{ $site_settings->author_seo }}">
     <meta name="sitemap_link" content="{{ $site_settings->sitemap_link_seo }}"> 
-    <link rel="icon" href="{{ $site_settings->logo ? $site_settings->logo->getUrl() : '' }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('frontend/img/theme-2.png') }}" type="image/x-icon">
     <!--------------------CART--------------->
     <script>
         document.getElementsByTagName("html")[0].className += " js";
@@ -92,11 +92,8 @@
                             <li><a href="{{ route('frontend.products',0) }}">{{ trans('frontend.header.all_products') }}</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('frontend.tutorials') }}">{{ trans('frontend.header.tutorials') }}</a></li>
-
-
-
-
+                    <li><a href="{{ route('frontend.tutorials') }}">{{ trans('frontend.header.tutorials') }}</a></li> 
+                    
                     <li><a href="{{ route('frontend.contact') }}">{{ trans('frontend.header.contact_us') }}</a></li>
                 </ul>
             </div>
@@ -252,7 +249,7 @@
                 </ul> <!-- .cd-cart__count -->
             </a>
 
-            <div class="cd-cart__content">
+            <div class="cd-cart__content" >
                 <div class="cd-cart__layout">
                     <header class="cd-cart__header">
                         <h2>{{ trans('frontend.cart.cart') }}</h2>
@@ -382,6 +379,16 @@
     <!------------cart----------->
     <script src="{{ asset('frontend/js/util.js') }}"></script> <!-- util functions included in the CodyHouse framework -->
     <script>
+        
+        function eventUpdateCartQuantity(id,quantity){
+            $.post('{{ route('frontend.cart.update') }}', {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                quantity: quantity
+            }, function() {  
+
+            }); 
+        }
         (function() {
             // Add to Cart Interaction - by CodyHouse.co
             var cart = document.getElementsByClassName('js-cd-cart');
@@ -424,15 +431,14 @@
 
                     // update product quantity inside cart
                     cart[0].addEventListener('change', function(event) {
-                        if (event.target.tagName.toLowerCase() == 'select') quickUpdateCart();
-                        $.post('{{ route('frontend.cart.update') }}', {
-                            _token: '{{ csrf_token() }}',
-                            id: (event.target).getAttribute('data-productId'),
-                            quantity: event.target.value
-                        }, function() {  
-
-                        }); 
+                        if (event.target.tagName.toLowerCase() == 'input') quickUpdateCart(); 
+                        eventUpdateCartQuantity((event.target).getAttribute('data-productId'),event.target.value);
                     });
+                    cart[0].addEventListener('keyup', function(event) {
+                        if (event.target.tagName.toLowerCase() == 'input') quickUpdateCart();
+                        eventUpdateCartQuantity((event.target).getAttribute('data-productId'),event.target.value);
+                    });
+
 
                     //reinsert product deleted from the cart
                     cartUndo.addEventListener('click', function(event) {
@@ -465,16 +471,18 @@
                     var cartIsEmpty = Util.hasClass(cart[0], 'cd-cart--empty');
                     var productId = this.getAttribute('data-productId');
                     var productPrice = this.getAttribute('data-price');
-                    $.post('{{ route('frontend.cart.store') }}', {_token: '{{ csrf_token() }}',id:productId }, function(productAdded) {   
+                    var quantity = $('#quantity').val() ?? 1;
+                    $.post('{{ route('frontend.cart.store') }}', {_token: '{{ csrf_token() }}',id:productId, quantity:quantity }, function(productAdded) {   
                         if(productAdded){
                             cartList.insertAdjacentHTML('beforeend', productAdded);
                             //update number of items 
                             updateCartCount(cartIsEmpty);
                             //update total price
-                            updateCartTotal(productPrice, true);
+                            updateCartTotal(productPrice * quantity, true);
                             //show cart
                             Util.removeClass(cart[0], 'cd-cart--empty'); 
                         }
+                        toggleCart();
                     });
                 };
 
@@ -501,7 +509,7 @@
                     removePreviousProduct(); // prduct previously deleted -> definitively remove it from the cart
 
                     var topPosition = product.offsetTop,
-                        productQuantity = Number(product.getElementsByTagName('select')[0].value),
+                        productQuantity = Number(product.getElementsByTagName('input')[0].value),
                         productTotPrice =  product.getAttribute('data-price') * productQuantity; 
 
                     product.style.top = topPosition + 'px';
@@ -576,7 +584,7 @@
 
                     for (var i = 0; i < cartListItems.length; i++) {
                         if (!Util.hasClass(cartListItems[i], 'cd-cart__product--deleted')) {
-                            var singleQuantity = Number(cartListItems[i].getElementsByTagName('select')[0].value);
+                            var singleQuantity = Number(cartListItems[i].getElementsByTagName('input')[0].value);
                             var singlePrice = Number((cartListItems[i].getElementsByClassName('cd-cart__price')[0]).getAttribute('data-price'));
                             price += singleQuantity * singlePrice;
                         }

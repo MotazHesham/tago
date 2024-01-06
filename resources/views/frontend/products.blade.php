@@ -39,7 +39,7 @@
                                 <img src="{{ $image }}" alt="img">
                                 <ul class="team-social-inner">
                                     <li><a href="{{ route('frontend.product',$product->id) }}"><i class="fa fa-eye"></i></a></li>
-                                    <li> <a href="#0" class=" js-cd-add-to-cart" data-price="25.99"><i class="fa fa-cart-plus"></i></a></li>
+                                    <li> <a href="#" class=" js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" ><i class="fa fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                             <div class="details">

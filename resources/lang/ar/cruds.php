@@ -514,8 +514,8 @@ return [
         ],
     ],
     'menuManagment' => [
-        'title'          => 'أدارة المنيوهات',
-        'title_singular' => 'أدارة المنيوهات',
+        'title'          => 'ادارة المنيوهات',
+        'title_singular' => 'ادارة المنيوهات',
     ],
     'menuClient' => [
         'title'          => 'العملاء',
@@ -726,8 +726,8 @@ return [
 
 
     'templatesMangment' => [
-        'title'          => 'Templates Mangment',
-        'title_singular' => 'Templates Mangment',
+        'title'          => 'ماجيكو',
+        'title_singular' => 'ماجيكو',
     ],
     'template' => [
         'title'          => 'Templates',

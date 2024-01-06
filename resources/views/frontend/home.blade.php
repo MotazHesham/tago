@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 align-self-center">
-                    <div class="banner-inner pe-xl-5">
+                    <div class="banner-inner pe-xl-5" style="z-index: 2">
                         <h6 class="subtitle wow animated fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.3s">
                             {{ trans('frontend.home.banner.h6') }}
                         </h6>
@@ -212,7 +212,7 @@
             <div  class="testimonial-slider-1 owl-carousel slider-control-round slider-control-dots slider-control-right-top">
                 @foreach($templates as $template)
                     <div class="item template-item">
-                        <a href="{{ route('frontend.magico',['template_id'=>$template->id]) }}">
+                        <a href="{{ route('frontend.magico',['template'=>$template->id]) }}">
                             <div class="single-testimonial-inner style-1 text-center">
                                 <div class="card d-flex">
                                     <img class="img-fluid img-thumbnail rounded" alt="100%x280" src="{{ $template->photo ? $template->photo->getUrl('preview3') : '' }}">

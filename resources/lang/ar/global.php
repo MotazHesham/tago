@@ -12,7 +12,7 @@ return [
     'cancel'                         => 'إلغاء',
     'clear'                          => 'مسح',
     'downloadFile'                   => 'تحميل الملف',
-    'edit'                           => 'اجراء',
+    'edit'                           => 'تعديل',
     'emailVerificationSuccess'       => 'تم التحقق من بريد المستخدم الإلكتروني بنجاح',
     'entries'                        => 'المدخلات',
     'filterDate'                     => 'فرز حسب التاريخ',

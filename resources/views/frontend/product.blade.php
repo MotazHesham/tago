@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="purchase-info">
-                        <input type="number" min="0" value="1">
+                        <input type="number" id="quantity" min="1" step="1" value="1">
                         <a style="cursor: pointer" class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" >Add To Cart</a>
                     </div>
 

@@ -13,13 +13,17 @@ class CartController extends Controller
     public function cart(){
         $not_include_subscribe = true; 
         $not_include_cart_popup = true; 
-        $countries = Country::where('status',1)->get();
+        $countries = Country::where('status',1)->get(); 
+        if(!session('cart')){
+            alert('Add items To Your Cart First','','warning');
+            return redirect()->route('home');
+        }
         return view('frontend.cart',compact('not_include_subscribe','countries','not_include_cart_popup'));
     } 
 
     public function store(Request $request){
         $product = Product::find($request->id);
-        $quantity = 1;
+        $quantity =  $request->quantity ?? 1;
         $newCartItem = [
             'product_id' => $request->id,
             'quantity' => $quantity,
@@ -56,8 +60,7 @@ class CartController extends Controller
         } 
         session()->put('cart', $cart); 
         return frontend_currency($total)['as_text'];
-    }
-
+    } 
     public function delete(Request $request){
         if(session()->has('cart')){ 
             $cart = session('cart');

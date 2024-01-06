@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Models\Order;
+use App\Models\OrderTemplate;
 use App\Models\Setting;
 use App\Models\Template;
+use App\Models\User;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MagicoController extends Controller
@@ -42,8 +47,132 @@ class MagicoController extends Controller
     public function pexels_key(){
         return 'nu6ZdVIN8S5eLzKXd5uCM6rUe7IeXxD0FaJvveQcdhcM9ctB1Ivna1hk';
     }
-    
-    public function magico($template_id = null){  
+    public function ordertemplate(Request $request){   
+        $rules = [ 
+            'first_name' => [
+                'string',
+                'required',
+            ],
+            'last_name' => [
+                'string',
+                'required',
+            ],   
+            'email' => [
+                'nullable',
+                'email',
+                'unique:users'
+            ], 
+            'password' => [
+                'nullable',
+                'min:6', 
+            ], 
+            'phone_number' => [
+                'regex:' . config('panel.phone_number_format'), 
+                'size:' . config('panel.phone_number_size'), 
+                'required',
+            ], 
+            'shipping_address' => [
+                'required',
+            ],
+            'country_id' => [
+                'required',
+                'integer',
+            ], 
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false,'errors' => $validator->errors()],200);
+        } 
+
+        $template = Template::find($request->template_id);  
+        if(auth()->check()){
+            $user = Auth::user();
+        }else{
+            if($request->has('create_account') && $request->email != null && $request->password != null){  
+                $user = User::create([
+                    'name' => $request->first_name . ' ' . $request->last_name,
+                    'email' => $request->email,
+                    'phone_number' => $request->phone_number,
+                    'address' => $request->shipping_address,
+                    'password' => bcrypt($request->password),
+                    'user_type' => 'customer',
+                ]);  
+            }else{
+                $user = null;
+            }
+            
+        } 
+        $code_z = Order::latest()->first()->order_num ?? 0;
+        $last_order_code = intval(str_replace('#','',strrchr($code_z,"#")));
+        $order = new Order;
+        $country = Country::findOrFail($request->country_id);
+        $order->user_id  = $user->id ?? null;
+        $order->order_type  = 'template';  
+        $order->country_id  = $country->id;  
+        $order->first_name  = $request->first_name;
+        $order->last_name  = $request->last_name;
+        $order->phone_number  = $request->phone_number; 
+        $order->shipping_cost  = $country->cost;
+        $order->shipping_address = $request->shipping_address;  
+        $order->order_num = 'customer#' . ($last_order_code + 1);
+        $order->save(); 
+
+        $price = $request->card_type == 'nfc' ? $template->price + 100 : $template->price;
+        
+        if($request->card_type == 'nfc'){
+            for($i = 0 ; $i < $request->quantity ; $i++){
+                $order_items [] = [
+                    'order_id' => $order->id, 
+                    'template_id' => $template->id, 
+                    'quantity' => 1,
+                    'price' => $price,
+                    'total_cost' => $price,
+                    'has_nfc' => $request->card_type == 'nfc' ? 1 : 0,
+                    'canvas_pages' => $request->canvas_pages,
+                    'token' => $order->id . generateRandomString(5),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]; 
+            }
+        }else{
+            $order_items [] = [
+                'order_id' => $order->id, 
+                'template_id' => $template->id, 
+                'quantity' => $request->quantity,
+                'price' => $price,
+                'total_cost' => $price * $request->quantity,
+                'has_nfc' => $request->card_type == 'nfc' ? 1 : 0,
+                'canvas_pages' => $request->canvas_pages, 
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]; 
+        }
+        OrderTemplate::insert($order_items);
+
+        $order->total_price = $price * $request->quantity;
+        $order->save();
+        
+        if($request->has('create_account')){
+            Auth::login($user);
+        }  
+        return response()->json(['status' => true],200);
+    } 
+
+    public function magico(Request $request){    
+
+        $order_template = $request->order_template;
+        if($order_template){
+            $order_template = OrderTemplate::find($request->order_template)->canvas_pages;
+        }
+
+        $template_id = $request->template;
+        if(!$template_id || !Template::find($template_id)){
+            $template = Template::first();
+            $template_id = $template ? $template->id : null;
+        }
+
         $setting = Setting::first();  
         $templates = Cache::remember('templates', 3600, function () { 
             return Template::all();
@@ -82,7 +211,7 @@ class MagicoController extends Controller
         // });  
         $unsplash_images = [];
         
-        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id','pexels_images','setting'));
+        return view('magico.magico',compact('unsplash_images','pixabay_images','templates','iconscout_images','template_id','pexels_images','setting','order_template'));
     }
 
     public function unsplash_loading_more_images(Request $request){

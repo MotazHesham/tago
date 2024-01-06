@@ -3,7 +3,7 @@
     @can('user_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.users.create') }}">
+                <a class="btn btn-success" href="{{ route('admin.customers.create') }}">
                     {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
                 </a>
             </div>
@@ -29,10 +29,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.user.fields.email') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.user.fields.roles') }}
-                        </th>
+                        </th> 
                         <th>
                             &nbsp;
                         </th>
@@ -54,7 +51,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.users.index') }}",
+                ajax: "{{ route('admin.customers.index') }}",
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -70,11 +67,7 @@
                     {
                         data: 'email',
                         name: 'email'
-                    }, 
-                    {
-                        data: 'roles',
-                        name: 'roles.title'
-                    },
+                    },  
                     {
                         data: 'actions',
                         name: '{{ trans('global.actions') }}'

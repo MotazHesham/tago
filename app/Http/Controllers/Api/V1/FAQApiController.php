@@ -12,7 +12,9 @@ class FAQApiController extends Controller
     use api_return;
 
     public function faq(){
-        $faq_questions = FaqQuestion::with('category')->get();
+        $faq_questions = FaqQuestion::with('category')->whereHas('category',function($q){
+            return $q->where('category','application');
+        })->get();
         return $this->returnData(FaqQuestionResource::collection($faq_questions));
     }
 }

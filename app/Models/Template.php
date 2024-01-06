@@ -22,6 +22,11 @@ class Template extends Model implements HasMedia
         'menu' => 'Menu', 
     ];
 
+    public const CARDTYPE_SELECT = [
+        'normal'     => 'Normal Card',
+        'nfc' => 'NFC Card (+100EGP)', 
+    ];
+
     protected $appends = [
         'photo',
     ];

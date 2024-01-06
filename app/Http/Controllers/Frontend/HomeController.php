@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
 
-    public function index(){  
+    public function index(){   
         $templates = Template::where('type','business_card')->orderBy('created_at','desc')->take(8)->get();
         $products = Product::orderBy('created_at','desc')->take(8)->get();
         $counted_products = count(Product::get());

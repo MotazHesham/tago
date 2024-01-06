@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
-class UsersController extends Controller
+class CustomersController extends Controller
 {
     use MediaUploadingTrait;
 
@@ -23,7 +23,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
         if ($request->ajax()) {
-            $query = User::with(['roles'])->where('user_type','staff')->select(sprintf('%s.*', (new User)->table));
+            $query = User::with(['roles'])->where('user_type','customer')->select(sprintf('%s.*', (new User)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -33,7 +33,7 @@ class UsersController extends Controller
                 $viewGate      = 'user_show';
                 $editGate      = 'user_edit';
                 $deleteGate    = 'user_delete';
-                $crudRoutePart = 'users';
+                $crudRoutePart = 'customers';
 
                 return view('partials.datatablesActions', compact(
                     'viewGate',
@@ -68,7 +68,7 @@ class UsersController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.users.index');
+        return view('admin.customers.index');
     }
 
     public function create()
@@ -77,13 +77,12 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.customers.create', compact('roles'));
     }
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->all());
-        $user->roles()->sync($request->input('roles', []));
+        $user = User::create($request->all()); 
         if ($request->input('photo', false)) {
             $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
         }
@@ -96,22 +95,24 @@ class UsersController extends Controller
             Media::whereIn('id', $media)->update(['model_id' => $user->id]);
         }
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.customers.index');
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $roles = Role::pluck('title', 'id');
 
+        $user = User::findOrFail($id);
         $user->load('roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('admin.customers.edit', compact('roles', 'user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
+        $user = User::findOrFail($id);
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
         if ($request->input('photo', false)) {
@@ -136,22 +137,24 @@ class UsersController extends Controller
             $user->cover->delete();
         }
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.customers.index');
     }
 
-    public function show(User $user)
+    public function show($id)
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $user = User::findOrFail($id);
 
         $user->load('roles', 'userUserLinks', 'userConnections', 'userUserAlerts');
 
-        return view('admin.users.show', compact('user'));
+        return view('admin.customers.show', compact('user'));
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $user = User::findOrFail($id);
         $user->delete();
 
         return back();

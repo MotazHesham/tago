@@ -37,6 +37,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
     Route::resource('users', 'UsersController');
 
+    // Customers
+    Route::delete('customers/destroy', 'CustomersController@massDestroy')->name('customers.massDestroy');
+    Route::post('customers/media', 'CustomersController@storeMedia')->name('customers.storeMedia');
+    Route::post('customers/ckmedia', 'CustomersController@storeCKEditorImages')->name('customers.storeCKEditorImages');
+    Route::resource('customers', 'CustomersController');
+
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
@@ -87,6 +93,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Orders
     Route::delete('orders/destroy', 'OrdersController@massDestroy')->name('orders.massDestroy');
+    Route::post('orders/add_product', 'OrdersController@add_product')->name('orders.add_product');
+    Route::get('orders/delete_product/{id}', 'OrdersController@delete_product')->name('orders.delete_product');
     Route::resource('orders', 'OrdersController');
 
     // Link Category

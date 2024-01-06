@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->integer('quantity');
             $table->decimal('price',15,2);
+            $table->boolean('has_nfc')->default(0);
             $table->decimal('total_cost',15,2);
             $table->longText('canvas_pages')->nullable();
             $table->string('token')->nullable();

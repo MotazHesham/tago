@@ -31,14 +31,7 @@ class StoreUserRequest extends FormRequest
             ],
             'password' => [
                 'required',
-            ],
-            'roles.*' => [
-                'integer',
-            ],
-            'roles' => [
-                'required',
-                'array',
-            ],
+            ], 
             'nickname' => [
                 'string',
                 'nullable',

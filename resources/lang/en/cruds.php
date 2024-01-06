@@ -726,8 +726,8 @@ return [
 
 
     'templatesMangment' => [
-        'title'          => 'Templates Mangment',
-        'title_singular' => 'Templates Mangment',
+        'title'          => 'Magico',
+        'title_singular' => 'Magico',
     ],
     'template' => [
         'title'          => 'Templates',

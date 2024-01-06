@@ -7,9 +7,9 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("admin.customers.store") }}" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_type" value="staff" id="">
+            <input type="hidden" name="user_type" value="customer" id="">
             <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}" required>
@@ -49,25 +49,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles" multiple required>
-                    @foreach($roles as $id => $role)
-                        <option value="{{ $id }}" {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $role }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('roles'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('roles') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
-            </div>
+            </div> 
             <div class="form-group">
                 <label for="nickname">{{ trans('cruds.user.fields.nickname') }}</label>
                 <input class="form-control {{ $errors->has('nickname') ? 'is-invalid' : '' }}" type="text" name="nickname" id="nickname" value="{{ old('nickname', '') }}">

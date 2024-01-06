@@ -2,7 +2,7 @@
 @foreach ($templates as $key => $template)
     <div class="off-canvas-template off-canvas-images hover-image filter {{ $template->type }}" id="off-canvas-template-{{$template->id}}">
         <img class="add-as-template" onclick="add_as_template('{{ $template->id }}')"
-            src="{{ $template->photo ? $template->photo->getUrl('preview2') : '' }}" 
+            src="{{ $template->photo ? $template->photo->getUrl('preview2') : '' }}" data-price="{{$template->price}}" data-name="{{ $template->name }}"
             id="template-{{ $template->id }}" alt="" data-src="{{$template->canvas_pages}}" data-id="off-canvas-template-{{$template->id}}"> 
         
         @if(auth()->user() && auth()->user()->user_type == 'staff')

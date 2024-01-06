@@ -24,27 +24,19 @@ class UpdateOrderRequest extends FormRequest
             'last_name' => [
                 'string',
                 'required',
-            ],
+            ], 
             'phone_number' => [
-                'string',
+                'regex:' . config('panel.phone_number_format'), 
+                'size:' . config('panel.phone_number_size'), 
                 'required',
-            ],
+            ], 
             'shipping_address' => [
                 'required',
             ],
-            'delivery_status' => [
-                'required',
-            ],
-            'user_id' => [
+            'country_id' => [
                 'required',
                 'integer',
-            ],
-            'products.*' => [
-                'integer',
-            ],
-            'products' => [
-                'array',
-            ],
+            ], 
         ];
     }
 }

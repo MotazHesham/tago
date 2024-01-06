@@ -22,12 +22,20 @@ class Order extends Model
 
     public const DELIVERY_STATUS_SELECT = [
         'pending'     => 'Pending',
-        'on_delivery' => 'On Delivery',
+        'on_review'   => 'on Review',
+        'on_delivery' => 'on Delivery',
         'delivered'   => 'Delivered',
+        'delay'       => 'Delay',
+        'cancel'      => 'Cancel',
+    ];
+    public const ORDER_TYPE_SELECT = [
+        'normal'     => 'Normal',
+        'template' => 'Template', 
     ];
 
     protected $fillable = [
         'order_num',
+        'order_type',
         'first_name',
         'last_name',
         'phone_number',
@@ -60,5 +68,9 @@ class Order extends Model
     public function products()
     {
         return $this->hasMany(OrderProduct::class,'order_id');
+    }
+    public function templates()
+    {
+        return $this->hasMany(OrderTemplate::class,'order_id');
     }
 }

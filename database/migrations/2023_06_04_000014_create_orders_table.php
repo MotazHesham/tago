@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone_number');
             $table->longText('shipping_address');
             $table->decimal('total_price', 15, 2)->nullable();
+            $table->string('order_type')->default('normal');
             $table->string('delivery_status')->default('pending');
             $table->decimal('shipping_cost', 15, 2)->nullable();
             $table->unsignedBigInteger('country_id');
