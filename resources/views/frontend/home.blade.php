@@ -101,8 +101,8 @@
                 <div class="col-md-7 col-12">
                     <h2>{{ trans('frontend.home.donwload_app') }}</h2>
                 </div>
-                <div class="col-md-2  col-6"> <a href="#"> <img src="{{ asset('frontend/img/App-Store.png') }}"></a></div>
-                <div class="col-md-2 col-6"> <a href="#"> <img src="{{ asset('frontend/img/Google-Play.png') }}"></a></div>
+                <div class="col-md-2  col-6"> <a href="https://apps.apple.com/app/my-tago/id6450754702"> <img src="{{ asset('frontend/img/App-Store.png') }}"></a></div>
+                <div class="col-md-2 col-6"> <a href="https://play.google.com/store/apps/details?id=com.ebtekar.nfc.tago"> <img src="{{ asset('frontend/img/Google-Play.png') }}"></a></div>
 
             </div>
         </div>
