@@ -18,6 +18,11 @@ Route::get('social-login/apple','Auth\LoginController@login_social');
 Route::post('social-login/callback','Auth\LoginController@callback'); 
 
 
+//social - login
+Route::get('social-login/redirect/{provider}', 'Auth\SocialLoginController@redirectToProvider')->name('social.login');
+Route::get('social-login/{provider}/callback', 'Auth\SocialLoginController@handleProviderCallback')->name('social.callback');
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth','staff']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('show_qr_code', 'HomeController@show_qr_code')->name('show_qr_code');
