@@ -41,8 +41,8 @@ class HomeController extends Controller
 
     public function about(){ 
         $site_settings = get_site_setting();
-        $faq_category = FaqCategory::where('category','about')->first();
-        $faq_questions = FaqQuestion::where('category_id',$faq_category->id)->get();
+        $faq_category = FaqCategory::where('category','about')->first(); 
+        $faq_questions = $faq_category ?  FaqQuestion::where('category_id',$faq_category->id)->get() : []; 
         return view('frontend.about',compact('site_settings','faq_questions')); 
     }
 

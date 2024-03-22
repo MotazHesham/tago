@@ -67,8 +67,7 @@ class SocialLoginController extends Controller
             // create a new user
             $newUser = new User;
             $newUser->name = $user->name;
-            $newUser->email = $user->email;
-            $newUser->email_verified_at = date('Y-m-d H:m:s');
+            $newUser->email = $user->email; 
             $newUser->provider_id = $user->id;
             $newUser->user_type = 'customer'; 
             $newUser->save(); 
