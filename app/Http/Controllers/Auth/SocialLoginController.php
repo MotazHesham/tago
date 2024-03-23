@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Traits\api_return;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Session;
@@ -24,6 +25,7 @@ class SocialLoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    use api_return;  
 
     /**
      * Where to redirect users after login.
@@ -57,11 +59,11 @@ class SocialLoginController extends Controller
 
         if ($existingUser) {
             // log them in
-            if($existingUser->user_type == 'customer'){
-                auth()->login($existingUser, true);
-            }else{
-                alert(__('This Account Exisit As ' . $existingUser->user_type . ' Account Use Diffrent Account To Register'),'','error');
-                return redirect()->route('login');
+            if($existingUser->user_type == 'customer'){ 
+                $token = $existingUser->createToken('user_token')->plainTextToken; 
+                $user_id = $existingUser->id;
+            }else{ 
+                return $this->returnError('401', __('This Account Exisit As ' . $existingUser->user_type . ' Account Use Diffrent Account To Register'));
             }
         } else {
             // create a new user
@@ -70,15 +72,17 @@ class SocialLoginController extends Controller
             $newUser->email = $user->email; 
             $newUser->provider_id = $user->id;
             $newUser->user_type = 'customer'; 
-            $newUser->save(); 
+            $newUser->save();  
 
-            auth()->login($newUser, true);
+            $token = $newUser->createToken('user_token')->plainTextToken; 
+            $user_id = $newUser->id;
         }
-        if (Session::get('link') != null) {
-            return redirect(Session::get('link'));
-        } else {
-            return redirect()->route('home');
-        }
+        return $this->returnData(
+            [
+                'user_token' => $token,
+                'user_id '=> $user_id, 
+            ]
+        );
     }
 
 
