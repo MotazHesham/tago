@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CheckoutOrder;
+use App\Jobs\SendOrderConfirmationMail;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +80,12 @@ class OrderController extends Controller
             Auth::login($user);
         } 
         session()->put('cart',null);
+
+        $site_settings = Setting::first();
+        
+        if($user){
+            SendOrderConfirmationMail::dispatch($order,$site_settings,$user->email); // job for sending confirmation mail
+        } 
         alert('Order Placed Successfully','','success');
         return redirect()->route('home');
     }
