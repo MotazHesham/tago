@@ -82,7 +82,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = ProductCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = ProductCategory::pluck('name_'.app()->getLocale(), 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $colors = Color::pluck('name', 'code');
 
@@ -110,7 +110,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = ProductCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = ProductCategory::pluck('name_'.app()->getLocale(), 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $colors = Color::pluck('name', 'code');
 

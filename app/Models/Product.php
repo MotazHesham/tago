@@ -28,8 +28,10 @@ class Product extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'name',
-        'description',
+        'name_ar',
+        'name_en',
+        'description_ar',
+        'description_en',
         'price',
         'current_stock',
         'num_of_sale',
@@ -69,5 +71,18 @@ class Product extends Model implements HasMedia
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
+    }
+
+    
+    public function getNameAttribute(){
+        
+        $name = 'name_' . app()->getLocale();
+        return $this->$name;
+    }
+    
+    public function getDescriptionAttribute(){
+        
+        $description = 'description_' . app()->getLocale();
+        return $this->$description;
     }
 }

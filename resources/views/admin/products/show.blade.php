@@ -25,18 +25,34 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.name') }}
+                            {{ trans('cruds.product.fields.name_ar') }}
                         </th>
                         <td>
-                            {{ $product->name }}
+                            {{ $product->name_ar }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.description') }}
+                            {{ trans('cruds.product.fields.name_en') }}
                         </th>
                         <td>
-                            {!! $product->description !!}
+                            {{ $product->name_en }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.product.fields.description_ar') }}
+                        </th>
+                        <td>
+                            {!! $product->description_ar !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.product.fields.description_en') }}
+                        </th>
+                        <td>
+                            {!! $product->description_en !!}
                         </td>
                     </tr>
                     <tr>

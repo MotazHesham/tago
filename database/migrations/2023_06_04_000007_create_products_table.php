@@ -10,8 +10,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->longText('description');
+            $table->string('name_ar');
+            $table->string('name_en');
+            $table->longText('description_ar');
+            $table->longText('description_en');
             $table->decimal('price', 15, 2);
             $table->integer('current_stock')->default(0);
             $table->integer('num_of_sale')->default(0);

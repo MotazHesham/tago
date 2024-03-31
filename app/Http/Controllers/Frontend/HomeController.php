@@ -30,7 +30,7 @@ class HomeController extends Controller
         $counted_customers = count(User::where('user_type','customer')->get());
         $rates = Review::orderBy('created_at','desc')->take(15)->get();
         $faq_category = FaqCategory::where('category','how_it_work')->first();
-        $faq_questions = FaqQuestion::where('category_id',$faq_category->id)->get();
+        $faq_questions = $faq_category ? FaqQuestion::where('category_id',$faq_category->id)->get() : [];
         $site_settings = get_site_setting();
         return view('frontend.home',compact('products','counted_products','counted_customers','rates','faq_questions','site_settings','templates'));
     }
@@ -95,7 +95,7 @@ class HomeController extends Controller
     public function product($productId){
         $product = Product::findOrFail($productId);
         $faq_category = FaqCategory::where('category','product')->first();
-        $faq_questions = FaqQuestion::where('category_id',$faq_category->id)->get();
+        $faq_questions = $faq_category ? FaqQuestion::where('category_id',$faq_category->id)->get() : [];
         return view('frontend.product',compact('product','faq_questions'));
     }
 

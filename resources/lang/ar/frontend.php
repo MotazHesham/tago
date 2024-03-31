@@ -43,6 +43,7 @@ return [
         'how_app_work' => 'كيف يعمل ؟',
         'our_products' => '<span>منتجاتنا</span>',
         'add_to_cart' => 'أضافة إلي العربة',
+        'out_stock' => 'غير متوفر حاليا',
         'how_it_work' => 'كيف تعمل',
         'testimotinal' => 'TESTIMONIAL',
         'our_clients' => "أراء عملائنا",

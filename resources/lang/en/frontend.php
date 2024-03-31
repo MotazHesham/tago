@@ -44,6 +44,7 @@ return [
         'how_app_work' => 'How does this App Work?',
         'our_products' => 'Our <span>Products</span>',
         'add_to_cart' => 'Add To Cart',
+        'out_stock' => 'Out Of Stock',
         'how_it_work' => 'HOW IT WORK',
         'testimotinal' => 'TESTIMONIAL',
         'our_clients' => "Our client's opinions",

@@ -39,7 +39,7 @@
                         <h6 class="sub-title">{{ trans('frontend.about.about') }}</h6>
                         <h2 class="title"><?php echo trans('frontend.about.h2'); ?></h2>
                         <p class="content mb-4 mb-xl-5">
-                            <?php echo nl2br($site_settings->description) ?>
+                            <?php echo nl2br(__($site_settings->description)) ?>
                         </p>
                         <div class="row">
                             <div class="col-md-6">
@@ -50,7 +50,7 @@
                                     <div class="details">
                                         <h5>{{ trans('frontend.about.our_mission') }}</h5>
                                         <p>
-                                            <?php echo nl2br($site_settings->our_mission) ?>
+                                            <?php echo nl2br(__($site_settings->our_mission)) ?>
                                         </p>
 
                                     </div>
@@ -64,7 +64,7 @@
                                     <div class="details">
                                         <h5>{{ trans('frontend.about.why_us') }}</h5>
                                         <p>
-                                            <?php echo nl2br($site_settings->why_us) ?>
+                                            <?php echo nl2br(__($site_settings->why_us)) ?>
                                         </p>
                                     </div>
                                 </div>
@@ -99,13 +99,13 @@
                                 <h2 class="accordion-header" id="heading{{$faq_question->id}}">
                                     <button class="accordion-button @if(!$loop->first) collapsed @endif" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse{{ $faq_question->id }}" aria-expanded="true" aria-controls="collapse{{ $faq_question->id }}">
-                                        {{ $faq_question->question }}
+                                        {{ __($faq_question->question) }}
                                     </button>
                                 </h2>
                                 <div id="collapse{{ $faq_question->id }}" class="accordion-collapse collapse @if($loop->first) show @endif" aria-labelledby="heading{{$faq_question->id}}"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <?php echo $faq_question->answer ?>
+                                        <?php echo __($faq_question->answer) ?>
                                     </div>
                                 </div>
                             </div>

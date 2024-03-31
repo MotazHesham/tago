@@ -39,7 +39,9 @@
                                 <img src="{{ $image }}" alt="img">
                                 <ul class="team-social-inner">
                                     <li><a href="{{ route('frontend.product',$product->id) }}"><i class="fa fa-eye"></i></a></li>
-                                    <li> <a href="#" class=" js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" ><i class="fa fa-cart-plus"></i></a></li>
+                                    @if($product->current_stock  > 0)
+                                        <li> <a href="#" class=" js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" ><i class="fa fa-cart-plus"></i></a></li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="details">

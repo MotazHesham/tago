@@ -25,10 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.productCategory.fields.name') }}
+                            {{ trans('cruds.productCategory.fields.name_ar') }}
                         </th>
                         <td>
-                            {{ $productCategory->name }}
+                            {{ $productCategory->name_ar }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.productCategory.fields.name_en') }}
+                        </th>
+                        <td>
+                            {{ $productCategory->name_en }}
                         </td>
                     </tr>
                     <tr>

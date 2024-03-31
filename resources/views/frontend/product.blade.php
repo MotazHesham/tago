@@ -100,7 +100,9 @@
                             <?php echo $product->description ?>
                         </p>
                         <ul> 
-                            <li>Available: <span>in stock</span></li> 
+                            @if($product->current_stock  > 0)
+                                <li>Available: <span>in stock</span></li>  
+                            @endif
                             @if(json_decode($product->colors) != null)
                                 <li>
                                     Color: 
@@ -118,7 +120,16 @@
 
                     <div class="purchase-info">
                         <input type="number" id="quantity" min="1" step="1" value="1">
-                        <a style="cursor: pointer" class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" >Add To Cart</a>
+                        
+                        @if($product->current_stock  > 0)
+                            <a class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" style="cursor: pointer">
+                                {{ trans('frontend.home.add_to_cart') }}
+                            </a> 
+                        @else 
+                            <a class="cd-add-to-cart" style="background:#bbbbbb">
+                                {{ trans('frontend.home.out_stock') }}
+                            </a> 
+                        @endif 
                     </div>
 
                     <div class="social-links">

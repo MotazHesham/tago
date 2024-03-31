@@ -134,11 +134,11 @@
                                 <div class="single-how-app-work ">
                                     <div class="icon-box">
                                         <div class="inner">
-                                            {{ $faq_question->question }}
+                                            {{ __($faq_question->question) }}
                                         </div><!-- /.inner -->
                                     </div><!-- /.icon-box -->
                                     <div class="text-box">
-                                        <p> {{ $faq_question->answer }} </p>
+                                        <p> {{ __($faq_question->answer) }} </p>
                                     </div><!-- /.text-box -->
                                 </div><!-- /.single-how-app-work --> 
                             @endforeach
@@ -173,9 +173,15 @@
                                 <div class="description">
                                     <h4><a href="{{ route('frontend.product',$product->id) }}"> {{ $product->name }} </a></h4>
                                     <p>{{ frontend_currency($product->price)['as_text'] }}</p>
-                                    <a class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" style="cursor: pointer">
-                                        {{ trans('frontend.home.add_to_cart') }}
-                                    </a> 
+                                    @if($product->current_stock  > 0)
+                                        <a class="cd-add-to-cart js-cd-add-to-cart" data-price="{{$product->price}}" data-productId="{{$product->id}}" style="cursor: pointer">
+                                            {{ trans('frontend.home.add_to_cart') }}
+                                        </a> 
+                                    @else 
+                                        <a class="cd-add-to-cart" style="background:#bbbbbb">
+                                            {{ trans('frontend.home.out_stock') }}
+                                        </a> 
+                                    @endif
                                 </div>
 
                             </div>

@@ -27,7 +27,8 @@ class ProductCategory extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'name',
+        'name_ar',
+        'name_en',
         'description',
         'meta_title',
         'meta_description',
@@ -57,5 +58,11 @@ class ProductCategory extends Model implements HasMedia
         }
 
         return $file;
+    }
+
+    public function getNameAttribute(){
+        
+        $name = 'name_' . app()->getLocale();
+        return $this->$name;
     }
 }
