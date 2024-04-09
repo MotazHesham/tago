@@ -42,4 +42,10 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect'      => str_replace('/public','',env('APP_URL')).'/social-login/google/callback',
     ], 
+
+    'google-web' => [
+        'client_id'     => env('GOOGLE_WEB_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_WEB_CLIENT_SECRET'),
+        'redirect'      => str_replace('/public','',env('APP_URL')).'/social-login/google-web/callback',
+    ], 
 ];
