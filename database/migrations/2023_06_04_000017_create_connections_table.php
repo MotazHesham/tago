@@ -10,11 +10,11 @@ class CreateConnectionsTable extends Migration
     {
         Schema::create('connections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('title');
-            $table->string('phone_number');
-            $table->text('message');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('title')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->text('message')->nullable();
             $table->string('link')->nullable();
             $table->timestamps();
             $table->softDeletes();

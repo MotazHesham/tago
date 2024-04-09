@@ -115,9 +115,7 @@ class OrdersController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $products = Product::pluck('name', 'id');
-
-        return view('admin.orders.create', compact('products', 'users'));
+        return view('admin.orders.create', compact( 'users'));
     }
 
     public function store(StoreOrderRequest $request)
@@ -140,13 +138,11 @@ class OrdersController extends Controller
     {
         abort_if(Gate::denies('order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $products = Product::pluck('name', 'id');
+        $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), ''); 
 
         $order->load('user', 'products');
 
-        return view('admin.orders.edit', compact('order', 'products', 'users'));
+        return view('admin.orders.edit', compact('order', 'users'));
     }
 
     public function update(UpdateOrderRequest $request, Order $order)
