@@ -59,11 +59,20 @@ class SocialLoginController extends Controller
 
         if ($existingUser) {
             // log them in
-            if($existingUser->user_type == 'customer'){ 
-                $token = $existingUser->createToken('user_token')->plainTextToken; 
-                $user_id = $existingUser->id;
-            }else{ 
-                return $this->returnError('401', __('This Account Exisit As ' . $existingUser->user_type . ' Account Use Diffrent Account To Register'));
+            if($existingUser->user_type == 'customer'){  
+                if(in_array(strtolower($provider), ['google-web'])) {
+                    auth()->login($existingUser, true); 
+                }else{
+                    $token = $existingUser->createToken('user_token')->plainTextToken; 
+                    $user_id = $existingUser->id;
+                }
+            }else{  
+                if(in_array(strtolower($provider), ['google-web'])) { 
+                    alert(__('This Account Exisit As ' . $existingUser->user_type . ' Account Use Diffrent Account To Register'),'','error');
+                    return redirect()->route('login');
+                }else{
+                    return $this->returnError('401', __('This Account Exisit As ' . $existingUser->user_type . ' Account Use Diffrent Account To Register'));
+                }
             }
         } else {
             // create a new user
@@ -74,15 +83,29 @@ class SocialLoginController extends Controller
             $newUser->user_type = 'customer'; 
             $newUser->save();  
 
-            $token = $newUser->createToken('user_token')->plainTextToken; 
-            $user_id = $newUser->id;
+            if(in_array(strtolower($provider), ['google-web'])) { 
+                auth()->login($newUser, true);
+            }else{
+                $token = $newUser->createToken('user_token')->plainTextToken; 
+                $user_id = $newUser->id;
+            }
         }
-        return $this->returnData(
-            [
-                'user_token' => $token,
-                'user_id '=> $user_id, 
-            ]
-        );
+
+        if(in_array(strtolower($provider), ['google-web'])) {
+            if (Session::get('link') != null) {
+                return redirect(Session::get('link'));
+            } else {
+                return redirect()->route('home');
+            }
+        }else{
+            return $this->returnData(
+                [
+                    'user_token' => $token,
+                    'user_id '=> $user_id, 
+                ]
+            );
+        }  
+
     }
 
 

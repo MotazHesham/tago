@@ -176,8 +176,9 @@
                                     @csrf
                                     <h4>Sign in</h4>
                                     <div class="social-container">
-                                        <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="social"><i class="fab fa-facebook-f"></i></a>
                                         <a href="{{ route('social.login', ['provider' => 'google']) }}" class="social"><i class="fab fa-google-plus-g"></i></a> 
+                                        <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="social"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="{{ route('social.login', ['provider' => 'google-web']) }}" class="social"><i class="fab fa-google"></i></a> 
                                     </div>
                                     <span>or use your account</span>
 
