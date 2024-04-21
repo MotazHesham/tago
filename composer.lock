@@ -4,8 +4,150 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15b71c5d2f6ebe9ebd2d8df00b61b81c",
+    "content-hash": "63c47d2eaf9f58ee3e1bec6f760cdeec",
     "packages": [
+        {
+            "name": "astrotomic/laravel-vcard",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Astrotomic/laravel-vcard.git",
+                "reference": "800e53bab7e1648454fcdc5b8d82fdfa36d6df45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-vcard/zipball/800e53bab7e1648454fcdc5b8d82fdfa36d6df45",
+                "reference": "800e53bab7e1648454fcdc5b8d82fdfa36d6df45",
+                "shasum": ""
+            },
+            "require": {
+                "astrotomic/php-conditional-proxy": "^0.2.1",
+                "illuminate/contracts": "^8.0 || ^9.0 || ^10.0",
+                "illuminate/http": "^8.0 || ^9.0 || ^10.0",
+                "illuminate/support": "^8.0 || ^9.0 || ^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^6.0 || ^7.0 || ^8.0",
+                "phpunit/phpunit": "^9.3",
+                "spatie/phpunit-snapshot-assertions": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Astrotomic\\Vcard\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Witkowski",
+                    "email": "gummibeer@astrotomic.info",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A fluent builder class for vCard files.",
+            "homepage": "https://github.com/Astrotomic/laravel-vcard",
+            "keywords": [
+                "contact",
+                "contacts",
+                "laravel",
+                "vCard",
+                "vcf"
+            ],
+            "support": {
+                "issues": "https://github.com/Astrotomic/laravel-vcard/issues",
+                "source": "https://github.com/Astrotomic/laravel-vcard/tree/0.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://forest.astrotomic.info",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Gummibeer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/SarahSibert",
+                    "type": "github"
+                },
+                {
+                    "url": "https://issuehunt.io/r/astrotomic",
+                    "type": "issuehunt"
+                }
+            ],
+            "time": "2023-06-27T13:06:31+00:00"
+        },
+        {
+            "name": "astrotomic/php-conditional-proxy",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Astrotomic/php-conditional-proxy.git",
+                "reference": "311f56d03ead00eed89b4a3afcf1901521ffd343"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Astrotomic/php-conditional-proxy/zipball/311f56d03ead00eed89b4a3afcf1901521ffd343",
+                "reference": "311f56d03ead00eed89b4a3afcf1901521ffd343",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^0.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Astrotomic\\ConditionalProxy\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Witkowski",
+                    "email": "gummibeer@astrotomic.info",
+                    "homepage": "https://astrotomic.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package provides a trait and class to allow calling methods based on a condition without breaking the method chain.",
+            "homepage": "https://github.com/Astrotomic/php-conditional-proxy",
+            "keywords": [
+                "conditional-proxy",
+                "proxy"
+            ],
+            "support": {
+                "issues": "https://github.com/Astrotomic/php-conditional-proxy/issues",
+                "source": "https://github.com/Astrotomic/php-conditional-proxy/tree/0.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://offset.earth/treeware",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Gummibeer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://issuehunt.io/r/astrotomic",
+                    "type": "issuehunt"
+                }
+            ],
+            "time": "2021-01-04T15:25:20+00:00"
+        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "2.0.8",

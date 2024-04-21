@@ -75,11 +75,11 @@
                                             <i class="fa fa-phone" aria-hidden="true"></i>
                                         </a>
                                     </li>
-                                    {{-- <li>
-                                        <a href="#">
-                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <li>
+                                        <a href="{{ route('frontend.save_contact',$user->id) }}">
+                                            <i class="fa fa-save" aria-hidden="true"></i>
                                         </a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
                             </div>
                             <div class="intro">

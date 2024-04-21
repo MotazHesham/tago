@@ -20,6 +20,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
     Route::post('/ordertemplate', 'MagicoController@ordertemplate')->name('ordertemplate'); 
     
     Route::get('user/{id}','HomeController@user')->name('user'); 
+    Route::get('user/save_contact/{id}','HomeController@save_contact')->name('save_contact'); 
     Route::get('user/token/{token}','HomeController@user_by_token')->name('user_by_token'); 
     Route::post('exchange_contacts','HomeController@exchange_contact')->name('exchange_contacts');
 

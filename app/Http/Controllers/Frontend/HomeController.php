@@ -19,6 +19,12 @@ use App\Models\Tutorial;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Astrotomic\Vcard\Properties\Email;
+use Astrotomic\Vcard\Properties\Gender;
+use Astrotomic\Vcard\Properties\Kind;
+use Astrotomic\Vcard\Properties\Tel;
+use Astrotomic\Vcard\Vcard;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -127,6 +133,32 @@ class HomeController extends Controller
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($orderProduct->scanned_user_id);
         return view('frontend.profile',compact('user'));
+    }
+
+    public function save_contact($id){
+        $user = User::with(['media','userUserLinks.main_link','userUserLinks' => function($q){
+            $q->where('active',1)->orderBy('priority','asc');
+        }])->find($id);
+        
+        $vcard =  Vcard::make()
+        ->kind(Kind::INDIVIDUAL) 
+        ->fullName($user->name ?? '') 
+        ->name($user->name ?? '') 
+        ->email($user->email ?? '') 
+        ->tel($user->phone_number ?? '', [Tel::HOME, Tel::VOICE]);
+
+        foreach($user->userUserLinks as $userLink){
+            $base_url = $userLink->main_link->base_url ?? null;
+            $vcard = $vcard->url('TYPE=' . $userLink->name .':' . ($base_url ? $base_url . $userLink->link : $userLink->link));
+        } 
+        
+        if($user->photo){
+            $vcard = $vcard->photo('data:image/jpeg;base64,'.base64_encode(file_get_contents($user->photo->getUrl())));
+        }{ 
+            $vcard = $vcard->photo('data:image/jpeg;base64,'.base64_encode(file_get_contents(asset('user.png'))));
+        }
+        $vcard = $vcard->title($user->nickname ?? '');
+        return $vcard;
     }
 
     public function exchange_contact(Request $request){
