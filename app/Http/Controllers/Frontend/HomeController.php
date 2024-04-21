@@ -149,7 +149,7 @@ class HomeController extends Controller
 
         foreach($user->userUserLinks as $userLink){
             $base_url = $userLink->main_link->base_url ?? null;
-            $vcard = $vcard->url('TYPE=' . $userLink->name .':' . ($base_url ? $base_url . $userLink->link : $userLink->link));
+            $vcard = $vcard->url($base_url ? $base_url . $userLink->link : $userLink->link);
         } 
         
         if($user->photo){

@@ -74,13 +74,16 @@
                                         <a href="tel:{{ $user->phone_number }}">
                                             <i class="fa fa-phone" aria-hidden="true"></i>
                                         </a>
-                                    </li>
+                                    </li> 
                                     <li>
-                                        <a href="{{ route('frontend.save_contact',$user->id) }}">
-                                            <i class="fa fa-save" aria-hidden="true"></i>
-                                        </a>
+                                        <form action="{{ route('frontend.save_contact',$user->id) }}">
+                                            <button class="primary-btn" type="submit"  style="background-color: #274645; padding: 2px 12px; border: solid thin #030304;">
+                                                SaveContact
+                                            </button>
+                                        </form>
                                     </li>
                                 </ul>
+                            
                             </div>
                             <div class="intro">
                                 <p>

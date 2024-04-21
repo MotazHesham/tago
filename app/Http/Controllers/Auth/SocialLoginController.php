@@ -98,12 +98,7 @@ class SocialLoginController extends Controller
                 return redirect()->route('home');
             }
         }else{
-            return $this->returnData(
-                [
-                    'user_token' => $token,
-                    'user_id '=> $user_id, 
-                ]
-            );
+            return redirect()->route('home','token='.$token);
         }  
 
     }
