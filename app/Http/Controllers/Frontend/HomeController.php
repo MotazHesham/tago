@@ -140,8 +140,7 @@ class HomeController extends Controller
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($id);
         
-        $vcard =  Vcard::make()
-        ->kind(Kind::INDIVIDUAL) 
+        $vcard =  Vcard::make() 
         ->fullName($user->name ?? '') 
         ->name($user->name ?? '') 
         ->email($user->email ?? '') 
@@ -151,7 +150,20 @@ class HomeController extends Controller
             $base_url = $userLink->main_link->base_url ?? null;
             $vcard = $vcard->url($base_url ? $base_url . $userLink->link : $userLink->link);
         }  
-        $vcard = $vcard->title($user->nickname ?? '');
+                
+        if($user->photo){
+            $vcard = $vcard->photo('data:image/jpeg;base64,'.base64_encode(file_get_contents($user->photo->getUrl())));
+        }{ 
+            $vcard = $vcard->photo('data:image/jpeg;base64,'.base64_encode(file_get_contents(asset('user.png'))));
+        }
+
+        $vcard = $vcard->title($user->nickname ?? ''); 
+        if($user->photo){
+            $vcard = $vcard->photo('ENCODING=BASE64;TYPE=jpeg:'.base64_encode(file_get_contents($user->photo->getUrl())));
+        }else{ 
+            $vcard = $vcard->photo('ENCODING=BASE64;TYPE=jpeg:'.base64_encode(file_get_contents(asset('user.png'))));
+        }
+
         return $vcard;
     }
 
