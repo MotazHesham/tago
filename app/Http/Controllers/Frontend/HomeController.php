@@ -150,13 +150,7 @@ class HomeController extends Controller
         foreach($user->userUserLinks as $userLink){
             $base_url = $userLink->main_link->base_url ?? null;
             $vcard = $vcard->url($base_url ? $base_url . $userLink->link : $userLink->link);
-        } 
-        
-        if($user->photo){
-            $vcard = $vcard->photo('data:image/jpeg;base64,'.base64_encode(file_get_contents($user->photo->getUrl())));
-        }{ 
-            $vcard = $vcard->photo('data:image/jpeg;base64,'.base64_encode(file_get_contents(asset('user.png'))));
-        }
+        }  
         $vcard = $vcard->title($user->nickname ?? '');
         return $vcard;
     }
