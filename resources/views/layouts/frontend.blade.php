@@ -171,6 +171,7 @@
                             <li><a href="{{ route('frontend.about') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.about_us') }}</a></li>
                             <li><a href="{{ route('frontend.tutorials') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.tutorials') }}</a></li>
                             <li><a href="{{ route('frontend.contact') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.contact_us') }}</a></li> 
+                            <li><a href="{{ route('frontend.privacy') }}"><i class="fas @if(app()->getLocale() == 'ar') fa-arrow-left @else fa-arrow-right @endif"></i>{{ trans('frontend.footer.privacy') }}</a></li> 
                         </ul>
                     </div>
                 </div>

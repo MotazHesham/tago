@@ -18,7 +18,7 @@ return [
         'about_us' => 'About Us',
         'tutorials' => 'Tutorials',
         'contact_us' => 'Contact Us',
-        'products' => 'Products',
+        'privacy' => 'Privacy',
         'keep_in_touch' => 'KEEP IN TOUCH',
         'email' => 'Your e-mail address',
     ], 
