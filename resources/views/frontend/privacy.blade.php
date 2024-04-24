@@ -1,12 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Tago</title>
-</head>
-<body>
-    <h5>Privacy and Policy</h5>
-</body>
-</html>
+@extends('layouts.frontend')
+
+@section('content')
+    <!-- page title start -->
+    <div class="breadcrumb-area bg-cover">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <h2 class="page-title">سياسة الخصوصية </h2>
+                    </div>
+                    <div class="col-lg-6 text-lg-end">
+                        <ul class="page-list">
+                            <li><a href="{{ route('home') }}">{{ trans('frontend.contact_us.home') }}</a></li>
+                            <li> سياسة الخصوصية </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page title end -->
+
+    <div class="about-area pd-top-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>سياسة الخصوصية </h4>
+
+                    <p class="m-4">
+                        نحن ملتزمون بحماية خصوصية زوارنا وعملائنا. توضح سياسة الخصوصية هذه كيفية جمعنا واستخدامنا وكشف
+                        معلوماتك
+                        الشخصية.
+                        يرجى قراءتها بعناية.
+                    </p>
+
+
+                    <div class="mb-4">
+                        1. جمع المعلومات:
+
+                        نقوم بجمع معلوماتك الشخصية فقط عندما تقوم بتقديمها بشكل طوعي عند تسجيل الطلب، أو عندما تتفاعل مع
+                        الموقع
+                        بطرق
+                        أخرى
+                        مثل التواصل مع خدمة العملاء وتشمل هذه المعلومات الاسم، عنوان البريد الإلكتروني، عنوان الشحن،
+                        ومعلومات
+                        الدفع.
+                    </div>
+
+
+
+                    <div class="mb-4">
+                        2. استخدام المعلومات:
+
+                        نستخدم المعلومات التي نجمعها لتوفير المنتجات والخدمات التي طلبتها، وللتواصل معك بشأن طلباتك وحسابك،
+                        ولتحسين
+                        خدماتنا
+                        وتجربتك على الموقع.
+                    </div>
+
+
+
+                    <div class="mb-4">
+                        3. مشاركة المعلومات:
+
+                        نحن لا نبيع أو نشترك في بيع المعلومات الشخصية للعملاء لأطراف ثالثة. نحن قد نشارك المعلومات مع
+                        الشركاء
+                        الذين
+                        يساعدوننا في تقديم الخدمات التي طلبتها، مثل شركات الشحن أو مزودي الدفع، ولكنهم يلتزمون بسرية
+                        المعلومات
+                        واستخدامها
+                        فقط وفقًا للأغراض التي تم تقديمها من أجلها.
+                    </div>
+
+
+
+                    <div class="mb-4">4. أمان المعلومات:
+
+                        نحن نتخذ إجراءات أمنية لحماية المعلومات الشخصية التي نحتفظ بها، بما في ذلك إجراءات الوصول والمراقبة
+                        والتدابير
+                        التقنية والإدارية المناسبة.</div>
+
+
+
+                    <div class="mb-4">
+                        5. تحديثات الخصوصية:
+
+                        قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر، وسنقوم بنشر أي تغييرات على الموقع الإلكتروني. يرجى
+                        مراجعة
+                        هذه
+                        الصفحة
+                        بانتظام لمعرفة آخر التحديثات.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
