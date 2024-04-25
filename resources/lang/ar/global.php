@@ -3,6 +3,7 @@
 return [
     'actions'                        => 'العمليات',
     'add'                            => 'إضافة',
+    'privacy'                            => 'سياسة الخصوصية',
     'allRightsReserved'              => 'كافة الحقوق محفوظة',
     'areYouSure'                     => 'هل أنت متأكد؟',
     'clickHereToVerify'              => 'اضغط هنا للتحقق',
