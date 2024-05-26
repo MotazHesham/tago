@@ -12,11 +12,13 @@ use App\Models\FaqQuestion;
 use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProfileView;
 use App\Models\Review;
 use App\Models\Subscribe;
 use App\Models\Template;
 use App\Models\Tutorial;
 use App\Models\User;
+use App\Models\UserLinkView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Astrotomic\Vcard\Properties\Email;
@@ -113,6 +115,18 @@ class HomeController extends Controller
             alert('لم يتم التفعيل حتي الأن','','error');
             return redirect()->route('home');
         }
+        
+        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->first();
+        if(!$view){ 
+            ProfileView::create([
+                'ip' => request()->ip(),
+                'user_id' => $user->id
+            ]);
+        }else{
+            $view->counter += 1;
+            $view->save(); 
+        }
+
         return view('frontend.profile',compact('user'));
     }
 
@@ -132,7 +146,33 @@ class HomeController extends Controller
         $user = User::with(['media','userUserLinks.main_link','userUserLinks' => function($q){
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($orderProduct->scanned_user_id);
+
+        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->first();
+        if(!$view){ 
+            ProfileView::create([
+                'ip' => request()->ip(),
+                'user_id' => $user->id
+            ]);
+        }else{
+            $view->counter += 1;
+            $view->save(); 
+        }
+
         return view('frontend.profile',compact('user'));
+    }
+
+    public function tap_link(Request $request){
+        $view = UserLinkView::where('user_link_id',$request->id)->where('ip' , request()->ip())->first();
+        if(!$view){ 
+            UserLinkView::create([
+                'ip' => request()->ip(),
+                'user_link_id' => $request->id
+            ]);
+        }else{
+            $view->counter += 1;
+            $view->save(); 
+        }
+        return true;
     }
 
     public function save_contact($id){

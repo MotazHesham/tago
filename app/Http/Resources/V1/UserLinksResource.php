@@ -31,6 +31,7 @@ class UserLinksResource extends JsonResource
             'name' => $this->name,
             'link' => $this->link ?? '',
             'photo' => $image,
+            'taps' => count($this->views)
         ];
     }
 }

@@ -23,6 +23,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
     Route::get('user/save_contact/{id}','HomeController@save_contact')->name('save_contact'); 
     Route::get('user/token/{token}','HomeController@user_by_token')->name('user_by_token'); 
     Route::post('exchange_contacts','HomeController@exchange_contact')->name('exchange_contacts');
+    Route::post('tap_link','HomeController@tap_link')->name('tap_link');
 
     Route::get('privacy','HomeController@privacy')->name('privacy');
     Route::get('about','HomeController@about')->name('about');
@@ -39,6 +40,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend'], function () {
     Route::post('cart/store','CartController@store')->name('cart.store');
     Route::post('cart/update','CartController@update')->name('cart.update');
     Route::post('cart/delete','CartController@delete')->name('cart.delete');
+
+
     
     // Dashboard
     Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','customer']], function () {

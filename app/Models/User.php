@@ -106,6 +106,9 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(UserAlert::class);
     }
 
+    public function views(){
+        return $this->hasMany(ProfileView::class, 'user_id', 'id');
+    }
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
@@ -156,4 +159,5 @@ class User extends Authenticatable implements HasMedia
 
         return $file;
     }
+
 }

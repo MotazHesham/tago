@@ -43,6 +43,7 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
         //user profile
         Route::group(['prefix' =>'profile'],function(){
             Route::get('/','UsersApiController@profile');
+            Route::get('analysis','UsersApiController@analysis');
             Route::post('update','UsersApiController@update');
             Route::post('update_active','UsersApiController@update_active');
             Route::post('update_link','UsersApiController@update_link');

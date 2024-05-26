@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
+use App\Http\Resources\V1\UserAnalysisResource;
 use App\Http\Resources\V1\UserResource;
 use App\Models\OrderProduct;
 use App\Models\UserLink;
@@ -21,6 +22,10 @@ class UsersApiController extends Controller
     public function delete_account(){
         auth()->user()->delete();
         return $this->returnSuccessMessage(trans('global.flash.api.success')); 
+    }
+
+    public function analysis(){  
+        return $this->returnData(new UserAnalysisResource(Auth::user()));
     }
 
     public function check_qr(Request $request){

@@ -60,6 +60,10 @@ class UserLink extends Model implements HasMedia
         return $this->belongsTo(MainLink::class, 'main_link_id');
     }
 
+    public function views(){
+        return $this->hasMany(UserLinkView::class,'user_link_id');
+    }
+
     public function getPhotoAttribute()
     {
         $file = $this->getMedia('photo')->last();

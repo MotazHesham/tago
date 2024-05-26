@@ -98,7 +98,7 @@
                                             $base_url = $userLink->main_link->base_url ?? null;
                                         @endphp 
                                         <li>
-                                            <a href="{{ $base_url ? $base_url . $userLink->link : $userLink->link }}" target="_blanc">
+                                            <a onclick="tap_link('{{$userLink->id}}')" href="{{ $base_url ? $base_url . $userLink->link : $userLink->link }}" target="_blanc">
                                                 @if($userLink->photo)
                                                     <img src="{{$userLink->photo->getUrl('thumb')}}" alt="" style="border-radius: 50%">
                                                 @else 
@@ -261,6 +261,18 @@
     <script src="{{ asset('frontend/js/cart.js') }}"></script>
 
     <!-----------------LOIGIN----------->
+
+    <script>
+        function tap_link(id){
+            
+            $.post('{{ route('frontend.tap_link') }}', {
+                _token: '{{ csrf_token() }}',
+                id: id
+            }, function(data) { 
+                // 
+            });
+        }
+    </script>
 </body>
 
 </html>
