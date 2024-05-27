@@ -27,7 +27,7 @@ class UserResource extends JsonResource
             'nickname_active' => $this->nickname_active,
             'bio_active' => $this->bio_active,
             'fcm_token' => $this->fcm_token,
-            'profile_link' => route('frontend.user',$this->id),
+            'profile_link' => route('frontend.user',$this->id) . '?view=0',
             'links' => UserLinksResource::collection($this->userUserLinks()->with('main_link','views')->orderBy('priority','asc')->orderBy('created_at','desc')->get())
         ];
     }

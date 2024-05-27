@@ -116,19 +116,23 @@ class HomeController extends Controller
             alert('لم يتم التفعيل حتي الأن','','error');
             return redirect()->route('home');
         }
-        
-        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->whereDate('created_at', Carbon::today())->first();
-        if(!$view){ 
-            ProfileView::create([
-                'ip' => request()->ip(),
-                'user_id' => $user->id
-            ]);
-        }else{
-            $view->counter += 1;
-            $view->save(); 
-        }
 
-        return view('frontend.profile',compact('user'));
+        if(request()->has('view') && request()->view == 0){   
+            return view('frontend.profile',compact('user')); 
+        }else{ 
+            $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->whereDate('created_at', Carbon::today())->first();
+            if(!$view){ 
+                ProfileView::create([
+                    'ip' => request()->ip(),
+                    'user_id' => $user->id
+                ]);
+            }else{
+                $view->counter += 1;
+                $view->save(); 
+            }
+
+            return view('frontend.profile',compact('user'));
+        }
     }
 
     public function user_by_token($token){ 

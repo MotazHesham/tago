@@ -20,13 +20,7 @@ class StoreFaqQuestionRequest extends FormRequest
             'category_id' => [
                 'required',
                 'integer',
-            ],
-            'question' => [
-                'required',
-            ],
-            'answer' => [
-                'required',
-            ],
+            ], 
         ];
     }
 }
