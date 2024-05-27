@@ -45,8 +45,10 @@ class Setting extends Model implements HasMedia
         'author_seo',
         'sitemap_link_seo',
         'description_seo',
-        'why_us',
-        'our_mission',
+        'why_us_en',
+        'why_us_ar',
+        'our_mission_ar',
+        'our_mission_en',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -57,6 +59,16 @@ class Setting extends Model implements HasMedia
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function getWhyUsAttribute(){
+        
+        $why_us = 'why_us_' . app()->getLocale();
+        return $this->$why_us;
+    }
+    public function getOurMissionAttribute(){
+        
+        $our_mission = 'our_mission_' . app()->getLocale();
+        return $this->$our_mission;
+    }
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);

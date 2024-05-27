@@ -33,18 +33,34 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.faqQuestion.fields.question') }}
+                            {{ trans('cruds.faqQuestion.fields.question_ar') }}
                         </th>
                         <td>
-                            {{ $faqQuestion->question }}
+                            {{ $faqQuestion->question_ar }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.faqQuestion.fields.answer') }}
+                            {{ trans('cruds.faqQuestion.fields.question_en') }}
                         </th>
                         <td>
-                            {{ $faqQuestion->answer }}
+                            {{ $faqQuestion->question_en }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.faqQuestion.fields.answer_en') }}
+                        </th>
+                        <td>
+                            {{ $faqQuestion->answer_en }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.faqQuestion.fields.answer_ar') }}
+                        </th>
+                        <td>
+                            {{ $faqQuestion->answer_ar }}
                         </td>
                     </tr>
                 </tbody>

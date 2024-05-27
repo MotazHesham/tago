@@ -10,8 +10,10 @@ class CreateFaqQuestionsTable extends Migration
     {
         Schema::create('faq_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText('question')->nullable();
-            $table->longText('answer')->nullable();
+            $table->longText('question_en')->nullable();
+            $table->longText('question_ar')->nullable();
+            $table->longText('answer_en')->nullable();
+            $table->longText('answer_ar')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

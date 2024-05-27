@@ -21,8 +21,10 @@ class FaqQuestion extends Model
 
     protected $fillable = [
         'category_id',
-        'question',
-        'answer',
+        'question_en',
+        'question_ar',
+        'answer_en',
+        'answer_ar',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -31,6 +33,16 @@ class FaqQuestion extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+    public function getQuestionAttribute(){
+        
+        $question = 'question_' . app()->getLocale();
+        return $this->$question;
+    }
+    public function getAnswerAttribute(){
+        
+        $answer = 'answer_' . app()->getLocale();
+        return $this->$answer;
     }
 
     public function category()

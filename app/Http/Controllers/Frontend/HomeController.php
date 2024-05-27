@@ -18,6 +18,7 @@ use App\Models\Subscribe;
 use App\Models\Template;
 use App\Models\Tutorial;
 use App\Models\User;
+use App\Models\UserLink;
 use App\Models\UserLinkView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -116,7 +117,7 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
         
-        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->first();
+        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->whereDate('created_at', Carbon::today())->first();
         if(!$view){ 
             ProfileView::create([
                 'ip' => request()->ip(),
@@ -147,7 +148,7 @@ class HomeController extends Controller
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($orderProduct->scanned_user_id);
 
-        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->first();
+        $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->whereDate('created_at', Carbon::today())->first();
         if(!$view){ 
             ProfileView::create([
                 'ip' => request()->ip(),
@@ -162,11 +163,13 @@ class HomeController extends Controller
     }
 
     public function tap_link(Request $request){
-        $view = UserLinkView::where('user_link_id',$request->id)->where('ip' , request()->ip())->first();
+        $user_link = UserLink::find($request->id);
+        $view = UserLinkView::where('user_link_id',$request->id)->where('ip' , request()->ip())->whereDate('created_at', Carbon::today())->first();
         if(!$view){ 
             UserLinkView::create([
                 'ip' => request()->ip(),
-                'user_link_id' => $request->id
+                'user_link_id' => $request->id,
+                'user_id' => $user_link->user_id,
             ]);
         }else{
             $view->counter += 1;

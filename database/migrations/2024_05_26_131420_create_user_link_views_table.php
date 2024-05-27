@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('counter')->default(1);
             $table->unsignedBigInteger('user_link_id')->nullable();
             $table->foreign('user_link_id', 'user_link_fk_8542193')->references('id')->on('user_links');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id', 'user_fk_85256693')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -26,8 +26,10 @@ class CreateSettingsTable extends Migration
             $table->string('author_seo');
             $table->string('sitemap_link_seo');
             $table->longText('description_seo');
-            $table->text('why_us');
-            $table->text('our_mission');
+            $table->text('why_us_en');
+            $table->text('why_us_ar');
+            $table->text('our_mission_ar');
+            $table->text('our_mission_en');
             $table->timestamps();
             $table->softDeletes();
         });

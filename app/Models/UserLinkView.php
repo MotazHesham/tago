@@ -22,6 +22,7 @@ class UserLinkView extends Model
         'ip',
         'counter', 
         'user_link_id', 
+        'user_id', 
         'created_at',
         'updated_at', 
     ];

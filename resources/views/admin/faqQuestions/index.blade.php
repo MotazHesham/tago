@@ -29,10 +29,10 @@
                             {{ trans('cruds.faqQuestion.fields.category') }}
                         </th>
                         <th>
-                            {{ trans('cruds.faqQuestion.fields.question') }}
+                            {{ trans('cruds.faqQuestion.fields.question_en') }}
                         </th>
                         <th>
-                            {{ trans('cruds.faqQuestion.fields.answer') }}
+                            {{ trans('cruds.faqQuestion.fields.answer_en') }}
                         </th>
                         <th>
                             &nbsp;
@@ -52,10 +52,10 @@
                                 {{ $faqQuestion->category->category ?? '' }}
                             </td>
                             <td>
-                                {{ $faqQuestion->question ?? '' }}
+                                {{ $faqQuestion->question_en ?? '' }}
                             </td>
                             <td>
-                                {{ $faqQuestion->answer ?? '' }}
+                                {{ $faqQuestion->answer_en ?? '' }}
                             </td>
                             <td>
                                 @can('faq_question_show')

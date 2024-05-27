@@ -30,17 +30,17 @@ return [
     ], 
     'home' => [
         'banner' =>[
-            'h6' => 'card one touch away',
-            'h2' => 'Your digital <span>business Card</span> one touch away',
-            'p' => 'Switch now to a digital business card. Cardble is designed to be the ultimate tool for
-                    small businesses and large enterprises. The new Digital 
-                    Business Card you need to become a modern eco-friendly company.',
-            'a' => 'Get yours',
+            'h6' => '',
+            'h2' => 'بطاقتك الرقمية المتكاملة علي بعد خطوة',
+            'p' => 'TAGO هي الأداة المطلقة لإدارة بياناتك الرقمية,
+                    سواء لنشاطك الشخصي او شركتك الصغيرة او حتى للمؤسسات العملاقة,
+                    بطاقة TAGO الجديدة هي كل ما تحتاجه.',
+            'a' => 'احصل عليها الآن',
         ],
         'users' => 'العملاء',
         'products' => 'المنتجات',
         'rating' => '5 Stars Rating',
-        'donwload_app' => 'حمل تطبقانا المجاني الأن',
+        'donwload_app' => 'حمل التطبيق مجانا',
         'how_app_work' => 'كيف يعمل ؟',
         'our_products' => '<span>منتجاتنا</span>',
         'add_to_cart' => 'أضافة إلي العربة',
@@ -54,7 +54,7 @@ return [
     'about' => [
         'about' => 'اعرف عنا',
         'home' => 'الصفحة الرئيسية',
-        'h2' => 'IT is a critical component of <span>modern</span> businesses',
+        'h2' => 'تعد عنصرا حاسما في <span>الأعمال التجارية</span> الحديثة',
         'our_mission' => 'مهمتنا',
         'why_us' => 'لماذا نحن',
         'some_faq' => "SOME FAQ'S",
@@ -75,7 +75,7 @@ return [
         'email' => 'البريد الألكتروني',
         'location' => 'المكان',
         'get_in_touch' => 'أبق علي تواصل',
-        'p' => 'Bringing Your <span>Vision</span> To Life',
+        'p' => 'جلب <span>رؤيتك</span>  إلي الحياة',
         'submit' => 'أرسل الأن',
         'fields' => [
             'name' => 'الأسم',

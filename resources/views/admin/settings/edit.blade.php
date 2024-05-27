@@ -32,24 +32,44 @@
                     <span class="help-block">{{ trans('cruds.setting.fields.description_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="required" for="why_us">{{ trans('cruds.setting.fields.why_us') }}</label>
-                    <textarea class="form-control {{ $errors->has('why_us') ? 'is-invalid' : '' }}" name="why_us" id="why_us" required>{{ old('why_us',$setting->why_us) }}</textarea>
-                    @if($errors->has('why_us'))
+                    <label class="required" for="why_us_en">{{ trans('cruds.setting.fields.why_us_en') }}</label>
+                    <textarea class="form-control {{ $errors->has('why_us_en') ? 'is-invalid' : '' }}" name="why_us_en" id="why_us_en" required>{{ old('why_us_en',$setting->why_us_en) }}</textarea>
+                    @if($errors->has('why_us_en'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('why_us') }}
+                            {{ $errors->first('why_us_en') }}
                         </div>
                     @endif
-                    <span class="help-block">{{ trans('cruds.setting.fields.why_us_helper') }}</span>
+                    <span class="help-block">{{ trans('cruds.setting.fields.why_us_en_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="required" for="our_mission">{{ trans('cruds.setting.fields.our_mission') }}</label>
-                    <textarea class="form-control {{ $errors->has('our_mission') ? 'is-invalid' : '' }}" name="our_mission" id="our_mission" required>{{ old('our_mission',$setting->our_mission) }}</textarea>
-                    @if($errors->has('our_mission'))
+                    <label class="required" for="why_us_ar">{{ trans('cruds.setting.fields.why_us_ar') }}</label>
+                    <textarea class="form-control {{ $errors->has('why_us_ar') ? 'is-invalid' : '' }}" name="why_us_ar" id="why_us_ar" required>{{ old('why_us_ar',$setting->why_us_ar) }}</textarea>
+                    @if($errors->has('why_us_ar'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('our_mission') }}
+                            {{ $errors->first('why_us_ar') }}
                         </div>
                     @endif
-                    <span class="help-block">{{ trans('cruds.setting.fields.our_mission_helper') }}</span>
+                    <span class="help-block">{{ trans('cruds.setting.fields.why_us_ar_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required" for="our_mission_en">{{ trans('cruds.setting.fields.our_mission_en') }}</label>
+                    <textarea class="form-control {{ $errors->has('our_mission_en') ? 'is-invalid' : '' }}" name="our_mission_en" id="our_mission_en" required>{{ old('our_mission_en',$setting->our_mission_en) }}</textarea>
+                    @if($errors->has('our_mission_en'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('our_mission_en') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.setting.fields.our_mission_en_helper') }}</span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required" for="our_mission_ar">{{ trans('cruds.setting.fields.our_mission_ar') }}</label>
+                    <textarea class="form-control {{ $errors->has('our_mission_ar') ? 'is-invalid' : '' }}" name="our_mission_ar" id="our_mission_ar" required>{{ old('our_mission_ar',$setting->our_mission_ar) }}</textarea>
+                    @if($errors->has('our_mission_ar'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('our_mission_ar') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.setting.fields.our_mission_ar_helper') }}</span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="required" for="how_it_work_description">{{ trans('cruds.setting.fields.how_it_work_description') }}</label>
@@ -70,17 +90,7 @@
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.setting.fields.how_it_work_helper') }}</span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="required" for="contact_description">{{ trans('cruds.setting.fields.contact_description') }}</label>
-                    <textarea class="form-control {{ $errors->has('contact_description') ? 'is-invalid' : '' }}" name="contact_description" id="contact_description" required>{{ old('contact_description', $setting->contact_description) }}</textarea>
-                    @if($errors->has('contact_description'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('contact_description') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.setting.fields.contact_description_helper') }}</span>
-                </div>
+                </div> 
                 <div class="form-group col-md-4">
                     <label class="required" for="email">{{ trans('cruds.setting.fields.email') }}</label>
                     <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email', $setting->email) }}" required>

@@ -73,10 +73,7 @@
                     <div class="col-lg-4">
                         <div class="section-title mb-0">
                             <h6 class="sub-title">{{ trans('frontend.contact_us.get_in_touch') }}</h6>
-                            <h2 class="title"><?php echo trans('frontend.contact_us.p'); ?></h2>
-                            <p class="content">
-                                <?php echo nl2br($site_settings->contact_description) ?>
-                            </p>
+                            <h2 class="title"><?php echo trans('frontend.contact_us.p'); ?></h2> 
                             <form class="mt-4" method="POST" action="{{ route('frontend.contact') }}">
                                 @csrf
                                 <div class="row">
