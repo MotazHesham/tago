@@ -183,14 +183,14 @@ class MagicoController extends Controller
                 'Content-Type' => 'application/json', 
                 'Client-ID' => $this->iconscout_client_id(), 
             ];
-            return $this->GETAPI($url,$headers)->response->items;
+            return $this->GETAPI($url,$headers)->response->items ?? [];
         });     
         $pixabay_images = Cache::remember('pixabay_images', 3600, function () {
             $url = 'https://pixabay.com/api/?key='.$this->pixaby_key();
             $headers = [  
                 'Content-Type' => 'application/json', 
             ];
-            return $this->GETAPI($url,$headers)->hits;
+            return $this->GETAPI($url,$headers)->hits ?? [];
         });     
         
         $pexels_images = Cache::remember('pexels_images', 3600, function () {
@@ -199,7 +199,7 @@ class MagicoController extends Controller
                 'Content-Type' => 'application/json', 
                 'Authorization' => $this->pexels_key(), 
             ];
-            return $this->GETAPI($url,$headers);
+            return $this->GETAPI($url,$headers) ?? [];
         });  
         // $unsplash_images = Cache::remember('unsplash_images', 3600, function () {
         //     $url = 'https://api.unsplash.com/photos?per_page=20';

@@ -54,20 +54,28 @@ class DashboardController extends Controller
         
         $menuClient = MenuClient::find($menuClientList->menu_client_id);
         $menuClient->load('user'); 
-
-        if(!$menuClientList->active && auth()->user()){ 
-            // if the menu not active we need to give the chance to the user to see the preview of his menu
-            // so check if the logging user is the author of the scanned menu so open it
-            $user = auth()->user();
-            $current_client = MenuClient::where('user_id',$user->id)->first();
-            if(!$current_client || $current_client->id != $menuClient->id){
-                return abort(404,'Not Available Right Now.');
-            }
-        }else{
-            if(!$menuClientList->active){
-                return abort(404,'Not Available Right Now.');
+    
+        $checkActive = 1;
+        if(auth()->user() && auth()->user()->user_type == 'staff'){
+            $checkActive = 0;
+        }
+        
+        if($checkActive){ 
+            if(!$menuClientList->active && auth()->user()){ 
+                // if the menu not active we need to give the chance to the user to see the preview of his menu
+                // so check if the logging user is the author of the scanned menu so open it
+                $user = auth()->user();
+                $current_client = MenuClient::where('user_id',$user->id)->first();
+                if(!$current_client || $current_client->id != $menuClient->id){
+                    return abort(404,'Not Available Right Now.');
+                }
+            }else{
+                if(!$menuClientList->active){
+                    return abort(404,'Not Available Right Now.');
+                }
             }
         }
+        
 
         return view('menuClient.clientThemes.theme'.$menuClientList->menu_theme_id,compact('menuClient','menuClientList'));
     }
