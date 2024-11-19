@@ -31,7 +31,7 @@
                         <img class="animate-img-1 top_image_bounce" src="{{ asset('frontend/img/about/2.png') }}" alt="img">
                         <img class="animate-img-2 left_image_bounce" src="{{ asset('frontend/img/about/3.png') }}" alt="img">
                         <img class="animate-img-3 top_image_bounce" src="{{ asset('frontend/img/banner/5.svg') }}" alt="img">
-                        <img class="main-img" src="{{ asset('frontend/img/about/1.png') }}" alt="img">
+                        <img class="main-img" src="{{ asset('frontend/img/about/6.png') }}" alt="img">
                     </div>
                 </div>
                 <div class="col-lg-6">

@@ -37,6 +37,7 @@ class HomeController extends Controller
         $products = Product::orderBy('created_at','desc')->take(8)->get();
         $counted_products = count(Product::get());
         $counted_customers = count(User::where('user_type','customer')->get());
+        // $counted_customers = 1000;
         $rates = Review::orderBy('created_at','desc')->take(15)->get();
         $faq_category = FaqCategory::where('category','how_it_work')->first();
         $faq_questions = $faq_category ? FaqQuestion::where('category_id',$faq_category->id)->get() : [];

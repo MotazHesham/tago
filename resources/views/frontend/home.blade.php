@@ -46,8 +46,8 @@
                             <img class="banner-animate-img banner-animate-img-2 left_image_bounce"
                                 src="{{ asset('frontend/img/banner-2/5.png') }}" alt="img">
                             <img class="banner-animate-img banner-animate-img-3 top_image_bounce"
-                                src="{{ asset('frontend/img/banner-2/2.png') }}" alt="img">
-                            <img class="main-img" src="{{ asset('frontend/img/banner-2/1.png') }}" alt="img">
+                                src="{{ asset('frontend/img/banner-2/card 1.png') }}" alt="img">
+                            <img class="main-img" src="{{ asset('frontend/img/banner-2/photo 1.png') }}" alt="img">
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                     <div class="how-app-work-slider-wrapper">
                         <div class="how-app-work-screen-mobile-image"></div>
                         <!--Slider-->
-                        <img src="{{ asset('frontend/img/awesome-features1@2x.png') }}" class="img-fluid">
+                        <img src="{{ asset('frontend/img/How to Z.png') }}" class="img-fluid">
                     </div><!-- /.how-app-work-slider-wrapper -->
 
                 </div><!-- /.col-md-6 -->

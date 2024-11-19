@@ -30,11 +30,11 @@ return [
     ], 
     'home' => [
         'banner' =>[
-            'h6' => 'card one touch away',
+            'h6' => '',
             'h2' => 'Your digital <span>business Card</span> one touch away',
-            'p' => 'Switch now to a digital business card. Cardble is designed to be the ultimate tool for
-                    small businesses and large enterprises. The new Digital 
-                    Business Card you need to become a modern eco-friendly company.',
+            'p' => 'TAGO is designed to be the ultimate tool for individuals,
+                    small businesses and large enterprises.
+                    All IN ONE card that has everything you need to become a modern eco-friendly company.',
             'a' => 'Get yours',
         ],
         'users' => 'Users',
@@ -46,9 +46,9 @@ return [
         'add_to_cart' => 'Add To Cart',
         'out_stock' => 'Out Of Stock',
         'how_it_work' => 'HOW IT WORK',
-        'testimotinal' => 'TESTIMONIAL',
+        'testimotinal' => '',
         'our_clients' => "Our client's opinions",
-        'templates_choose' => "Choose Your Own Card",
+        'templates_choose' => "Create Your Own Card",
         'templates' => "Templates",
     ], 
     'about' => [
