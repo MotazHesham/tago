@@ -68,7 +68,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <img class="w-100" src="{{ asset('frontend/img/bg/4.png') }}" alt="img">
+                        <img class="w-100" src="{{ asset('frontend/img/bg/14.png') }}" alt="img">
                     </div>
                     <div class="col-lg-4">
                         <div class="section-title mb-0">

@@ -74,8 +74,8 @@ return [
         'home' => 'Home',
         'email' => 'Email',
         'location' => 'Location',
-        'get_in_touch' => 'GET IN TOUCH',
-        'p' => 'Bringing Your <span>Vision</span> To Life',
+        'get_in_touch' => 'Stay IN TOUCH',
+        'p' => 'We Are <span>Here</span> For You',
         'submit' => 'Submit Now',
         'fields' => [
             'name' => 'Your Name',
