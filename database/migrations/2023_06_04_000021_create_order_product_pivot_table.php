@@ -22,6 +22,7 @@ class CreateOrderProductPivotTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id', 'product_id_fk_8576515')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 }
