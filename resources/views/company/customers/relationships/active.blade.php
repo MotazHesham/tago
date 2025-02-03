@@ -30,7 +30,7 @@
         </div>
         <div class="offcanvas-body">
             <div class="text-center">
-                <div id="ready_to_scan">
+                <div id="ready_to_scan_qr">
                     <h3>Ready To Scan</h3>
                     <section class="container" id="cam-content">
                         <div class="mb-3">

@@ -270,7 +270,7 @@
                     user_id : '{{ $user->id }}'
                 }, function(data) {
                     console.log(data);
-                    $('#ready_to_scan').html(success); 
+                    $('#ready_to_scan_qr').html(success); 
                 });
             }).catch((err) => {
                 console.error(err)
