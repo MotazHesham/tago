@@ -28,17 +28,29 @@
                 الموظفين
             </a>
         </li>  
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
-            @can('profile_password_edit')
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}" href="{{ route('profile.password.edit') }}">
-                        <i class="fa-fw fas fa-key c-sidebar-nav-icon">
-                        </i>
-                        {{ trans('global.change_password') }}
-                    </a>
-                </li>
-            @endcan
-        @endif
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route("company.customers.edit_all_users") }}" class="c-sidebar-nav-link {{ request()->is("company/edit_all_users") || request()->is("company/edit_all_users/*") ? "c-active" : "" }}">
+                <i class="fa-fw fas fa-edit c-sidebar-nav-icon">
+
+                </i>
+                تعديل البيانات
+            </a>
+        </li>   
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route("company.user-links.edit_all_links") }}" class="c-sidebar-nav-link {{ request()->is("company/edit_all_links") || request()->is("company/edit_all_links/*") ? "c-active" : "" }}">
+                <i class="fa-fw fas fa-link c-sidebar-nav-icon">
+
+                </i>
+                تعديل الروابط
+            </a>
+        </li>   
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link {{ request()->is('company.profile/password') || request()->is('company.profile/password/*') ? 'c-active' : '' }}" href="{{ route('company.profile.password.edit') }}">
+                <i class="fa-fw fas fa-key c-sidebar-nav-icon">
+                </i>
+                {{ trans('global.change_password') }}
+            </a>
+        </li>  
         <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">

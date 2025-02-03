@@ -1,4 +1,14 @@
-@extends('layouts.admin')
+@php
+    if(auth()->user()->user_type == 'company'){
+        $extend = 'layouts.company';
+        $prefix = 'company.';
+    }else{
+        $extend = 'layouts.admin';
+        $prefix = '';
+    }
+@endphp
+    
+@extends($extend)
 @section('content')
 
 <div class="row">
@@ -9,7 +19,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route("profile.password.updateProfile") }}">
+                <form method="POST" action="{{ route($prefix."profile.password.updateProfile") }}">
                     @csrf
                     <div class="form-group">
                         <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
@@ -45,7 +55,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route("profile.password.update") }}">
+                <form method="POST" action="{{ route($prefix."profile.password.update") }}">
                     @csrf
                     <div class="form-group">
                         <label class="required" for="title">New {{ trans('cruds.user.fields.password') }}</label>
@@ -70,6 +80,7 @@
         </div>
     </div>
 </div>
+@if(auth()->user()->user_type != 'company')
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -91,4 +102,5 @@
     </div>
 
 </div>
+@endif
 @endsection

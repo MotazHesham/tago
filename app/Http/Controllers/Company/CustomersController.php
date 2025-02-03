@@ -7,6 +7,8 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Jobs\CoverUploadJob;
+use App\Jobs\PhotoUploadJob;
 use App\Models\Company;
 use App\Models\MainLink;
 use App\Models\OrderProduct;
@@ -24,6 +26,54 @@ class CustomersController extends Controller
     use MediaUploadingTrait;
     use api_return;
 
+    public function edit_all_users(){
+        return view('company.edit_all_users');
+    }
+    public function update_all(Request $request){
+        $company = auth()->user()->company_owner;
+        $users = User::where('company_id', $company->id)->get();
+
+        $photoPath = null;
+        $coverPath = null;
+        
+        if ($request->input('photo')) {
+            $photoPath = storage_path('tmp/uploads/' . basename($request->input('photo'))); 
+        }
+        
+        if ($request->input('cover')) {
+            $coverPath = storage_path('tmp/uploads/' . basename($request->input('cover'))); 
+        }
+
+        foreach ($users as $user) {
+            if($request->has('phone_number') && $request->phone_number != null){
+                $user->phone_number = $request->phone_number;
+            }
+            if($request->has('password') && $request->password != null){
+                $user->password = $request->password;
+            }
+            if($request->has('bio') && $request->bio != null){
+                $user->bio = $request->bio;
+            }
+            if($request->has('email_active') && $request->email_active != null){
+                $user->email_active = $request->email_active;
+            }
+            if($request->has('nickname_active') && $request->nickname_active != null){
+                $user->nickname_active = $request->nickname_active;
+            }
+            if($request->has('bio_active') && $request->bio_active != null){
+                $user->bio_active = $request->bio_active;
+            }
+            if ($photoPath) {
+                PhotoUploadJob::dispatch($user,$photoPath);
+            }
+            if ($coverPath) {
+                CoverUploadJob::dispatch($user,$coverPath); 
+            }
+            $user->save();
+        } 
+        toast('Users Updated Successfully','success');
+        return redirect()->route('company.customers.index');
+    }
     public function qr_scanned(Request $request){
         $user = User::find($request->user_id); 
         

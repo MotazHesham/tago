@@ -10,23 +10,7 @@
                 enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
-                <div class="form-group">
-                    <label class="required" for="user_id">{{ trans('cruds.userLink.fields.user') }}</label>
-                    <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}" name="user_id"
-                        id="user_id" required>
-                        @foreach ($users as $id => $entry)
-                            <option value="{{ $id }}"
-                                {{ (old('user_id') ? old('user_id') : $userLink->user->id ?? '') == $id ? 'selected' : '' }}>
-                                {{ $entry }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('user'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('user') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.userLink.fields.user_helper') }}</span>
-                </div>
+                <input type="hidden" name="user_id" value="{{ $userLink->user_id }}"> 
                 <div class="form-group">
                     <label class="required" for="main_link_id">{{ trans('cruds.userLink.fields.main_link') }}</label>
                     <select class="form-control select2 {{ $errors->has('main_link') ? 'is-invalid' : '' }}"

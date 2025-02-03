@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyUserLinkRequest;
 use App\Http\Requests\StoreUserLinkRequest;
 use App\Http\Requests\UpdateUserLinkRequest;
+use App\Jobs\PhotoUploadJob;
 use App\Models\MainLink;
 use App\Models\User;
 use App\Models\UserLink;
@@ -20,6 +21,49 @@ class UserLinksController extends Controller
 {
     use MediaUploadingTrait;
 
+    public function edit_all_links(){
+        $main_links = MainLink::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        return view('company.edit_all_links',compact('main_links'));
+    }
+    public function update_all(Request $request){
+        $company = auth()->user()->company_owner;
+        $users = User::where('company_id', $company->id)->get(); 
+        $photoPath = null; 
+        
+        if ($request->input('photo')) {
+            $photoPath = storage_path('tmp/uploads/' . basename($request->input('photo'))); 
+        } 
+
+        foreach ($users as $user) { 
+            $userLink = UserLink::where('user_id',$user->id)->where('main_link_id',$request->main_link_id)->first();
+            if(!$userLink){
+                $userLink = new UserLink();
+                $userLink->user_id = $user->id;
+                $userLink->main_link_id = $request->main_link_id;
+                $userLink->name = '';
+                $userLink->link = '';
+            }
+            
+            if($request->has('name') && $request->name != null){
+                $userLink->name = $request->name;
+            }
+            if($request->has('link') && $request->link != null){
+                $userLink->link = $request->link;
+            }
+            if($request->has('priority') && $request->priority != null){
+                $userLink->priority = $request->priority;
+            }
+            if($request->has('active') && $request->active != null){
+                $userLink->active = $request->active;
+            }
+            if ($photoPath) {
+                PhotoUploadJob::dispatch($userLink,$photoPath);
+            } 
+            $userLink->save();
+        } 
+        toast('Links Updated Successfully','success');
+        return redirect()->route('company.customers.index');
+    }
     public function update_statuses(Request $request){ 
         $type = $request->type;
         $link = UserLink::findOrFail($request->id);

@@ -29,6 +29,10 @@ class User extends Authenticatable implements HasMedia
         'cover',
     ];
 
+    public const ACTIVE_SELECT = [
+        '0' => 'De Activate',
+        '1' => 'Active',
+    ];
     protected $hidden = [
         'remember_token',
         'password',
