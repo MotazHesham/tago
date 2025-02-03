@@ -118,6 +118,11 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
 
+        if(!$user->approved){
+            alert('غير فعال حاليا','','error');
+            return redirect()->route('home');
+        }
+
         if(request()->has('view') && request()->view == 0){   
             return view('frontend.profile',compact('user')); 
         }else{ 

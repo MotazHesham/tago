@@ -56,6 +56,7 @@ class User extends Authenticatable implements HasMedia
         'nickname_active',
         'bio_active',
         'active_byqr',
+        'approved',
         'fcm_token',
         'company_id',
         'created_at',

@@ -29,6 +29,9 @@
                             {{ trans('cruds.user.fields.email') }}
                         </th>  
                         <th>
+                            active
+                        </th>  
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -40,6 +43,21 @@
 @section('scripts')
     @parent
     <script> 
+        function update_statuses(el,type){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            $.post('{{ route('company.customers.update_statuses') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status, type:type}, function(data){
+                if(data == 1){
+                    showAlert('success', 'Success', '');
+                }else{
+                    showAlert('danger', 'Something went wrong', '');
+                }
+            });
+        }
         $(function() {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons) 
 
@@ -65,6 +83,10 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },   
+                    {
+                        data: 'approved',
+                        name: 'approved'
                     },   
                     {
                         data: 'actions',

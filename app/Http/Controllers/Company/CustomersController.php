@@ -85,7 +85,14 @@ class CustomersController extends Controller
                 return $row->email ? $row->email : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->editColumn('approved', function ($row) {
+                return '
+                <label class="c-switch c-switch-pill c-switch-success">
+                    <input onchange="update_statuses(this,\'approved\')" value="' . $row->id . '" type="checkbox" class="c-switch-input" '. ($row->approved ? "checked" : null) .'>
+                    <span class="c-switch-slider"></span>
+                </label>';
+            });
+            $table->rawColumns(['actions', 'placeholder','approved']);
 
             return $table->make(true);
         }
