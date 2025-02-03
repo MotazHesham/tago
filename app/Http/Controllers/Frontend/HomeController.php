@@ -158,6 +158,11 @@ class HomeController extends Controller
             $q->where('active',1)->orderBy('priority','asc');
         }])->find($orderProduct->scanned_user_id);
 
+        if(!$user->approved){
+            alert('غير فعال حاليا','','error');
+            return redirect()->route('home');
+        }
+
         $view = ProfileView::where('user_id',$user->id)->where('ip' , request()->ip())->whereDate('created_at', Carbon::today())->first();
         if(!$view){ 
             ProfileView::create([
