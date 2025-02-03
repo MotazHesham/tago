@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\CompanyPackage;
 use App\Models\Setting;
 
 if (!function_exists('frontend_currency')) {
@@ -17,6 +18,17 @@ if (!function_exists('get_site_setting')) {
     function get_site_setting()
     {
         return Setting::first(); 
+    }
+}  
+
+if (!function_exists('currentCompanyPackage')) {
+    function currentCompanyPackage()
+    {
+        $company = auth()->user()->company_owner;
+
+        return CompanyPackage::where('company_id',$company->id)
+                                ->orderBy('created_at','desc')
+                                ->first();
     }
 } 
 

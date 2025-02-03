@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class CustomersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
         if ($request->ajax()) {
-            $query = User::with(['roles'])->where('user_type','customer')->select(sprintf('%s.*', (new User)->table));
+            $query = User::with(['roles','company'])->where('user_type','customer')->select(sprintf('%s.*', (new User)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -63,7 +64,11 @@ class CustomersController extends Controller
                 return implode(' ', $labels);
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'roles']);
+            $table->addColumn('company_company_name', function ($row) {
+                return $row->company ? $row->company->company_name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'roles', 'company']);
 
             return $table->make(true);
         }
@@ -76,8 +81,10 @@ class CustomersController extends Controller
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $roles = Role::pluck('title', 'id');
+        
+        $companies = Company::pluck('company_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.customers.create', compact('roles'));
+        return view('admin.customers.create', compact('roles','companies'));
     }
 
     public function store(StoreUserRequest $request)
@@ -104,10 +111,12 @@ class CustomersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $user = User::findOrFail($id);
-        $user->load('roles');
+        $companies = Company::pluck('company_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.customers.edit', compact('roles', 'user'));
+        $user = User::findOrFail($id);
+        $user->load('roles', 'company');
+
+        return view('admin.customers.edit', compact('roles', 'user','companies'));
     }
 
     public function update(UpdateUserRequest $request, $id)
@@ -145,7 +154,7 @@ class CustomersController extends Controller
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user = User::findOrFail($id);
 
-        $user->load('roles', 'userUserLinks', 'userConnections', 'userUserAlerts');
+        $user->load('roles', 'company', 'userUserLinks', 'userConnections', 'userUserAlerts');
 
         return view('admin.customers.show', compact('user'));
     }

@@ -564,6 +564,50 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 139,
+                'title' => 'company_mangment_access',
+            ],
+            [
+                'id'    => 140,
+                'title' => 'company_create',
+            ],
+            [
+                'id'    => 141,
+                'title' => 'company_edit',
+            ],
+            [
+                'id'    => 142,
+                'title' => 'company_show',
+            ],
+            [
+                'id'    => 143,
+                'title' => 'company_delete',
+            ],
+            [
+                'id'    => 144,
+                'title' => 'company_access',
+            ],
+            [
+                'id'    => 145,
+                'title' => 'company_package_create',
+            ],
+            [
+                'id'    => 146,
+                'title' => 'company_package_edit',
+            ],
+            [
+                'id'    => 147,
+                'title' => 'company_package_show',
+            ],
+            [
+                'id'    => 148,
+                'title' => 'company_package_delete',
+            ],
+            [
+                'id'    => 149,
+                'title' => 'company_package_access',
+            ],
+            [
+                'id'    => 150,
                 'title' => 'profile_password_edit',
             ],
         ];

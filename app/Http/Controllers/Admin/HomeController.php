@@ -12,7 +12,9 @@ class HomeController
         return view('partials.qr_code',compact('token'));
     }
 
-
+    public function nfc_tool(){
+        return view('admin.nfc_tool');
+    }
     public function index()
     {
         $settings1 = [

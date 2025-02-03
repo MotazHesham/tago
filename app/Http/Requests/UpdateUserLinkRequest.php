@@ -11,7 +11,7 @@ class UpdateUserLinkRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('user_link_edit');
+        return true;
     }
 
     public function rules()

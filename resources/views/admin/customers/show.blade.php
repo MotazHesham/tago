@@ -131,6 +131,14 @@
                                     @endif
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.user.fields.company') }}
+                                </th>
+                                <td>
+                                    {{ $user->company->company_name ?? '' }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="form-group">

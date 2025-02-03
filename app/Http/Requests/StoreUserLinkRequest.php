@@ -11,7 +11,7 @@ class StoreUserLinkRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('user_link_create');
+        return true;
     }
 
     public function rules()

@@ -22,6 +22,8 @@ class Staff
             return redirect()->route('frontend.dashboard');
         }elseif(Auth::user()->user_type == 'client_menu'){
             return redirect()->route('menuClient.home');
+        }elseif(Auth::user()->user_type == 'company'){
+            return redirect()->route('company.home');
         }else{
             Auth::logout();
             return redirect()->route('home');

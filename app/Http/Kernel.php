@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
         'customer' => \App\Http\Middleware\Customer::class,
         'staff' => \App\Http\Middleware\Staff::class,
         'menuClient' => \App\Http\Middleware\MenuClient::class,
+        'company' => \App\Http\Middleware\Company::class,
     ];
 
     protected $middlewareGroups = [

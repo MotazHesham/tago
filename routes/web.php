@@ -25,6 +25,7 @@ Route::get('social-login/{provider}/callback', 'Auth\SocialLoginController@handl
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth','staff']], function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('nfc_tool', 'HomeController@nfc_tool')->name('nfc_tool');
     Route::post('show_qr_code', 'HomeController@show_qr_code')->name('show_qr_code');
     
 
@@ -168,6 +169,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('menu-products/destroy', 'MenuProductsController@massDestroy')->name('menu-products.massDestroy');
     Route::resource('menu-products', 'MenuProductsController');
 
+    
+    // Company
+    Route::delete('companies/destroy', 'CompanyController@massDestroy')->name('companies.massDestroy');
+    Route::resource('companies', 'CompanyController');
+
+    // Company Packages
+    Route::delete('company-packages/destroy', 'CompanyPackagesController@massDestroy')->name('company-packages.massDestroy');
+    Route::resource('company-packages', 'CompanyPackagesController');
     
     // Templates 
     Route::post('templates/save', 'TemplatesController@save')->name('templates.save');

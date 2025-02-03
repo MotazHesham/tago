@@ -21,7 +21,9 @@ class MenuClient
         }elseif(Auth::user()->user_type == 'client_menu'){
             return $next($request);
         }elseif(Auth::user()->user_type == 'customer'){
-            return redirect()->route('menuClient.home');
+            return redirect()->route('frontend.dashboard');
+        }elseif(Auth::user()->user_type == 'company'){
+            return redirect()->route('company.home');
         }else{
             Auth::logout();
             return redirect()->route('home');

@@ -120,6 +120,38 @@
                 </ul>
             </li>
         @endcan
+        @can('company_mangment_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/companies*") ? "c-show" : "" }} {{ request()->is("admin/company-packages*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw far fa-building c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.companyMangment.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('company_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.companies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/companies") || request()->is("admin/companies/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-building c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.company.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('company_package_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.company-packages.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/company-packages") || request()->is("admin/company-packages/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cubes c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.companyPackage.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @can('faq_question_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.faq-questions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/faq-questions") || request()->is("admin/faq-questions/*") ? "c-active" : "" }}">
@@ -234,6 +266,14 @@
                 </ul>
             </li>
         @endcan
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route("admin.nfc_tool") }}" class="c-sidebar-nav-link {{ request()->is("admin/nfc_tool") || request()->is("admin/nfc_tool/*") ? "c-active" : "" }}">
+                <i class="fa-fw fas fa-wifi c-sidebar-nav-icon">
+
+                </i>
+                NFC Tool
+            </a>
+        </li>
         @can('general_setting_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/link-categories*") ? "c-show" : "" }} {{ request()->is("admin/main-links*") ? "c-show" : "" }} {{ request()->is("admin/reviews*") ? "c-show" : "" }} {{ request()->is("admin/settings*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

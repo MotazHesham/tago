@@ -57,6 +57,7 @@ class User extends Authenticatable implements HasMedia
         'bio_active',
         'active_byqr',
         'fcm_token',
+        'company_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -163,4 +164,13 @@ class User extends Authenticatable implements HasMedia
         return $file;
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+    
+    public function company_owner()
+    {
+        return $this->hasOne(Company::class, 'user_id');
+    }
 }
