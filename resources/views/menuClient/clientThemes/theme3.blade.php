@@ -9,6 +9,9 @@
 
 <body> 
 
+    @foreach($menuClientList->categories as $category)
+        <img src="{{ $category->banner ? $category->banner->getUrl() : '' }}" alt="">
+    @endforeach 
 </body>
 
 </html>
