@@ -20,6 +20,14 @@ class MenuClientsController extends Controller
 {
     use MediaUploadingTrait;
 
+    public function loginAsMenuClient($id)
+    {
+        $id = decrypt($id);
+        $menuClient = MenuClient::find($id);
+        auth()->login($menuClient->user);
+        return redirect()->route('menuClient.home');
+    }
+
     public function index(Request $request)
     {
         abort_if(Gate::denies('menu_client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -37,7 +45,13 @@ class MenuClientsController extends Controller
                 $deleteGate    = 'menu_client_delete';
                 $crudRoutePart = 'menu-clients';
 
-                return view('partials.datatablesActions', compact(
+                $extraButton = '
+                <a href="'.route('admin.menu-clients.loginAsMenuClient', encrypt($row->id)).'" class="btn btn-primary btn-sm">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
+                ';
+
+                return $extraButton . view('partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',

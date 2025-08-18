@@ -136,6 +136,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     // Menu Clients
     Route::delete('menu-clients/destroy', 'MenuClientsController@massDestroy')->name('menu-clients.massDestroy');
+    Route::get('menu-clients/loginAsMenuClient/{id}', 'MenuClientsController@loginAsMenuClient')->name('menu-clients.loginAsMenuClient');
     Route::post('menu-clients/media', 'MenuClientsController@storeMedia')->name('menu-clients.storeMedia');
     Route::post('menu-clients/ckmedia', 'MenuClientsController@storeCKEditorImages')->name('menu-clients.storeCKEditorImages');
     Route::resource('menu-clients', 'MenuClientsController');
