@@ -10,6 +10,8 @@ Route::group(['prefix' => 'api/v1/', 'as' => 'api.', 'namespace' => 'Api\V1', 'm
 
     Route::post('login','UserAuthApiController@login'); 
     Route::post('register','UserAuthApiController@register');
+
+    Route::get('settings','SettingsApiController@settings');
     
 
     Route::group(['middleware' => ['auth:sanctum']],function () {

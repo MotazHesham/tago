@@ -30,6 +30,8 @@ class CreateSettingsTable extends Migration
             $table->text('why_us_ar');
             $table->text('our_mission_ar');
             $table->text('our_mission_en');
+            $table->text('privacy_policy_en')->nullable();
+            $table->text('privacy_policy_ar')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

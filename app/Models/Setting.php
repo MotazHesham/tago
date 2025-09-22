@@ -49,6 +49,8 @@ class Setting extends Model implements HasMedia
         'why_us_ar',
         'our_mission_ar',
         'our_mission_en',
+        'privacy_policy_en',
+        'privacy_policy_ar',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -225,6 +225,10 @@ return [
             'our_mission_ar_helper'              => ' ',
             'contact_description'            => 'Contact Description',
             'contact_description_helper'     => ' ',
+            'privacy_policy_en'              => 'سياسة الخصوصية En',
+            'privacy_policy_en_helper'       => ' ',
+            'privacy_policy_ar'              => 'سياسة الخصوصية Ar',
+            'privacy_policy_ar_helper'       => ' ',
         ],
     ],
     'mainLink' => [

@@ -219,6 +219,10 @@ return [
             'our_mission_helper'              => ' ',
             'contact_description'            => 'Contact Description',
             'contact_description_helper'     => ' ',
+            'privacy_policy_en'              => 'Privacy Policy En',
+            'privacy_policy_en_helper'       => ' ',
+            'privacy_policy_ar'              => 'Privacy Policy Ar',
+            'privacy_policy_ar_helper'       => ' ',
         ],
     ],
     'mainLink' => [
