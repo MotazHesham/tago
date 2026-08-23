@@ -52,7 +52,7 @@ test_menu = {
             }
         },
         {
-            icon: 'a-sharp fa-light fa-trash',
+            icon: 'fa-solid fa-trash',
             text: 'Delete',
             action: function(e, selector) {
                 delete_element();

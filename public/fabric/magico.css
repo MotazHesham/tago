@@ -1,3 +1,42 @@
+/* Map Font Awesome Pro styles onto Free solid so Magico icons render without a Pro kit */
+.fa-duotone,
+.fa-thin,
+.fa-light,
+.fa-sharp {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+
+/* Pro-only icon names mapped to Free equivalents */
+.fa-trash-can-list:before { content: "\f2ed"; }
+.fa-objects-align-left:before { content: "\f036"; }
+.fa-objects-align-center-horizontal:before,
+.fa-objects-align-center-vertical:before { content: "\f037"; }
+.fa-objects-align-right:before { content: "\f038"; }
+.fa-objects-align-top:before { content: "\f062"; }
+.fa-objects-align-bottom:before { content: "\f063"; }
+.fa-distribute-spacing-vertical:before { content: "\f07d"; }
+.fa-bring-forward:before { content: "\f062"; }
+.fa-bring-front:before { content: "\f102"; }
+.fa-send-back:before { content: "\f063"; }
+.fa-send-backward:before { content: "\f103"; }
+.fa-reflect-horizontal:before { content: "\f337"; }
+.fa-bags-shopping:before { content: "\f290"; }
+.fa-pen-swirl:before { content: "\f5ac"; }
+.fa-broom-wide:before { content: "\f51a"; }
+.fa-line-height:before { content: "\f034"; }
+.fa-crop-simple:before { content: "\f125"; }
+.fa-chevrons-down:before { content: "\f103"; }
+.fa-chevrons-up:before { content: "\f102"; }
+.fa-grip-dots-vertical:before { content: "\f58e"; }
+
 /* global */
 i {
     font-size: 25px;
